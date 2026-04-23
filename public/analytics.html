@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="it" data-assets-v="20260422">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Analitiche - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/analytics.css">
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+</head>
+<body class="app-shell" data-page="analytics">
+    <div class="shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a class="logo" href="/">
+                    <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+                    <span class="logo-text">Corallo Stats</span>
+                </a>
+            <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar"><span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span></button>
+            </div>
+
+            <nav class="nav" aria-label="Pagine">
+                <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+                <a class="nav-item" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+                <a class="nav-item active" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+                <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+                <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+            </nav>
+
+            <nav class="nav-bottom" aria-label="Risorse">
+                <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+            </nav>
+        </aside>
+
+        <div class="main">
+            <header class="navbar">
+                <div class="nav-left">
+                    <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+                </div>
+                <div class="nav-right">
+            <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
+                    <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+                    <a class="btn" href="/docs/overview" data-i18n="nav.docs">Docs</a>
+                </div>
+            </header>
+
+            <div class="content">
+                <section class="page-title">
+                    <h1 data-i18n="nav.analytics">Analitiche</h1>
+                    <p class="muted">Uso API, trend richieste e vicinanza al rate limit.</p>
+                </section>
+
+                <section class="grid" aria-label="Panoramica">
+                    <div class="card stat">
+                        <div class="k">Richieste (24h)</div>
+                        <div class="v" id="ana-total-24h">—</div>
+                        <div class="muted">Bucket 15 min</div>
+                    </div>
+                    <div class="card stat">
+                        <div class="k">Richieste (7 giorni)</div>
+                        <div class="v" id="ana-total-7d">—</div>
+                        <div class="muted">Bucket 2 ore</div>
+                    </div>
+                    <div class="card stat" id="ana-rate">
+                        <div class="k">Rate limit</div>
+                        <div class="v" id="ana-rl-used">—</div>
+                        <div class="muted"><span id="ana-rl-hint">—</span></div>
+                        <div class="ana-meter" aria-hidden="true"><div class="ana-meter-fill"></div></div>
+                        <div class="ana-rate-row">
+                            <span class="muted">Rimanenti</span><span id="ana-rl-remaining">—</span>
+                        </div>
+                        <div class="ana-rate-row">
+                            <span class="muted">Reset</span><span id="ana-rl-reset">—</span>
+                        </div>
+                    </div>
+                    <div class="card stat">
+                        <div class="k">Stato</div>
+                        <div class="v">Live</div>
+                        <div class="muted" id="ana-status">—</div>
+                    </div>
+                </section>
+
+                <div class="ana-grid-2" style="margin-top:12px;">
+                    <section class="card pad">
+                        <div class="section-head">
+                            <h2>Trend (24h)</h2>
+                            <div class="ana-head-meta">
+                                <span class="pill">Peak <span id="ana-peak">—</span></span>
+                                <span class="pill">Avg/h <span id="ana-avg">—</span></span>
+                                <span class="pill">Agg. <span id="ana-updated">—</span></span>
+                            </div>
+                        </div>
+                        <div class="ana-chart-wrap">
+                            <div class="ana-tooltip" id="ana-tooltip">—</div>
+                            <svg class="ana-chart" id="ana-line" role="img" aria-label="Grafico richieste 24h"></svg>
+                        </div>
+                    </section>
+
+                    <section class="card pad">
+                        <div class="section-head">
+                            <h2>Distribuzione (24h)</h2>
+                            <div class="ana-head-meta">
+                                <span class="pill">Top <span id="ana-top-cat">—</span></span>
+                                <span class="pill">Rich. <span id="ana-top-cat-count">—</span></span>
+                            </div>
+                        </div>
+                        <div class="ana-dist">
+                            <svg class="ana-donut" id="ana-donut" role="img" aria-label="Grafico distribuzione categorie"></svg>
+                            <ul class="ana-legend" id="ana-legend" aria-label="Legenda categorie"></ul>
+                        </div>
+                    </section>
+                </div>
+
+                <section class="card pad" style="margin-top:12px;">
+                    <div class="section-head">
+                        <h2>API usate (24h)</h2>
+                        <span class="pill">Top endpoints</span>
+                    </div>
+                    <div class="ana-ep-note muted">Mostra gli endpoint normalizzati (es. username/clan come {param}).</div>
+                    <div class="ana-endpoints" id="ana-endpoints" aria-label="Lista endpoint usati"></div>
+                </section>
+
+                <div id="toast" class="toast" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+</body>
+</html>

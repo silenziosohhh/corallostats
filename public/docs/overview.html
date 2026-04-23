@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="it" data-assets-v="20260422">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Docs Overview - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+  </head>
+  <body class="app-shell" data-page="docs_overview">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a class="logo" href="/">
+            <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+            <span class="logo-text">Corallo Stats</span>
+          </a>
+          <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar">
+            <span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <nav class="nav" aria-label="Pagine">
+          <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+          <a class="nav-item" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+          <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+          <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+          <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+
+          <div class="nav-sep"></div>
+          <div class="nav-title" data-i18n="nav.docsTitle">Docs</div>
+          <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:question-circle" aria-hidden="true"></span><span data-i18n="nav.overview">Overview</span></a>
+          <a class="nav-item" href="/docs/auth"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.auth">Auth</span></a>
+          <a class="nav-item" href="/docs"><span class="aico nav-ico" data-icon="line-md:document-code" aria-hidden="true"></span><span data-i18n="nav.endpoints">Endpoints</span></a>
+          <a class="nav-item" href="/docs/examples"><span class="aico nav-ico" data-icon="line-md:compass" aria-hidden="true"></span><span data-i18n="nav.examples">Esempi</span></a>
+          <a class="nav-item" href="/docs/notes"><span class="aico nav-ico" data-icon="line-md:clipboard" aria-hidden="true"></span><span data-i18n="nav.notes">Note</span></a>
+          <a class="nav-item" href="https://coralmc.it/it/docs/stats" target="_blank" rel="noreferrer">
+            <span class="aico nav-ico" data-icon="line-md:external-link" aria-hidden="true"></span><span>Coral Docs (IT)</span>
+          </a>
+        </nav>
+
+        <nav class="nav-bottom" aria-label="Risorse">
+          <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+        </nav>
+      </aside>
+
+      <div class="main">
+        <header class="navbar">
+          <div class="nav-left">
+            <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+
+          </div>
+          <div class="nav-right">
+            <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="page-title">
+            <h1>Documentazione</h1>
+            <p class="muted">Panoramica del servizio e come iniziare. Base URL: <code>/api/v1</code></p>
+          </section>
+
+          <section class="grid-2">
+            <article class="card pad">
+              <h2>Quickstart</h2>
+              <div class="codeblock">
+                <pre>curl "https://&lt;host&gt;/api/v1/summary" -H "Authorization: Bearer &lt;API_KEY&gt;"</pre>
+              </div>
+              <p class="muted" style="margin:10px 0 0 0;">L’API key si genera da <a href="/account">Account</a>. La key completa è visibile solo al momento della generazione.</p>
+            </article>
+
+            <article class="card pad">
+              <h2>Come funziona</h2>
+              <ul class="list">
+                <li>Mirror privato: evita load sul server Coral.</li>
+                <li>Dataset locale: i JSON vengono aggiornati dallo scraper.</li>
+                <li>Accesso: Discord session (webapp) o API key (client esterni).</li>
+              </ul>
+              <div class="divider"></div>
+              <div class="muted">Per la lista completa vai su <a href="/docs">Endpoints</a>.</div>
+            </article>
+          </section>
+
+          <section class="card pad" style="margin-top:12px;">
+            <h2>Struttura</h2>
+            <ul class="list">
+              <li><span class="pill">Docs</span> guida e dettagli.</li>
+              <li><span class="pill">Dashboard</span> dataset + tester.</li>
+              <li><span class="pill">Account</span> profilo Discord + gestione API key.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+  </body>
+</html>

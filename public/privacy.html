@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="it" data-assets-v="20260422">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy - Corallo Stats</title>
+    <meta name="description" content="Informativa Privacy di Corallo Stats (Discord OAuth, sessioni, API key)." />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/legal.css" />
+  </head>
+  <body class="legal-page">
+    <div class="container">
+      <header class="legal-topbar" aria-label="Navigazione">
+        <a class="legal-brand" href="/">
+          <img src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+          <span>Corallo Stats</span>
+        </a>
+        <nav class="legal-actions">
+          <a class="btn" href="/docs/overview">Docs</a>
+          <a class="btn nav-auth-link" id="nav-account" href="/account" style="display:none;">Account</a>
+          <a class="btn primary nav-auth-link" id="nav-login" href="/auth/login">Login Discord</a>
+        </nav>
+      </header>
+
+      <main class="card pad legal-card">
+        <h1>Privacy Policy</h1>
+        <div class="legal-meta">
+          <span>Ultimo aggiornamento: 22 aprile 2026</span>
+          <span class="pill">Discord OAuth</span>
+          <span class="pill">Sessioni</span>
+          <span class="pill">API key</span>
+        </div>
+
+        <p>
+          Questa informativa descrive come Corallo Stats (il “Servizio”) tratta i dati personali degli utenti che utilizzano la webapp
+          e l’API. Se non effettui il login, puoi consultare alcune pagine pubbliche, ma alcune funzionalità richiedono autenticazione.
+        </p>
+
+        <h2>1. Titolare e contatti</h2>
+        <p>
+          Il titolare del trattamento è l’amministratore del Servizio. Per richieste privacy e per esercitare i diritti, utilizza il canale
+          di contatto indicato nella documentazione del progetto o nel canale Discord associato al Servizio (se presente).
+        </p>
+
+        <h2>2. Dati trattati</h2>
+        <ul>
+          <li><b>Dati Discord</b>: ID Discord, username/display name, avatar e informazioni di profilo minime necessarie al login.</li>
+          <li><b>Email e connections</b>: se configurate nelle scope OAuth e se disponibili su Discord, possiamo richiederle per mostrarle nella UI e per contattarti in caso di comunicazioni importanti (es. eliminazione account, violazioni dei Termini o della presente informativa). Non sono necessarie per generare l’API key.</li>
+          <li><b>Dati tecnici</b>: indirizzo IP, user agent, log di accesso e metadati di richiesta necessari per sicurezza, diagnostica e rate limit.</li>
+          <li><b>Sessione</b>: cookie di sessione e dati di sessione (es. stato login) per mantenere autenticazione e preferenze di UI.</li>
+          <li><b>API key</b>: la chiave completa non viene memorizzata in chiaro; viene memorizzato un hash e un prefisso per identificarla.</li>
+        </ul>
+
+        <h2>3. Finalità e basi giuridiche</h2>
+        <ul>
+          <li>Fornire il Servizio, autenticare l’utente e generare/gestire l’API key.</li>
+          <li>Prevenire abusi, applicare rate limit e garantire sicurezza e stabilità.</li>
+          <li>Inviare comunicazioni strettamente necessarie legate all’account (es. conferma/elaborazione eliminazione account) o a violazioni dei Termini/Privacy, se disponiamo di un contatto email tramite le scope Discord autorizzate.</li>
+          <li>Assistenza e debugging in caso di errori segnalati.</li>
+        </ul>
+
+        <h2>4. Conservazione</h2>
+        <p>
+          Conserviamo i dati per il tempo necessario a erogare il Servizio e a mantenerlo sicuro. Puoi eliminare l’account e i dati associati
+          tramite l’apposita funzione disponibile in <a href="/account">Account</a>, quando presente.
+        </p>
+
+        <h2>5. Condivisione e destinatari</h2>
+        <ul>
+          <li><b>Discord</b>: l’autenticazione avviene tramite Discord OAuth; i dati sono forniti da Discord secondo le scope autorizzate.</li>
+          <li><b>Fornitori tecnici</b>: hosting, database e infrastruttura possono trattare dati tecnici per erogare il Servizio.</li>
+          <li>Non vendiamo i dati personali e non li condividiamo per finalità pubblicitarie.</li>
+        </ul>
+
+        <h2>6. Riferimenti a terze parti e diritti</h2>
+        <p>
+          Il Servizio può fare riferimento a terze parti (es. CoralMC) per descrivere l’origine o il contesto di alcuni dati. Corallo Stats è un progetto
+          indipendente e non è affiliato, sponsorizzato o approvato da terzi, salvo indicazione esplicita. Non rivendichiamo alcun diritto su nomi, loghi,
+          brand o contenuti di terzi: restano dei rispettivi titolari. La finalità è tecnica (stabilità, cache e rate limit), non appropriarsi del lavoro altrui.
+        </p>
+
+        <h2>7. Cookie e storage</h2>
+        <p>
+          Usiamo cookie di sessione per mantenere l’autenticazione. Possiamo usare storage locale del browser per preferenze (es. tema).
+          Disabilitare i cookie può impedire il funzionamento della login e della webapp.
+        </p>
+
+        <h2>8. Sicurezza</h2>
+        <p>
+          Applichiamo misure ragionevoli per proteggere account e API key (es. hashing della key, rate limit). Nessun sistema è “sicuro al 100%”:
+          se noti un problema, contattaci quanto prima.
+        </p>
+
+        <h2>9. Diritti dell’interessato</h2>
+        <p>
+          In base alla normativa applicabile (es. GDPR), puoi richiedere accesso, rettifica, cancellazione e altre informazioni sul trattamento.
+          Per richieste, usa i contatti indicati nella sezione “Titolare e contatti”.
+        </p>
+
+        <h2>10. Modifiche alla Privacy Policy</h2>
+        <p>
+          Possiamo aggiornare questa informativa. La data di “Ultimo aggiornamento” indica l’ultima revisione.
+        </p>
+
+        <footer class="legal-footer" aria-label="Footer legale">
+          <div>© Corallo Stats</div>
+          <div>
+            <a href="/privacy">Privacy Policy</a>
+            <span> • </span>
+            <a href="/terms">Termini</a>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <script type="module" src="/js/pages/legal.js"></script>
+  </body>
+</html>

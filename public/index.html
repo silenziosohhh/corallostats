@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="it" data-assets-v="20260422">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Corallo Stats</title>
+    <meta name="description" content="Corallo Stats: mirror privato per consumare le stats di CoralMC con cache e rate limit, senza sovraccaricare l’upstream." />
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <meta property="og:title" content="Corallo Stats" />
+    <meta property="og:description" content="Mirror privato per stats CoralMC: JSON cache, rate limit, Discord OAuth e API key." />
+    <meta property="og:image" content="/images/corallo_stats_banner.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/landing.css">
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+</head>
+<body class="landing">
+    <header class="site-nav">
+        <div class="site-nav-inner">
+            <a class="landing-brand" href="/">
+                <img class="landing-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+                <span class="landing-brand-text">
+                    <span class="landing-title">Corallo</span>
+                    <span class="landing-sub">Stats</span>
+                </span>
+            </a>
+            <nav class="nav-links" aria-label="Navigazione">
+                <a class="active" href="/" data-i18n="nav.home">Home</a>
+                <a href="/docs/overview" data-i18n="nav.docs">Docs</a>
+                <a href="/dashboard" data-i18n="nav.dashboard">Dashboard</a>
+                <a href="/account" data-i18n="nav.account">Account</a>
+            </nav>
+            <div class="nav-right">
+                <div class="search">
+                    <input id="global-search" class="search-input" type="search" placeholder="Cerca endpoint…" data-i18n-placeholder="ui.searchEndpoint" autocomplete="off">
+                    <span class="search-hint">Ctrl K</span>
+                    <div class="search-results" id="search-results" style="display:none;" role="listbox" aria-label="Risultati endpoints"></div>
+                </div>
+                <a class="btn user-chip" id="nav-account" href="/account" style="display:none;">Account</a>
+                <a class="btn primary" id="nav-login" href="/auth/login" data-i18n="ui.loginDiscord">Login Discord</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="hero-wrap">
+        <section class="hero" aria-label="Benvenuto">
+            <div class="hero-grid">
+                <div class="hero-left" data-reveal>
+                    <img class="hero-logo" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+                    <div class="hero-badge" aria-label="Highlights API">
+                        <span class="muted">Private API • JSON cache • Discord OAuth</span>
+                    </div>
+                    <h1 class="hero-title">Benvenuto su <span class="accent">Corallo Stats</span></h1>
+                    <p class="hero-sub">
+                        Mirror privato per consumare le stats di CoralMC in modo stabile e sicuro, senza sovraccaricare l’upstream.
+                        Perfetto per bot, siti e tool.
+                    </p>
+
+                    <div class="hero-actions" data-reveal>
+                        <a class="btn primary" id="cta-login" href="/auth/login"><i class="fa-brands fa-discord" aria-hidden="true"></i><span data-i18n="landing.ctaStart">Inizia ora</span></a>
+                        <a class="btn" href="/docs/overview"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span data-i18n="landing.ctaReadDocs">Docs</span></a>
+                        <a class="btn" href="/dashboard"><i class="fa-solid fa-gauge-high" aria-hidden="true"></i><span data-i18n="landing.ctaOpenDashboard">Dashboard</span></a>
+                    </div>
+
+                    <div class="hero-stats" data-reveal>
+                        <div class="stat">
+                            <div class="stat-v" id="kpi-clans">—</div>
+                            <div class="stat-k" data-i18n="landing.kpiClans">Clan nel dataset</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-v" id="kpi-players">—</div>
+                            <div class="stat-k" data-i18n="landing.kpiPlayers">Player coperti</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-v" id="kpi-updated">—</div>inten
+                            <div class="stat-k" data-i18n="landing.kpiUpdated">Ultimo update</div>
+                        </div>
+                    </div>
+                </div>
+
+                <aside class="hero-right" data-reveal aria-label="Quick copy">
+                    <div class="hero-card">
+                        <div class="hero-card-title" data-i18n="landing.quickCopy">Quick copy</div>
+                        <div class="hero-card-row">
+                            <div class="hero-card-k" data-i18n="landing.baseUrl">Base URL</div>
+                            <div class="hero-card-v"><code id="base-url-preview">/api/v1</code></div>
+                        </div>
+                        <div class="hero-card-row">
+                            <div class="hero-card-k">Auth</div>
+                            <div class="hero-card-v"><code>Authorization: Bearer &lt;API_KEY&gt;</code></div>
+                        </div>
+                        <div class="hero-card-row">
+                            <div class="hero-card-k">Esempio</div>
+                            <div class="hero-card-v"><code>GET /summary</code></div>
+                        </div>
+                    </div>
+
+                    <div class="hero-card sub" aria-label="Rate limit">
+                        <div class="hero-card-title">Status</div>
+                        <div class="muted" id="limits-text">—</div>
+                        <div class="hero-card-actions">
+                            <a class="btn" href="/docs/overview"><i class="fa-solid fa-book-open" aria-hidden="true"></i><span>Guida</span></a>
+                            <a class="btn" href="/docs"><i class="fa-solid fa-code" aria-hidden="true"></i><span>Endpoints</span></a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+    </main>
+
+    <section class="below">
+        <section class="landing-features" aria-label="Perché usare il mirror" data-reveal>
+            <article class="card pad">
+                <h3><i class="fa-solid fa-server" aria-hidden="true"></i> Meno carico upstream</h3>
+                <p class="muted">Il mirror serve dati da JSON locali: niente richieste aggressive verso l’upstream.</p>
+            </article>
+            <article class="card pad">
+                <h3><i class="fa-solid fa-shield" aria-hidden="true"></i> Stabile per bot e siti</h3>
+                <p class="muted">Cache + rate limit + OpenAPI: integrazione semplice e affidabile.</p>
+            </article>
+            <article class="card pad">
+                <h3><i class="fa-solid fa-key" aria-hidden="true"></i> Privato (API key)</h3>
+                <p class="muted">Accesso controllato: login Discord e chiavi ruotabili per utente.</p>
+            </article>
+        </section>
+
+        <section class="section" id="quickstart" aria-label="Quickstart" data-reveal>
+            <div class="section-head">
+                <h2 class="h2">Quickstart</h2>
+                <div class="muted">Da zero a “it works” in 20 secondi.</div>
+            </div>
+
+            <div class="split">
+            <article class="card pad">
+                <p class="lead">
+                    1) Login Discord → 2) Genera la API key da <a href="/account">Account</a> → 3) Usa la key nei client esterni.
+                    La webapp usa la sessione: non devi incollare nulla.
+                </p>
+                <div class="steps">
+                    <div class="row">
+                        <div class="n">1</div>
+                        <div class="t"><b>Check dataset</b><span> <code>GET /api/v1/summary</code></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="n">2</div>
+                        <div class="t"><b>Lista clan</b><span> <code>GET /api/v1/clans</code></span></div>
+                    </div>
+                    <div class="row">
+                        <div class="n">3</div>
+                        <div class="t"><b>Stats player</b><span> <code>GET /api/v1/stats/bedwars/&lt;username&gt;</code></span></div>
+                    </div>
+                </div>
+                <div class="mini">
+                    <a class="btn" href="/docs" data-i18n="landing.quickstartEndpoints">Vedi endpoints</a>
+                    <a class="btn" href="/account" data-i18n="landing.quickstartManage">Gestisci key</a>
+                </div>
+            </article>
+
+            <article class="card pad api-card">
+                <h2 data-i18n="landing.quickCopy">Quick copy</h2>
+                <div class="field">
+                    <label for="base-url" data-i18n="landing.baseUrl">Base URL</label>
+                    <div class="inline">
+                        <input id="base-url" readonly>
+                        <button class="btn" id="copy-base" type="button" data-i18n="landing.copy">Copia</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <label for="curl-url" data-i18n="landing.curl">curl</label>
+                    <div class="inline">
+                        <input id="curl-url" readonly>
+                        <button class="btn" id="copy-curl" type="button" data-i18n="landing.copy">Copia</button>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="label" data-i18n="landing.rateLimit">Rate limit</div>
+                    <div class="muted" id="limits-text-inline">—</div>
+                </div>
+            </article>
+            </div>
+        </section>
+
+        <section class="section" aria-label="FAQ" data-reveal>
+            <div class="section-head">
+                <h2 class="h2">FAQ</h2>
+                <div class="muted">Le domande che arrivano sempre.</div>
+            </div>
+
+            <div class="faq">
+                <details class="faq-item">
+                    <summary>Devo inserire la API key nella webapp?</summary>
+                    <div class="muted">
+                        <p>No: la webapp usa la sessione Discord per autenticarti e vedere ciò che ti serve.</p>
+                        <p>La API key serve solo per:</p>
+                        <ul>
+                            <li>bot e servizi esterni (server, webhook, script)</li>
+                            <li>siti/strumenti che consumano l’API senza sessione</li>
+                        </ul>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Che succede se la key viene compromessa?</summary>
+                    <div class="muted">
+                        <p>Puoi rigenerarla da <a href="/account">Account</a>: la key vecchia viene invalidata e smette subito di funzionare.</p>
+                        <p>Consigli rapidi:</p>
+                        <ul>
+                            <li>non incollarla mai in screenshot o messaggi pubblici</li>
+                            <li>salvala in variabili d’ambiente (es. `.env`) nei tuoi progetti</li>
+                            <li>se hai dubbi, ruotala: è il modo più veloce per metterti al sicuro</li>
+                        </ul>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Cos’è esattamente Corallo Stats?</summary>
+                    <div class="muted">
+                        <p>È un mirror con cache e controlli di carico: l’obiettivo è consumare statistiche in modo stabile, senza picchi e senza stressare l’upstream.</p>
+                        <p>È pensato per bot, siti e tool che vogliono una base URL affidabile e un flusso semplice (OAuth/sessione oppure API key).</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Come funzionano cache e rate limit?</summary>
+                    <div class="muted">
+                        <p>Le risposte più richieste vengono servite dalla cache quando possibile, così evitiamo richieste ripetute e riduciamo i tempi di risposta.</p>
+                        <p>Il rate limit protegge il servizio da abusi e garantisce stabilità per tutti.</p>
+                        <p>Per i dettagli tecnici (endpoint, parametri, esempi) trovi tutto nelle <a href="/docs/overview">Docs</a>.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>Perché chiedete l’email Discord?</summary>
+                    <div class="muted">
+                        <p>Prendiamo l’email solo se è disponibile e solo per contattarti in casi importanti, ad esempio:</p>
+                        <ul>
+                            <li>richieste di eliminazione account o gestione dati</li>
+                            <li>violazioni dei Termini o della Privacy (warning, sospensione, comunicazioni necessarie)</li>
+                        </ul>
+                        <p>Non la usiamo per spam o marketing.</p>
+                    </div>
+                </details>
+                <details class="faq-item">
+                    <summary>È un progetto affiliato a CoralMC o ad altre terze parti?</summary>
+                    <div class="muted">
+                        <p>No, è un progetto indipendente e non sponsorizzato.</p>
+                        <p>Marchi, nomi e contenuti di terzi restano dei rispettivi titolari e non intendiamo “rubare utenza” o appropriarci di ciò che altri hanno costruito: lo scopo è solo offrire un accesso più stabile e sostenibile ai dati tramite cache e limiti.</p>
+                    </div>
+                </details>
+            </div>
+        </section>
+
+        <footer class="landing-footer">
+            <div class="landing-footer-inner">
+                <div class="muted">Corallo Stats • built for reliability</div>
+                <div class="muted landing-footer-links">
+                    <a href="/docs/overview">Docs</a>
+                    <span> • </span>
+                    <a href="/terms">Termini</a>
+                    <span> • </span>
+                    <a href="/privacy">Privacy</a>
+                </div>
+            </div>
+            <div class="muted landing-footer-note">
+                Progetto indipendente: nessuna affiliazione o sponsorizzazione; marchi e contenuti di terzi restano dei rispettivi titolari.
+            </div>
+        </footer>
+
+        <div id="toast" class="toast" style="display:none;"></div>
+    </section>
+
+    <script type="module" src="/js/pages/index.js"></script>
+</body>
+</html>

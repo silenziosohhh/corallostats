@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="it" data-assets-v="20260422">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Account - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+  </head>
+  <body class="app-shell" data-page="account">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a class="logo" href="/">
+            <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+            <span class="logo-text">Corallo Stats</span>
+          </a>
+          <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar"><span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span></button>
+        </div>
+
+        <nav class="nav" aria-label="Pagine">
+          <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+          <a class="nav-item" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+          <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+          <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+          <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+        </nav>
+
+        <nav class="nav-bottom" aria-label="Risorse">
+          <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item active" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+        </nav>
+      </aside>
+
+      <div class="main">
+        <header class="navbar">
+          <div class="nav-left">
+            <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-right">
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+            <a class="btn" href="/auth/logout" id="nav-logout" data-i18n="ui.logout">Logout</a>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="page-title">
+            <h1>Account</h1>
+            <p class="muted">Login Discord + gestione della tua API key.</p>
+          </section>
+
+          <section class="grid-2">
+            <article class="card pad">
+              <h2><i class="fa-brands fa-discord" aria-hidden="true"></i>Profilo Discord</h2>
+              <div class="muted" id="profile-status">Caricamento…</div>
+              <div class="discord-card" style="margin-top:12px;" aria-label="Discord profile card">
+                <div class="discord-banner" id="discord-banner">
+                  <div class="discord-banner-overlay"></div>
+                </div>
+                <div class="discord-body">
+                  <div class="discord-avatar-wrap">
+                    <img id="profile-avatar" class="discord-avatar" alt="" decoding="async" fetchpriority="high" />
+                    <img id="profile-decoration" class="discord-decoration" alt="" decoding="async" style="display:none;" />
+                  </div>
+                  <div class="discord-names">
+                    <div class="discord-display" id="profile-name">—</div>
+                    <div class="discord-handle muted" id="profile-handle">—</div>
+                  </div>
+
+                  <div class="discord-section">
+                    <div class="discord-label">Details</div>
+                    <div class="discord-details muted">
+                      <div>Discord ID: <span id="profile-id">—</span></div>
+                      <div>Creato: <span id="profile-created">—</span></div>
+                      <div>Ultimo login: <span id="profile-last">—</span></div>
+                    </div>
+                  </div>
+
+                  <div class="discord-section" id="connections-wrap" style="display:none;">
+                    <div class="discord-label">Connections</div>
+                    <div class="discord-connections" id="connections"></div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <div class="account-right">
+              <article class="card pad">
+                <h2><i class="fa-solid fa-key" aria-hidden="true"></i>API Key</h2>
+                <p class="muted" style="margin:6px 0 0 0;">
+                  La key completa viene mostrata solo quando creata/ruotata. Conservala in modo sicuro.
+                </p>
+
+                <div class="field" style="margin-top:12px;">
+                  <label for="key-prefix">Prefix</label>
+                  <div class="inline">
+                    <input class="input" id="key-prefix" readonly />
+                    <button class="btn" id="copy-prefix" type="button">Copia</button>
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label for="key-full">API key (solo quando disponibile)</label>
+                  <div class="inline">
+                    <input class="input" id="key-full" type="password" readonly placeholder="—" />
+                    <button class="icon-btn" id="toggle-key" type="button" aria-label="Mostra/nascondi"><i class="fa-regular fa-eye" aria-hidden="true"></i></button>
+                    <button class="btn primary" id="copy-key" type="button">Copia</button>
+                  </div>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+                  <button class="btn danger block" id="rotate" type="button">Rigenera</button>
+                </div>
+
+                <div class="muted" id="key-hint" style="margin-top:10px;">—</div>
+              </article>
+
+              <section class="card pad">
+                <h2><i class="fa-solid fa-trash" aria-hidden="true"></i>Elimina account</h2>
+                <p class="muted" style="margin:6px 0 0 0;">
+                  Rimuove il tuo profilo dal database e invalida la tua API key. Azione irreversibile.
+                </p>
+                <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <button class="btn danger block" id="delete-account" type="button">Elimina account</button>
+                </div>
+              </section>
+            </div>
+          </section>
+
+          <div id="toast" class="toast" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+  </body>
+</html>

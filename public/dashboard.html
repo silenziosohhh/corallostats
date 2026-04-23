@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="it" data-assets-v="20260422">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+
+</head>
+<body class="app-shell" data-page="dashboard">
+    <div class="shell">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <a class="logo" href="/">
+                    <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+                    <span class="logo-text">Corallo Stats</span>
+                </a>
+            <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar"><span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span></button>
+            </div>
+
+             <nav class="nav" aria-label="Pagine">
+                 <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+                 <a class="nav-item active" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+                 <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+                 <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+                 <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+             </nav>
+
+            <nav class="nav-bottom" aria-label="Risorse">
+                <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+            </nav>
+        </aside>
+
+        <div class="main">
+            <header class="navbar">
+                <div class="nav-left">
+                    <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+                </div>
+                <div class="nav-right">
+            <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
+                    <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+                    <a class="btn" href="/docs/overview" data-i18n="nav.docs">Docs</a>
+                </div>
+            </header>
+
+            <div class="content">
+                <section class="page-title" id="dataset">
+                    <h1>Dashboard</h1>
+                    <p class="muted">Overview del dataset e strumenti rapidi per testare le API.</p>
+                </section>
+
+                <section class="grid" aria-label="Statistiche">
+                    <div class="card stat">
+                        <div class="k">Ultimo aggiornamento</div>
+                        <div class="v" id="updated-at">—</div>
+                        <div class="muted" id="duration">—</div>
+                    </div>
+                    <div class="card stat">
+                        <div class="k">Clan</div>
+                        <div class="v" id="clans-count">—</div>
+                    </div>
+                    <div class="card stat">
+                        <div class="k">Player coperti</div>
+                        <div class="v" id="covered-count">—</div>
+                    </div>
+                    <div class="card stat">
+                        <div class="k">Player senza clan</div>
+                        <div class="v" id="without-clan-count">—</div>
+                    </div>
+                </section>
+
+                <section class="card pad" id="clans" style="margin-top:12px;">
+                    <div class="section-head">
+                        <h2>Clans</h2>
+                        <div style="display:flex; gap:10px; align-items:center;">
+                            <span class="pill" id="visible-count">0</span>
+                            <button class="btn" id="refresh" type="button">Ricarica</button>
+                        </div>
+                    </div>
+                    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <input class="input" id="search" type="search" placeholder="Cerca clan…" autocomplete="off">
+                        <span class="muted" id="clans-meta">—</span>
+                    </div>
+                    <div class="clans" id="clan-container" aria-label="Lista clan" style="margin-top:12px;"></div>
+                    <div class="pager" aria-label="Paginazione">
+                        <div class="meta" id="page-meta">—</div>
+                        <div class="controls">
+                            <button class="btn" id="page-prev" type="button">Prev</button>
+                            <button class="btn" id="page-next" type="button">Next</button>
+                            <select class="input" id="page-size" style="min-width:140px; flex:0;">
+                                <option value="12">12 / pagina</option>
+                                <option value="24" selected>24 / pagina</option>
+                                <option value="48">48 / pagina</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="card pad" id="tester" style="margin-top:12px;">
+                    <h2>API Tester</h2>
+                    <p class="muted" style="margin:6px 0 0 0;">Esegui una richiesta e vedi la risposta JSON.</p>
+                    <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+                        <select class="input" id="tester-endpoint" style="min-width:260px; flex:0;">
+                            <option value="/api/v1/summary">GET /api/v1/summary</option>
+                            <option value="/api/v1/clans">GET /api/v1/clans</option>
+                            <option value="/api/v1/results?limit=25">GET /api/v1/results?limit=25</option>
+                        </select>
+                        <button class="btn primary" type="button" id="tester-run">Esegui</button>
+                        <button class="btn" type="button" id="tester-copy">Copia URL</button>
+                    </div>
+                    <div class="codeblock" style="margin-top:12px;">
+                        <pre id="tester-output">—</pre>
+                    </div>
+                </section>
+
+                <dialog id="clan-dialog" aria-label="Dettagli clan">
+                    <div class="modal">
+                        <header>
+                            <div class="dialog-head-left">
+                                <div class="dialog-title-row">
+                                  <div style="font-weight:800" id="dialog-title">Clan</div>
+                                  <div class="dialog-xp" id="dialog-xp">—</div>
+                                </div>
+                                <div class="muted" id="dialog-subtitle">—</div>
+                            </div>
+                            <button class="btn" id="dialog-close" type="button">Chiudi</button>
+                        </header>
+                        <main>
+                            <div class="muted" id="dialog-status">Caricamento…</div>
+                            <ul class="list" id="members-list" style="margin-top:12px;"></ul>
+                        </main>
+                    </div>
+                </dialog>
+
+                <dialog id="player-dialog" aria-label="Dettagli player">
+                    <div class="modal player-modal">
+                        <header>
+                            <div class="dialog-head-left">
+                              <div class="dialog-title-row">
+                                <div style="font-weight:800" id="player-title">Player</div>
+                                <div class="dialog-pill" id="player-clan-pill" style="display:none;"></div>
+                              </div>
+                              <div class="muted" id="player-subtitle">—</div>
+                            </div>
+                            <button class="btn" id="player-close" type="button">Chiudi</button>
+                        </header>
+                        <main>
+                            <div class="player-hero">
+                              <img id="player-skin" class="player-skin" alt="" />
+                              <div class="player-meta">
+                                <div class="player-name" id="player-name">—</div>
+                                <div class="player-badges" id="player-badges"></div>
+                                <div class="player-links">
+                                  <a class="btn" id="player-open-coral" href="#" target="_blank" rel="noreferrer">
+                                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Apri su Coral</span>
+                                  </a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="divider"></div>
+                            <div class="muted" id="player-status">Caricamento…</div>
+                            <div class="player-grid" id="player-stats" style="margin-top:12px;"></div>
+                        </main>
+                    </div>
+                </dialog>
+
+                <div id="toast" class="toast" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "coralmc-clans",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "node scripts/copy-fontawesome.js",
+    "start": "node server.js",
+    "test": "echo \"No tests\" && exit 0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.7.2",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "mongoose": "^8.19.0",
+    "node-cron": "^4.2.1",
+    "passport": "^0.7.0",
+    "passport-discord": "^0.1.4",
+    "playwright": "^1.59.1",
+    "ws": "^8.18.0"
+  }
+}

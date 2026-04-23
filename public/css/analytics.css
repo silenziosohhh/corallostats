@@ -1,0 +1,240 @@
+:root{
+  --ana-line: rgba(56,189,248,.92);
+}
+
+.ana-grid{stroke: rgba(255,255,255,.08); stroke-width: 1}
+.ana-grid-x{stroke: rgba(255,255,255,.06); stroke-width: 1; stroke-dasharray: 3 6}
+.ana-axis{stroke: rgba(255,255,255,.12); stroke-width: 1}
+.ana-axis-text{fill: rgba(255,255,255,.55); font-size: 11px; font-variant-numeric: tabular-nums}
+.ana-line{stroke: var(--ana-line); stroke-width: 2.2}
+.ana-area{opacity: 1}
+.ana-dot{fill: rgba(255,255,255,.92); stroke: rgba(0,0,0,.28); stroke-width: 2}
+.ana-cross{stroke: rgba(255,255,255,.16); stroke-width: 1}
+
+.ana-chart-wrap{
+  position: relative;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255,255,255,.03);
+  overflow:hidden;
+}
+
+.ana-chart{
+  width: 100%;
+  height: 220px;
+  display:block;
+}
+
+.ana-tooltip{
+  position:absolute;
+  left: 0;
+  top: 14px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  font-size: 12.5px;
+  opacity: 0;
+  pointer-events:none;
+  transform: translate(-50%, 0);
+  transition: opacity .12s var(--ease-out);
+  white-space: nowrap;
+}
+
+.ana-grid-2{
+  display:grid;
+  grid-template-columns: 1.6fr 1fr;
+  gap: 12px;
+}
+
+.ana-head-meta{
+  display:flex;
+  gap: 8px;
+  align-items:center;
+  justify-content:flex-end;
+  flex-wrap: wrap;
+}
+
+.ana-dist{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items:center;
+}
+
+.ana-donut{
+  width: clamp(150px, 18vw, 200px);
+  height: clamp(150px, 18vw, 200px);
+  display:block;
+}
+
+.ana-donut-k{
+  font-size: 12px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  fill: rgba(255,255,255,.55);
+}
+
+.ana-donut-v{
+  font-size: 24px;
+  font-weight: 950;
+  letter-spacing: -.02em;
+  fill: rgba(255,255,255,.92);
+}
+
+html[data-theme="light"] .ana-donut-k{fill: rgba(9,12,18,.52)}
+html[data-theme="light"] .ana-donut-v{fill: rgba(9,12,18,.92)}
+html[data-theme="light"] .ana-axis{stroke: rgba(9,12,18,.16)}
+html[data-theme="light"] .ana-grid{stroke: rgba(9,12,18,.10)}
+html[data-theme="light"] .ana-grid-x{stroke: rgba(9,12,18,.08)}
+html[data-theme="light"] .ana-axis-text{fill: rgba(9,12,18,.52)}
+html[data-theme="light"] .ana-cross{stroke: rgba(9,12,18,.14)}
+
+.ana-legend{
+  list-style:none;
+  padding:0;
+  margin:0;
+  display:grid;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.ana-legend-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.03);
+}
+
+.ana-legend-k{font-weight: 800}
+.ana-legend-v{color: var(--muted); font-variant-numeric: tabular-nums}
+
+.ana-meter{
+  margin-top: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  overflow:hidden;
+}
+
+.ana-meter-fill{
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56,189,248,.92), rgba(88,101,242,.92));
+  transition: width .25s var(--ease-out);
+}
+
+.ana-rate-row{
+  margin-top: 10px;
+  display:flex;
+  justify-content:space-between;
+  gap: 10px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ana-hint{margin-top: 6px}
+
+.ana-ep-note{margin-top: 8px}
+
+.ana-endpoints{
+  margin-top: 12px;
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ana-ep{
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: rgba(255,255,255,.03);
+  padding: 12px 12px;
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+  min-width: 0;
+}
+
+.ana-ep-top{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap: 10px;
+}
+
+.ana-ep-key{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 12.5px;
+  color: var(--text);
+  overflow:hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  min-width:0;
+}
+
+.ana-ep-count{
+  font-variant-numeric: tabular-nums;
+  font-weight: 900;
+}
+
+.ana-ep-meta{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+  color: var(--muted);
+  font-size: 12.5px;
+  flex-wrap:wrap;
+}
+
+.ana-ep-meter{
+  height: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  overflow:hidden;
+}
+
+.ana-ep-meter > i{
+  display:block;
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(56,189,248,.90), rgba(88,101,242,.90));
+}
+
+@media (max-width: 920px){
+  .ana-grid-2{grid-template-columns: 1fr}
+  .ana-dist{grid-template-columns: 1fr; justify-items:center}
+  .ana-donut{width: 100%; max-width: 260px; height: auto; aspect-ratio: 1 / 1}
+  .ana-head-meta{justify-content:flex-start}
+  .ana-endpoints{grid-template-columns: 1fr}
+}
+
+@media (max-width: 620px){
+  .ana-chart{height: 190px}
+  .ana-tooltip{left: 12px; top: 12px; font-size: 12px}
+
+  .ana-donut{max-width: 240px}
+
+  .ana-legend{
+    min-width: 0;
+    grid-template-columns: 1fr 1fr;
+  }
+  .ana-legend-item{
+    padding: 9px 10px;
+    border-radius: 14px;
+  }
+  .ana-legend-k{font-size: 12.5px}
+  .ana-legend-v{font-size: 12.5px}
+
+  .ana-ep{border-radius: 16px}
+  .ana-ep-key{font-size: 12px}
+}

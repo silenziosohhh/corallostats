@@ -1,0 +1,406 @@
+{
+  "source": "coralmc_stats_openapi",
+  "fetchedAt": "2026-04-22T23:47:10.590Z",
+  "openapiUrl": "/",
+  "endpoints": [
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/{username}/matches",
+      "localPathTemplate": "/stats/bedwars/{username}/matches",
+      "summary": "Ottieni match Bedwars del player",
+      "tags": [
+        "Bedwars"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/bedwars/Fed/matches"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/{username}",
+      "localPathTemplate": "/stats/bedwars/{username}",
+      "summary": "Ottieni statistiche Bedwars del player",
+      "tags": [
+        "Bedwars"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/bedwars/Fed"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/clans/{clanName}",
+      "localPathTemplate": "/stats/bedwars/clans/{clanName}",
+      "summary": "Ottieni dettagli clan Bedwars",
+      "tags": [
+        "Bedwars"
+      ],
+      "params": [
+        {
+          "name": "clanName",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Nome esatto del clan."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/bedwars/clans/ExampleClan"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/clans/leaderboard",
+      "localPathTemplate": "/stats/bedwars/clans/leaderboard",
+      "summary": "Classifica clan Bedwars",
+      "tags": [
+        "Bedwars"
+      ],
+      "params": [],
+      "exampleUrl": "/api/v1/stats/bedwars/clans/leaderboard"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/leaderboard",
+      "localPathTemplate": "/stats/bedwars/leaderboard",
+      "summary": "Classifica Bedwars",
+      "tags": [
+        "Bedwars"
+      ],
+      "params": [],
+      "exampleUrl": "/api/v1/stats/bedwars/leaderboard"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/match/{id}/logs",
+      "localPathTemplate": "/stats/bedwars/match/{id}/logs",
+      "summary": "Log match Bedwars / CoralCUP",
+      "tags": [
+        "Bedwars",
+        "CoralCUP"
+      ],
+      "params": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "description": "ID numerico del match."
+        },
+        {
+          "name": "edition",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "description": "Edizione CoralCUP opzionale."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/bedwars/match/Example/logs"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/bedwars/match/{id}",
+      "localPathTemplate": "/stats/bedwars/match/{id}",
+      "summary": "Dettagli match Bedwars / CoralCUP",
+      "tags": [
+        "Bedwars",
+        "CoralCUP"
+      ],
+      "params": [
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "description": "ID numerico del match."
+        },
+        {
+          "name": "edition",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "description": "Edizione CoralCUP opzionale. Se presente, il match viene risolto tramite le tabelle CoralCUP."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/bedwars/match/Example"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/coralcup/editions",
+      "localPathTemplate": "/stats/coralcup/editions",
+      "summary": "Lista edizioni CoralCUP",
+      "tags": [
+        "CoralCUP"
+      ],
+      "params": [],
+      "exampleUrl": "/api/v1/stats/coralcup/editions"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/coralcup/full-lead",
+      "localPathTemplate": "/stats/coralcup/full-lead",
+      "summary": "Classifica completa CoralCUP",
+      "tags": [
+        "CoralCUP"
+      ],
+      "params": [
+        {
+          "name": "edition",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "description": "Edizione CoralCUP opzionale."
+        },
+        {
+          "name": "order_type",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description": "Ordinamento per la classifica completa."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/coralcup/full-lead"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/coralcup/leaderboard",
+      "localPathTemplate": "/stats/coralcup/leaderboard",
+      "summary": "Classifica CoralCUP (paginata)",
+      "tags": [
+        "CoralCUP"
+      ],
+      "params": [
+        {
+          "name": "page",
+          "in": "query",
+          "required": true,
+          "type": "integer",
+          "description": "Indice pagina (0-based)."
+        },
+        {
+          "name": "value",
+          "in": "query",
+          "required": true,
+          "type": "string",
+          "description": "Campo su cui ordinare."
+        },
+        {
+          "name": "order",
+          "in": "query",
+          "required": true,
+          "type": "string",
+          "description": "Direzione ordinamento."
+        },
+        {
+          "name": "search",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description": "Filtro opzionale per prefisso username."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/coralcup/leaderboard"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/coralcup/team/{team}",
+      "localPathTemplate": "/stats/coralcup/team/{team}",
+      "summary": "Dettagli team CoralCUP",
+      "tags": [
+        "CoralCUP"
+      ],
+      "params": [
+        {
+          "name": "team",
+          "in": "path",
+          "required": true,
+          "type": "integer",
+          "description": "ID numerico del team."
+        },
+        {
+          "name": "edition",
+          "in": "query",
+          "required": false,
+          "type": "integer",
+          "description": "Edizione CoralCUP opzionale."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/coralcup/team/Example"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/duels/{username}/matches",
+      "localPathTemplate": "/stats/duels/{username}/matches",
+      "summary": "Ottieni match Duels del player",
+      "tags": [
+        "Duels"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/duels/Fed/matches"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/duels/{username}",
+      "localPathTemplate": "/stats/duels/{username}",
+      "summary": "Ottieni statistiche Duels del player",
+      "tags": [
+        "Duels"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/duels/Fed"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/duels/leaderboard",
+      "localPathTemplate": "/stats/duels/leaderboard",
+      "summary": "Classifica Duels",
+      "tags": [
+        "Duels"
+      ],
+      "params": [
+        {
+          "name": "gamemode",
+          "in": "query",
+          "required": false,
+          "type": "string",
+          "description": "Gamemode Duels opzionale."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/duels/leaderboard"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/duels/match/{matchId}",
+      "localPathTemplate": "/stats/duels/match/{matchId}",
+      "summary": "Dettagli match Duels",
+      "tags": [
+        "Duels"
+      ],
+      "params": [
+        {
+          "name": "matchId",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Identificatore match Duels."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/duels/match/Example"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/kitpvp/{username}",
+      "localPathTemplate": "/stats/kitpvp/{username}",
+      "summary": "Ottieni statistiche KitPvP del player",
+      "tags": [
+        "KitPvP"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/kitpvp/Fed"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/kitpvp/leaderboard",
+      "localPathTemplate": "/stats/kitpvp/leaderboard",
+      "summary": "Classifica KitPvP",
+      "tags": [
+        "KitPvP"
+      ],
+      "params": [],
+      "exampleUrl": "/api/v1/stats/kitpvp/leaderboard"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/player/{username}/cache-timestamp",
+      "localPathTemplate": "/stats/player/{username}/cache-timestamp",
+      "summary": "Timestamp cache condivisa player",
+      "tags": [
+        "Player"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/player/Fed/cache-timestamp"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/player/{username}",
+      "localPathTemplate": "/stats/player/{username}",
+      "summary": "Ottieni statistiche player (aggregate)",
+      "tags": [
+        "Player"
+      ],
+      "params": [
+        {
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Username Minecraft."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/player/Fed"
+    },
+    {
+      "method": "GET",
+      "upstreamPathTemplate": "/api/v1/stats/search/{input}",
+      "localPathTemplate": "/stats/search/{input}",
+      "summary": "Cerca player",
+      "tags": [
+        "Search"
+      ],
+      "params": [
+        {
+          "name": "input",
+          "in": "path",
+          "required": true,
+          "type": "string",
+          "description": "Termine di ricerca (minimo 3 caratteri)."
+        }
+      ],
+      "exampleUrl": "/api/v1/stats/search/Fed"
+    }
+  ]
+}

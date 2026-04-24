@@ -507,7 +507,19 @@ dialog::backdrop{
   flex-wrap: wrap;
   align-items:center;
 }
-.player-links{margin-top: 12px}
+.player-links{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items:center;
+}
+.player-links .input{
+  min-width: 180px;
+}
+.player-links .dd-btn{
+  min-width: 180px;
+}
 .player-grid{
   display:grid;
   grid-template-columns: repeat(4, 1fr);
@@ -742,7 +754,7 @@ dialog::backdrop{
 /* Bot modal */
 .bot-modal .body{padding:16px}
 .bot-dialog{
-  max-height: calc(100svh - 24px);
+  max-height: 100dvh;
 }
 .bot-dialog .bot-modal{
   height: 100%;
@@ -1469,18 +1481,23 @@ body.app-shell[data-page="account"] .btn.block{
 .codeblock{
   position: relative;
   margin-top: 12px;
-  padding: 12px 14px;
-  padding-right: 52px;
   border-radius: 14px;
   border: 1px solid var(--border);
   background: var(--code-bg);
   width: 100%;
   max-width: 100%;
   min-width: 0;
+}
+.codeblock .codeblock-scroll{
+  padding: 12px 14px;
+  padding-right: 52px;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior-x: contain;
+  border-radius: inherit;
+  width: 100%;
+  max-width: 100%;
 }
 .codeblock pre{
   margin:0;
@@ -1794,7 +1811,7 @@ html[data-theme="light"] .codeblock .codecopy-btn{background: var(--panel-2)}
   .inline .input{min-width: 0}
 
   .page-title h1{font-size: 26px}
-  .codeblock{padding: 10px 12px; padding-right: 50px}
+  .codeblock .codeblock-scroll{padding: 10px 12px; padding-right: 50px}
   .codeblock pre{font-size: 12.5px}
 
   body.app-shell .inline{

@@ -14,6 +14,13 @@ function ensureCopyButton(block) {
 
   block.dataset.codecopyBound = "1";
 
+  if (!pre.closest(".codeblock-scroll")) {
+    const scroller = document.createElement("div");
+    scroller.className = "codeblock-scroll";
+    pre.replaceWith(scroller);
+    scroller.append(pre);
+  }
+
   const btn = document.createElement("button");
   btn.type = "button";
   btn.className = "icon-btn codecopy-btn";
@@ -40,4 +47,3 @@ export function initCodeblocks(root = document) {
   const blocks = Array.from(root.querySelectorAll(".codeblock"));
   for (const b of blocks) ensureCopyButton(b);
 }
-

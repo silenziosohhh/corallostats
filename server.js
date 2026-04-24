@@ -71,6 +71,9 @@ function redirectTo(res, to) {
 
 // Clean URLs (preferred)
 app.get('/dashboard', requireAuthPage, (req, res) => sendPublicFile(res, ['dashboard.html']));
+// Deep links under /dashboard/* must serve the dashboard shell (also on refresh).
+// Use a RegExp route to avoid path-to-regexp wildcard syntax differences across Express versions.
+app.get(/^\/dashboard(\/.*)?$/, requireAuthPage, (req, res) => sendPublicFile(res, ['dashboard.html']));
 app.get('/analytics', requireAuthPage, (req, res) => sendPublicFile(res, ['analytics.html']));
 app.get('/account', requireAuthPage, (req, res) => sendPublicFile(res, ['account.html']));
 app.get('/docs', (req, res) => sendPublicFile(res, ['docs.html']));
@@ -133,27 +136,49 @@ app.get('/health', (req, res) => {
     res.json({ ok: true });
 });
 
-const scheduler = createScraperScheduler({
-    scriptCommand: 'node coralmc-clans.js',
-    onLog: (line) => console.log(line),
-});
+let scheduler = null;
+let scraperDisabled = null;
 
-const scraperDisabled =
-    String(process.env.DISABLE_SCRAPER || '').toLowerCase() === '1' ||
-    String(process.env.DISABLE_SCRAPER || '').toLowerCase() === 'true';
+function initScraper() {
+    if (scheduler) return scheduler;
 
-if (!scraperDisabled) {
+    const disabled =
+        String(process.env.DISABLE_SCRAPER || '').toLowerCase() === '1' ||
+        String(process.env.DISABLE_SCRAPER || '').toLowerCase() === 'true';
+
+    scraperDisabled = disabled;
+    if (disabled) {
+        console.log('Scraper disabilitato via DISABLE_SCRAPER=1');
+        scheduler = null;
+        return null;
+    }
+
+    scheduler = createScraperScheduler({
+        scriptCommand: 'node coralmc-clans.js',
+        onLog: (line) => console.log(line),
+    });
+
     cron.schedule('0 * * * *', () => scheduler.runOnce());
     scheduler.runOnce();
-} else {
-    console.log('Scraper disabilitato via DISABLE_SCRAPER=1');
+    return scheduler;
 }
 
 app.get('/api/scraper-status', ensureAuthenticated, (req, res) => {
+    if (scraperDisabled === true) {
+        res.json({ disabled: true, running: false });
+        return;
+    }
+
+    if (!scheduler) {
+        res.json({ disabled: false, running: false });
+        return;
+    }
+
     res.json(scheduler.getStatus());
 });
 
 async function start() {
+    initScraper();
     await connectToMongo(process.env.MONGO_URI);
 
     const cacheCleanupDisabled =
@@ -219,6 +244,16 @@ async function start() {
     }
 
     const server = http.createServer(app);
+    server.on("error", (err) => {
+        const code = err?.code || null;
+        if (code === "EADDRINUSE") {
+            console.error(`Porta ${config.port} già in uso (EADDRINUSE). Chiudi l'altro processo o cambia PORT/.env.`);
+            process.exit(1);
+            return;
+        }
+        console.error("Errore server:", err?.message || err);
+        process.exit(1);
+    });
 
     const wsSecret = config.session.secret || "dev_only_change_me";
     const wss = new WebSocketServer({ noServer: true });
@@ -321,7 +356,11 @@ async function start() {
     });
 }
 
-start().catch((err) => {
-    console.error('Errore avvio server:', err?.message || err);
-    process.exit(1);
-});
+if (require.main === module) {
+    start().catch((err) => {
+        console.error('Errore avvio server:', err?.message || err);
+        process.exit(1);
+    });
+} else {
+    module.exports = { app, start };
+}

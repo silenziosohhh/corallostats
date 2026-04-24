@@ -5,6 +5,8 @@ import { copyToClipboard } from "../lib/clipboard.js";
 import { enhanceSelect } from "../lib/customSelect.js";
 import { animateCount } from "../lib/motion.js";
 import { clearSkeletonText, setAriaBusy, setSkeletonText, skelBlock } from "../lib/skeleton.js";
+import { buildDashboardUrl, parseDashboardLocation, sameDashboardUrl } from "./dashboardRoute.js";
+import { modeLabel, normalizeStatsMode, pickGenericStats, statsEndpointFor } from "./playerStatsRender.js";
 
 const state = {
   clans: [],
@@ -15,6 +17,45 @@ const state = {
 };
 
 let clanMetaPollTimer = null;
+let applyingRoute = false;
+let currentRoute = { kind: "base" };
+let lastClanContext = null;
+let currentPlayerUsername = null;
+let currentStatsMode = "bedwars";
+
+function loadStatsModePref() {
+  try {
+    const v = localStorage.getItem("cs_stats_mode");
+    return v ? normalizeStatsMode(v) : "bedwars";
+  } catch {
+    return "bedwars";
+  }
+}
+
+function saveStatsModePref(mode) {
+  try {
+    localStorage.setItem("cs_stats_mode", normalizeStatsMode(mode));
+  } catch {
+    // ignore
+  }
+}
+
+function setDashboardRoute(next, { replace = false } = {}) {
+  if (applyingRoute) {
+    currentRoute = next;
+    return;
+  }
+
+  if (sameDashboardUrl(currentRoute, next)) {
+    currentRoute = next;
+    return;
+  }
+
+  currentRoute = next;
+  const url = buildDashboardUrl(next);
+  if (replace) window.history.replaceState({}, "", url);
+  else window.history.pushState({}, "", url);
+}
 
 function debounce(fn, ms) {
   let t = null;
@@ -51,6 +92,10 @@ function setupDialog() {
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) close();
   });
+  dialog.addEventListener("close", () => {
+    if (applyingRoute) return;
+    if (currentRoute.kind === "clan") setDashboardRoute({ kind: "base" });
+  });
 }
 
 function setupPlayerDialog() {
@@ -61,6 +106,53 @@ function setupPlayerDialog() {
   qs("#player-close")?.addEventListener("click", close);
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) close();
+  });
+
+  const modeSelect = qs("#player-mode");
+  if (modeSelect) {
+    try {
+      modeSelect.value = currentStatsMode;
+    } catch {
+      // ignore
+    }
+    modeSelect.addEventListener("change", () => {
+      const nextMode = normalizeStatsMode(modeSelect.value);
+      currentStatsMode = nextMode;
+      saveStatsModePref(nextMode);
+
+      if (!dialog.open) return;
+      const username = String(currentPlayerUsername || "").trim();
+      if (!username) return;
+
+      if (currentRoute.kind === "clan_player") {
+        openPlayerRoute(username, { fromClan: currentRoute.clanName, mode: nextMode, replaceUrl: true }).catch(() => {
+          // ignore
+        });
+        return;
+      }
+
+      openPlayerRoute(username, { mode: nextMode, replaceUrl: true }).catch(() => {
+        // ignore
+      });
+    });
+  }
+  dialog.addEventListener("close", () => {
+    if (applyingRoute) return;
+    if (currentRoute.kind === "player") {
+      setDashboardRoute({ kind: "base" });
+      return;
+    }
+    if (currentRoute.kind === "clan_player") {
+      const clanName = currentRoute.clanName || lastClanContext;
+      if (!clanName) {
+        setDashboardRoute({ kind: "base" });
+        return;
+      }
+      setDashboardRoute({ kind: "clan", clanName }, { replace: true });
+      applyRoute({ kind: "clan", clanName }).catch(() => {
+        // ignore
+      });
+    }
   });
 }
 
@@ -78,9 +170,21 @@ function formatInt(value) {
   return new Intl.NumberFormat("it-IT").format(n);
 }
 
-async function openPlayerDialog(username) {
+function formatAny(value) {
+  if (value === null || value === undefined) return "—";
+  if (typeof value === "number") return formatInt(value);
+  if (typeof value === "boolean") return value ? "Sì" : "No";
+  const s = String(value).trim();
+  return s ? s : "—";
+}
+
+async function openPlayerDialogUI(username, { mode = "bedwars" } = {}) {
   const dialog = qs("#player-dialog");
   if (!dialog) return;
+
+  const statsMode = normalizeStatsMode(mode);
+  currentStatsMode = statsMode;
+  currentPlayerUsername = String(username || "").trim();
 
   setText(qs("#player-title"), "Player");
   setText(qs("#player-name"), username || "—");
@@ -125,29 +229,46 @@ async function openPlayerDialog(username) {
   const clanPill = qs("#player-clan-pill");
   if (clanPill) clanPill.style.display = "none";
 
+  const modeSelect = qs("#player-mode");
+  if (modeSelect) {
+    try {
+      modeSelect.value = statsMode;
+    } catch {
+      // ignore
+    }
+  }
+
   dialog.showModal();
 
   try {
-    const data = await api.getJson(`/api/v1/stats/bedwars/${encodeURIComponent(username)}`);
-
-    const clanName = data?.clan_name || null;
-    const clanRole = data?.clan_role ?? null;
-    const info = roleInfo(clanRole);
-
-    setText(qs("#player-subtitle"), clanName ? `Clan: ${clanName}` : "Nessun clan");
-    setText(qs("#player-status"), "");
-
-    if (clanPill) {
-      if (clanName) {
-        clanPill.textContent = clanName;
-        clanPill.style.display = "";
-      } else {
-        clanPill.style.display = "none";
-      }
-    }
+    const endpoint = statsEndpointFor(statsMode);
+    const data = await api.getJson(`/api/v1/stats/${encodeURIComponent(endpoint)}/${encodeURIComponent(username)}`);
 
     const badges = qs("#player-badges");
-    if (badges) {
+    if (badges) clear(badges);
+
+    const modeBadge = document.createElement("span");
+    modeBadge.className = "pill tag";
+    modeBadge.textContent = modeLabel(statsMode);
+    badges?.append(modeBadge);
+
+    if (statsMode === "bedwars") {
+      const clanName = data?.clan_name || null;
+      const clanRole = data?.clan_role ?? null;
+      const info = roleInfo(clanRole);
+
+      setText(qs("#player-subtitle"), clanName ? `Clan: ${clanName}` : "Nessun clan");
+      setText(qs("#player-status"), "");
+
+      if (clanPill) {
+        if (clanName) {
+          clanPill.textContent = clanName;
+          clanPill.style.display = "";
+        } else {
+          clanPill.style.display = "none";
+        }
+      }
+
       const roleBadge = document.createElement("span");
       roleBadge.className = `member-badge ${info.key}`;
       roleBadge.innerHTML = `<i class="${info.icon}" aria-hidden="true"></i><span>${info.label}</span>`;
@@ -157,26 +278,53 @@ async function openPlayerDialog(username) {
       level.className = "pill tag";
       level.textContent = `Lvl ${formatInt(data?.level)}`;
       badges.append(level);
+
+      clear(statsRoot);
+      setAriaBusy(statsRoot, false);
+      const stats = [
+        ["Kills", data?.kills],
+        ["Deaths", data?.deaths],
+        ["Final kills", data?.final_kills],
+        ["Final deaths", data?.final_deaths],
+        ["Wins", data?.wins],
+        ["Losses", data?.losses],
+        ["Played", data?.played],
+        ["Beds broken", data?.beds_broken],
+        ["Coins", data?.coins],
+        ["Winstreak", data?.winstreak],
+        ["Best ws", data?.h_winstreak],
+        ["Rank lvl", data?.level_rank],
+      ];
+
+      for (const [k, v] of stats) {
+        const card = document.createElement("div");
+        card.className = "pstat";
+        const key = document.createElement("div");
+        key.className = "k";
+        key.textContent = k;
+        const val = document.createElement("div");
+        val.className = "v";
+        val.textContent = formatInt(v);
+        card.append(key, val);
+        statsRoot.append(card);
+      }
+      return true;
     }
+
+    setText(qs("#player-subtitle"), modeLabel(statsMode));
+    setText(qs("#player-status"), "");
+    if (clanPill) clanPill.style.display = "none";
 
     clear(statsRoot);
     setAriaBusy(statsRoot, false);
-    const stats = [
-      ["Kills", data?.kills],
-      ["Deaths", data?.deaths],
-      ["Final kills", data?.final_kills],
-      ["Final deaths", data?.final_deaths],
-      ["Wins", data?.wins],
-      ["Losses", data?.losses],
-      ["Played", data?.played],
-      ["Beds broken", data?.beds_broken],
-      ["Coins", data?.coins],
-      ["Winstreak", data?.winstreak],
-      ["Best ws", data?.h_winstreak],
-      ["Rank lvl", data?.level_rank],
-    ];
 
-    for (const [k, v] of stats) {
+    const rows = pickGenericStats(data, { limit: 24 });
+    if (!rows.length) {
+      setText(qs("#player-status"), "Nessuna statistica disponibile per questa modalità.");
+      return true;
+    }
+
+    for (const [k, v] of rows) {
       const card = document.createElement("div");
       card.className = "pstat";
       const key = document.createElement("div");
@@ -184,19 +332,22 @@ async function openPlayerDialog(username) {
       key.textContent = k;
       const val = document.createElement("div");
       val.className = "v";
-      val.textContent = formatInt(v);
+      val.textContent = formatAny(v);
       card.append(key, val);
       statsRoot.append(card);
     }
+    return true;
   } catch (err) {
     setAriaBusy(statsRoot, false);
-    setText(qs("#player-status"), "Errore nel caricamento");
-    setText(qs("#player-subtitle"), "—");
+    const maybe404 = Number(err?.status) === 404;
+    setText(qs("#player-status"), maybe404 ? `Non trovato in ${modeLabel(statsMode)}.` : "Errore nel caricamento");
+    setText(qs("#player-subtitle"), modeLabel(statsMode));
     showToast(err?.message || "Errore", { variant: "error" });
+    return false;
   }
 }
 
-async function openClanDialog(clanName) {
+async function openClanDialogUI(clanName) {
   const dialog = qs("#clan-dialog");
   setText(qs("#dialog-title"), clanName);
   setText(qs("#dialog-subtitle"), "Membri del clan");
@@ -268,8 +419,9 @@ async function openClanDialog(clanName) {
 
       li.append(left, badge);
       const open = () => {
-        dialog.close();
-        openPlayerDialog(username);
+        openPlayerRoute(username, { fromClan: clanName }).catch(() => {
+          // ignore
+        });
       };
       li.addEventListener("click", open);
       li.addEventListener("keydown", (e) => {
@@ -280,11 +432,142 @@ async function openClanDialog(clanName) {
       });
       list.append(li);
     }
+    return true;
   } catch (err) {
     clear(list);
     setAriaBusy(list, false);
     setText(qs("#dialog-status"), "Errore nel caricamento");
     showToast(err?.message || "Errore", { variant: "error" });
+    return false;
+  }
+}
+
+async function openClanRoute(clanName, { syncUrl = true, replaceUrl = false } = {}) {
+  const safe = String(clanName || "").trim();
+  if (!safe) return false;
+  lastClanContext = safe;
+  const next = { kind: "clan", clanName: safe };
+  if (syncUrl) setDashboardRoute(next, { replace: replaceUrl });
+  currentRoute = next;
+  return await openClanDialogUI(safe);
+}
+
+async function openPlayerRoute(
+  username,
+  { fromClan = null, mode = null, syncUrl = true, replaceUrl = false } = {}
+) {
+  const safe = String(username || "").trim();
+  if (!safe) return false;
+
+  const clanName = fromClan ? String(fromClan).trim() : null;
+  if (clanName) lastClanContext = clanName;
+
+  const statsMode = normalizeStatsMode(mode || currentStatsMode || loadStatsModePref());
+  currentStatsMode = statsMode;
+  saveStatsModePref(statsMode);
+
+  const next = clanName
+    ? { kind: "clan_player", clanName, playerName: safe, mode: statsMode }
+    : { kind: "player", playerName: safe, mode: statsMode };
+
+  if (syncUrl) setDashboardRoute(next, { replace: replaceUrl });
+  currentRoute = next;
+
+  if (clanName) {
+    const clanDialog = qs("#clan-dialog");
+    if (clanDialog?.open) clanDialog.close();
+  }
+
+  return await openPlayerDialogUI(safe, { mode: statsMode });
+}
+
+async function applyRoute(route) {
+  applyingRoute = true;
+  try {
+    currentRoute = route || { kind: "base" };
+
+    const clanDialog = qs("#clan-dialog");
+    const playerDialog = qs("#player-dialog");
+
+    const closeClan = () => {
+      try {
+        if (clanDialog?.open) clanDialog.close();
+      } catch {
+        // ignore
+      }
+    };
+    const closePlayer = () => {
+      try {
+        if (playerDialog?.open) playerDialog.close();
+      } catch {
+        // ignore
+      }
+    };
+
+    if (!route || route.kind === "base") {
+      closePlayer();
+      closeClan();
+      currentRoute = { kind: "base" };
+      return;
+    }
+
+    if (route.kind === "clan") {
+      closePlayer();
+      lastClanContext = route.clanName;
+      await openClanDialogUI(route.clanName);
+      return;
+    }
+
+    if (route.kind === "player") {
+      closeClan();
+      await openPlayerDialogUI(route.playerName, { mode: route.mode || currentStatsMode });
+      return;
+    }
+
+    if (route.kind === "clan_player") {
+      closeClan();
+      lastClanContext = route.clanName;
+      await openPlayerDialogUI(route.playerName, { mode: route.mode || currentStatsMode });
+      return;
+    }
+
+    if (route.kind === "name") {
+      closePlayer();
+      closeClan();
+
+      const name = String(route.name || "").trim();
+      if (!name) return;
+
+      const m = normalizeStatsMode(route.mode || currentStatsMode || loadStatsModePref());
+      currentStatsMode = m;
+      saveStatsModePref(m);
+
+      if (m !== "bedwars") {
+        currentRoute = { kind: "player", playerName: name, mode: m };
+        await openPlayerDialogUI(name, { mode: m });
+        return;
+      }
+
+      let isClan = false;
+      try {
+        await api.getJson(`/api/v1/clan-members/${encodeURIComponent(name)}`, { cache: "no-store" });
+        isClan = true;
+      } catch {
+        isClan = false;
+      }
+
+      if (isClan) {
+        currentRoute = { kind: "clan", clanName: name };
+        lastClanContext = name;
+        await openClanDialogUI(name);
+        return;
+      }
+
+      currentRoute = { kind: "player", playerName: name, mode: "bedwars" };
+      await openPlayerDialogUI(name, { mode: "bedwars" });
+    }
+  } finally {
+    applyingRoute = false;
   }
 }
 
@@ -324,7 +607,7 @@ function renderClans(list) {
 
     const right = el("div", { style: "display:flex; gap:10px; align-items:center;" });
     const btn = el("button", { className: "btn primary", type: "button", text: "Dettagli" });
-    btn.addEventListener("click", () => openClanDialog(clanName));
+    btn.addEventListener("click", () => openClanRoute(clanName));
     right.append(btn);
 
     card.append(left, right);
@@ -476,8 +759,11 @@ export function mount() {
   setupDialog();
   setupPlayerDialog();
 
+  currentStatsMode = loadStatsModePref();
+
   enhanceSelect(qs("#page-size"));
   enhanceSelect(qs("#tester-endpoint"), { buttonText: (label) => label.replace(/^GET\\s+/i, "") });
+  enhanceSelect(qs("#player-mode"), { buttonText: (label) => label });
 
   qs("#search").addEventListener("input", debounce(applyFilter, 90));
 
@@ -519,5 +805,27 @@ export function mount() {
     }
   });
 
-  return Promise.all([loadSummary(), loadClans({ silent: false })]).then(() => null);
+  const onPopState = () => {
+    const next = parseDashboardLocation(window.location);
+    if (sameDashboardUrl(currentRoute, next)) return;
+    applyRoute(next).catch(() => {
+      // ignore
+    });
+  };
+
+  window.addEventListener("popstate", onPopState);
+
+  return Promise.all([loadSummary(), loadClans({ silent: false })]).then(async () => {
+    const initial = parseDashboardLocation(window.location);
+    currentRoute = initial;
+    await applyRoute(initial);
+
+    return () => {
+      try {
+        window.removeEventListener("popstate", onPopState);
+      } catch {
+        // ignore
+      }
+    };
+  });
 }

@@ -31,6 +31,7 @@ function isSameOrigin(url) {
 
 function isAppPath(pathname) {
   if (pathname === "/dashboard") return true;
+  if (pathname.startsWith("/dashboard/")) return true;
   if (pathname === "/analytics") return true;
   if (pathname === "/account") return true;
   if (pathname === "/docs") return true;
@@ -183,6 +184,19 @@ function onLinkClick(e) {
 
   e.preventDefault();
   collapseSidebarUI();
+
+  const curPage = document.body?.dataset?.page || "";
+  const isDashboard = curPage === "dashboard";
+  if (isDashboard && (u.pathname === "/dashboard" || u.pathname.startsWith("/dashboard/"))) {
+    window.history.pushState({}, "", u.pathname + u.search + u.hash);
+    try {
+      window.dispatchEvent(new PopStateEvent("popstate"));
+    } catch {
+      // ignore
+    }
+    return;
+  }
+
   fetchAndSwap(u.toString(), { push: true }).catch(() => {
     window.location.href = u.toString();
   });
@@ -191,6 +205,11 @@ function onLinkClick(e) {
 window.addEventListener("popstate", () => {
   const u = new URL(window.location.href);
   if (!isAppPath(u.pathname)) return;
+
+  const curPage = document.body?.dataset?.page || "";
+  const isDashboard = curPage === "dashboard";
+  if (isDashboard && (u.pathname === "/dashboard" || u.pathname.startsWith("/dashboard/"))) return;
+
   fetchAndSwap(u.toString(), { push: false }).catch(() => {
     window.location.href = u.toString();
   });

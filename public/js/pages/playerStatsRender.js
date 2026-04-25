@@ -8,6 +8,22 @@ function titleCaseKey(key) {
   return s.replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
+function formatDateTimeIt(value) {
+  if (value === null || value === undefined || value === "") return "—";
+
+  let date = null;
+  if (typeof value === "number" && Number.isFinite(value)) {
+    const ms = value < 1_000_000_000_000 ? value * 1000 : value;
+    date = new Date(ms);
+  } else if (typeof value === "string") {
+    const t = Date.parse(value);
+    if (Number.isFinite(t)) date = new Date(t);
+  }
+
+  if (!date || Number.isNaN(date.getTime())) return "—";
+  return new Intl.DateTimeFormat("it-IT", { dateStyle: "medium", timeStyle: "short" }).format(date);
+}
+
 export function normalizeStatsMode(mode) {
   const m = String(mode || "").toLowerCase().trim();
   if (m === "kitpvp") return "kitpvp";
@@ -28,6 +44,41 @@ export function statsEndpointFor(mode) {
   const m = normalizeStatsMode(mode);
   if (m === "player") return "player";
   return m;
+}
+
+export function pickPlayerAggregateStats(data) {
+  if (!isPlainObject(data)) return [];
+
+  const isOnline = Boolean(data?.isOnline);
+  const joined = formatDateTimeIt(data?.joinDate);
+  const lastSeen = isOnline ? "Adesso" : formatDateTimeIt(data?.lastSeen);
+
+  const rows = [
+    ["Username", data?.username ? String(data.username) : "—"],
+    ["Data iscrizione", joined],
+    ["Ultimo accesso", lastSeen],
+    ["Online", isOnline ? "Sì" : "No"],
+    ["VIP", Boolean(data?.isVip) ? "Sì" : "No"],
+    ["Staff", Boolean(data?.isStaff) ? "Sì" : "No"],
+    ["Bannato", Boolean(data?.isBanned) ? "Sì" : "No"],
+  ];
+
+  // Append any additional fields (future-proof), without duplicating the ones above.
+  const known = new Set(["username", "joindate", "lastseen", "isonline", "isvip", "isstaff", "isbanned"]);
+  const extras = [];
+  for (const [k, v] of Object.entries(data)) {
+    const key = String(k || "").trim();
+    if (!key) continue;
+    if (key.startsWith("_")) continue;
+    if (known.has(key.toLowerCase())) continue;
+    if (v === null || v === undefined) continue;
+
+    if (typeof v === "boolean") extras.push([titleCaseKey(key), v ? "Sì" : "No"]);
+    else if (typeof v === "number" && Number.isFinite(v)) extras.push([titleCaseKey(key), v]);
+    else if (typeof v === "string" && v.trim()) extras.push([titleCaseKey(key), v.trim()]);
+  }
+
+  return extras.length ? [...rows, ...extras] : rows;
 }
 
 export function pickGenericStats(data, { limit = 20 } = {}) {
@@ -74,4 +125,3 @@ export function pickGenericStats(data, { limit = 20 } = {}) {
   }
   return out;
 }
-

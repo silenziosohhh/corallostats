@@ -6,7 +6,7 @@ import { enhanceSelect } from "../lib/customSelect.js";
 import { animateCount } from "../lib/motion.js";
 import { clearSkeletonText, setAriaBusy, setSkeletonText, skelBlock } from "../lib/skeleton.js";
 import { buildDashboardUrl, parseDashboardLocation, sameDashboardUrl } from "./dashboardRoute.js";
-import { modeLabel, normalizeStatsMode, pickGenericStats, statsEndpointFor } from "./playerStatsRender.js";
+import { modeLabel, normalizeStatsMode, pickGenericStats, pickPlayerAggregateStats, statsEndpointFor } from "./playerStatsRender.js";
 
 const state = {
   clans: [],
@@ -318,7 +318,7 @@ async function openPlayerDialogUI(username, { mode = "bedwars" } = {}) {
     clear(statsRoot);
     setAriaBusy(statsRoot, false);
 
-    const rows = pickGenericStats(data, { limit: 24 });
+    const rows = statsMode === "player" ? pickPlayerAggregateStats(data) : pickGenericStats(data, { limit: 24 });
     if (!rows.length) {
       setText(qs("#player-status"), "Nessuna statistica disponibile per questa modalità.");
       return true;

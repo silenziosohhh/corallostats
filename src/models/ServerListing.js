@@ -23,8 +23,7 @@ const serverListingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-serverListingSchema.index({ discordGuildId: 1, status: 1 });
-serverListingSchema.index({ discordGuildId: 1 }, { unique: true });
+serverListingSchema.index({ discordGuildId: 1, status: 1 }, { unique: true });
 
 serverListingSchema.path("name").validate(function (v) {
   const s = String(v || "").trim();

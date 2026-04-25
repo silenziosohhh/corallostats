@@ -2005,7 +2005,7 @@ body.app-shell[data-page="account"] .btn.block{
 }
 .codeblock .codeblock-scroll{
   padding: 12px 14px;
-  padding-right: 52px;
+  padding-right: 60px;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
@@ -2031,10 +2031,31 @@ body.app-shell[data-page="account"] .btn.block{
   height: 34px;
 }
 .codeblock .codecopy-btn{
-  background: var(--panel-2);
   border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: rgba(255,255,255,.90);
+  box-shadow: none;
+  transition: transform .08s ease, background .12s ease, border-color .12s ease, opacity .12s ease;
 }
-html[data-theme="light"] .codeblock .codecopy-btn{background: var(--panel-2)}
+.codeblock .codecopy-btn i{font-size: 15px; line-height: 1}
+.codeblock .codecopy-btn:hover{
+  background: rgba(255,255,255,.08);
+  border-color: rgba(255,255,255,.18);
+}
+.codeblock .codecopy-btn:active{
+  transform: translateY(1px);
+  background: rgba(255,255,255,.10);
+}
+html[data-theme="light"] .codeblock .codecopy-btn{
+  border: 1px solid rgba(9,12,18,.12);
+  background: rgba(9,12,18,.05);
+  color: rgba(9,12,18,.82);
+}
+html[data-theme="light"] .codeblock .codecopy-btn:hover{
+  border-color: rgba(9,12,18,.16);
+  background: rgba(9,12,18,.07);
+}
 
 .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:12px}
 .section-head h2{margin:0}
@@ -2348,7 +2369,7 @@ html[data-theme="light"] .codeblock .codecopy-btn{background: var(--panel-2)}
   .inline .input{min-width: 0}
 
   .page-title h1{font-size: 28px}
-  .codeblock .codeblock-scroll{padding: 10px 12px; padding-right: 50px}
+  .codeblock .codeblock-scroll{padding: 10px 12px; padding-right: 52px; padding-top: 48px}
   .codeblock pre{font-size: 13.5px}
   .endpoint-response{font-size: 13.5px}
 

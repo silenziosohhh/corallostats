@@ -112,9 +112,11 @@ function ensureModal() {
             <div class="bot-slider-kicker">Funzioni</div>
             <div class="bot-slider-progress" aria-hidden="true"></div>
           </div>
-          <div class="bot-slide">
-            <div class="bot-slide-title"></div>
-            <div class="muted bot-slide-text"></div>
+          <div class="bot-slide-viewport" aria-hidden="true">
+            <div class="bot-slide">
+              <div class="bot-slide-title"></div>
+              <div class="muted bot-slide-text"></div>
+            </div>
           </div>
           <div class="bot-slider-nav">
             <button class="icon-btn bot-slide-btn" type="button" id="bot-slide-prev" aria-label="Slide precedente">
@@ -183,7 +185,6 @@ function ensureModal() {
 
         <div class="bot-actions">
           <a class="btn primary" id="bot-invite" target="_blank" rel="noreferrer">Invita il bot</a>
-          <button class="btn" type="button" id="bot-close-secondary">Chiudi</button>
         </div>
       </div>
     </div>
@@ -197,6 +198,7 @@ function ensureModal() {
   const slideEl = dialog.querySelector(".bot-slide");
   const titleEl = dialog.querySelector(".bot-slide-title");
   const textEl = dialog.querySelector(".bot-slide-text");
+  const viewportEl = dialog.querySelector(".bot-slide-viewport");
   const dotsEl = dialog.querySelector("#bot-dots");
   const progEl = dialog.querySelector(".bot-slider-progress");
 
@@ -258,6 +260,181 @@ function ensureModal() {
     renderSlide();
   }
 
+  // Mobile UX: swipe left/right on the slider to change slide.
+  const sliderRoot = dialog.querySelector(".bot-slider");
+  if (sliderRoot && sliderRoot.dataset.swipeBound !== "1") {
+    sliderRoot.dataset.swipeBound = "1";
+
+    let pointerId = null;
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
+    let horizIntent = false;
+    let dragDir = 0; // -1 => next (swipe left), +1 => prev (swipe right)
+    let ghost = null;
+
+    const isInteractive = (el) => Boolean(el?.closest?.("button,a,input,select,textarea,label,[role='button']"));
+
+    const viewport = viewportEl || sliderRoot;
+
+    const setSlideContent = (idx, root) => {
+      const s = SLIDES[idx] || SLIDES[0];
+      const t = root?.querySelector?.(".bot-slide-title");
+      const x = root?.querySelector?.(".bot-slide-text");
+      if (t) t.textContent = s.title;
+      if (x) x.textContent = s.text;
+    };
+
+    const ensureGhost = (idx) => {
+      if (!viewport) return null;
+      if (ghost && ghost.isConnected) {
+        setSlideContent(idx, ghost);
+        return ghost;
+      }
+
+      ghost = document.createElement("div");
+      ghost.className = "bot-slide bot-slide-ghost";
+      ghost.setAttribute("aria-hidden", "true");
+      ghost.innerHTML = `<div class="bot-slide-title"></div><div class="muted bot-slide-text"></div>`;
+      setSlideContent(idx, ghost);
+      viewport.appendChild(ghost);
+      return ghost;
+    };
+
+    const resetTransforms = () => {
+      if (slideEl) {
+        slideEl.style.transition = "";
+        slideEl.style.transform = "";
+        slideEl.style.opacity = "";
+      }
+      if (ghost) {
+        ghost.style.transition = "";
+        ghost.style.transform = "";
+        ghost.style.opacity = "";
+      }
+      if (viewport && viewport !== sliderRoot) viewport.style.minHeight = "";
+    };
+
+    const onDown = (e) => {
+      if (!e || e.button != null && e.button !== 0) return;
+      if (e.pointerType === "mouse") return;
+      if (isInteractive(e.target)) return;
+
+      stopAuto();
+      tracking = true;
+      horizIntent = false;
+      dragDir = 0;
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      startY = e.clientY;
+      try {
+        sliderRoot.setPointerCapture?.(pointerId);
+      } catch {
+        // ignore
+      }
+    };
+
+    const onMove = (e) => {
+      if (!tracking || e.pointerId !== pointerId) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+      if (Math.abs(dx) < 8 && Math.abs(dy) < 8) return;
+
+      if (Math.abs(dx) > Math.abs(dy)) {
+        horizIntent = true;
+        e.preventDefault();
+
+        const w = Math.max(1, Number(viewport?.clientWidth || sliderRoot.clientWidth || 0));
+        const clamped = Math.max(-w, Math.min(w, dx));
+        const dir = clamped < 0 ? -1 : 1;
+
+        if (dir !== dragDir) {
+          dragDir = dir;
+          const ghostIdx = dir < 0 ? (slideIdx + 1) % SLIDES.length : (slideIdx - 1 + SLIDES.length) % SLIDES.length;
+          ensureGhost(ghostIdx);
+        }
+
+        if (slideEl) {
+          slideEl.style.transition = "none";
+          slideEl.style.transform = `translateX(${clamped}px)`;
+          slideEl.style.opacity = "1";
+        }
+
+        if (ghost) {
+          ghost.style.transition = "none";
+          const ghostX = dir < 0 ? clamped + w : clamped - w;
+          ghost.style.transform = `translateX(${ghostX}px)`;
+          ghost.style.opacity = "1";
+        }
+
+        // Avoid cropping when next slide text is taller.
+        if (viewport && viewport !== sliderRoot && slideEl && ghost) {
+          const h1 = slideEl.getBoundingClientRect().height;
+          const h2 = ghost.getBoundingClientRect().height;
+          const h = Math.ceil(Math.max(h1, h2));
+          if (h > 0) viewport.style.minHeight = `${h}px`;
+        }
+      }
+    };
+
+    const onEnd = (e) => {
+      if (!tracking || e.pointerId !== pointerId) return;
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      tracking = false;
+      pointerId = null;
+
+      if (!horizIntent) return;
+      if (Math.abs(dx) <= Math.abs(dy)) return;
+
+      const w = Math.max(1, Number(viewport?.clientWidth || sliderRoot.clientWidth || 0));
+      const threshold = Math.max(42, Math.round(w * 0.18));
+      const dir = dx < 0 ? -1 : 1;
+      const commit = Math.abs(dx) >= threshold;
+
+      if (!slideEl || !ghost) {
+        resetTransforms();
+        startAuto();
+        return;
+      }
+
+      slideEl.style.transition = "transform .18s ease, opacity .18s ease";
+      ghost.style.transition = "transform .18s ease, opacity .18s ease";
+
+      if (!commit) {
+        // Revert back.
+        slideEl.style.transform = "translateX(0)";
+        ghost.style.transform = `translateX(${dir < 0 ? w : -w}px)`;
+        window.setTimeout(() => {
+          ghost?.remove?.();
+          ghost = null;
+          resetTransforms();
+          startAuto();
+        }, 200);
+        return;
+      }
+
+      // Commit switch.
+      slideEl.style.transform = `translateX(${dir < 0 ? -w : w}px)`;
+      ghost.style.transform = "translateX(0)";
+
+      window.setTimeout(() => {
+        if (dir < 0) next();
+        else prev();
+        ghost?.remove?.();
+        ghost = null;
+        resetTransforms();
+        startAuto();
+      }, 200);
+    };
+
+    sliderRoot.addEventListener("pointerdown", onDown);
+    sliderRoot.addEventListener("pointermove", onMove);
+    sliderRoot.addEventListener("pointerup", onEnd);
+    sliderRoot.addEventListener("pointercancel", onEnd);
+  }
+
   dialog.querySelector("#bot-slide-prev")?.addEventListener("click", () => {
     prev();
     renderSlide({ animate: true });
@@ -298,7 +475,6 @@ function ensureModal() {
   };
 
   dialog.querySelector("#bot-dialog-close")?.addEventListener("click", close);
-  dialog.querySelector("#bot-close-secondary")?.addEventListener("click", close);
 
   dialog.addEventListener("click", (e) => {
     if (e.target === dialog) close();

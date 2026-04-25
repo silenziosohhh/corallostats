@@ -345,6 +345,51 @@ export function mount() {
   const publishDialogClose = qs("#srv-publish-close");
   if (publishDialogClose) publishDialogClose.addEventListener("click", () => publishDialog?.close?.());
 
+  // Mobile UX: keep "Descrizione" right under the invite input.
+  // Desktop stays unchanged (description below the grid).
+  let publishDescPlaceholder = null;
+  const publishGridEl = publishDialog?.querySelector?.(".publish-grid") || null;
+  const publishFormEl = publishDialog?.querySelector?.(".publish-form") || null;
+  const inviteFieldEl = inviteEl?.closest?.(".field") || null;
+  const descFieldEl = descEl?.closest?.(".field") || null;
+  const tagFieldEl = publishGridEl?.querySelector?.(".tag-field") || null;
+
+  if (publishFormEl && descFieldEl && !publishDescPlaceholder) {
+    const ph = document.createElement("div");
+    ph.style.display = "none";
+    ph.dataset.role = "srv-desc-placeholder";
+    descFieldEl.parentNode?.insertBefore(ph, descFieldEl);
+    publishDescPlaceholder = ph;
+  }
+
+  const publishMq = window.matchMedia ? window.matchMedia("(max-width: 620px)") : null;
+  const coarseMq = window.matchMedia ? window.matchMedia("(pointer: coarse)") : null;
+  const syncPublishLayout = () => {
+    if (!publishGridEl || !descFieldEl || !publishDescPlaceholder) return;
+
+    const isMobile = Boolean(coarseMq?.matches) || (publishMq ? publishMq.matches : window.innerWidth <= 620);
+    if (isMobile) {
+      if (descFieldEl.parentElement !== publishGridEl) publishGridEl.appendChild(descFieldEl);
+      if (inviteFieldEl && inviteFieldEl.parentElement === publishGridEl) {
+        inviteFieldEl.after(descFieldEl);
+      } else if (tagFieldEl && tagFieldEl.parentElement === publishGridEl) {
+        tagFieldEl.before(descFieldEl);
+      }
+      return;
+    }
+
+    if (descFieldEl.parentElement !== publishFormEl) {
+      publishDescPlaceholder.after(descFieldEl);
+    }
+  };
+
+  syncPublishLayout();
+  const onPublishMqChange = () => syncPublishLayout();
+  if (publishMq?.addEventListener) publishMq.addEventListener("change", onPublishMqChange);
+  else if (publishMq?.addListener) publishMq.addListener(onPublishMqChange);
+  if (coarseMq?.addEventListener) coarseMq.addEventListener("change", onPublishMqChange);
+  else if (coarseMq?.addListener) coarseMq.addListener(onPublishMqChange);
+
   const unmountTags = mountTagMultiSelect({
     wrap: tagsDdEl,
     btn: tagsBtnEl,
@@ -593,7 +638,9 @@ export function mount() {
         return;
       }
       try {
+        syncPublishLayout();
         publishDialog?.showModal?.();
+        window.requestAnimationFrame(() => syncPublishLayout());
       } catch {
         // ignore
       }
@@ -621,5 +668,9 @@ export function mount() {
     if (listEl) listEl.removeEventListener("click", onCardClick);
     window.removeEventListener("servers:route", onServersRoute);
     if (onDetailsClose && detailsDialog) detailsDialog.removeEventListener("close", onDetailsClose);
+    if (publishMq?.removeEventListener) publishMq.removeEventListener("change", onPublishMqChange);
+    else if (publishMq?.removeListener) publishMq.removeListener(onPublishMqChange);
+    if (coarseMq?.removeEventListener) coarseMq.removeEventListener("change", onPublishMqChange);
+    else if (coarseMq?.removeListener) coarseMq.removeListener(onPublishMqChange);
   };
 }

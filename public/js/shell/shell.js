@@ -1,5 +1,27 @@
 import { initBotPromo } from "./botPromo.js";
 
+function ensureSidebarFooter() {
+  const sidebar = document.querySelector("#sidebar");
+  if (!sidebar) return;
+
+  if (sidebar.querySelector('[data-role="sidebar-footer"]')) return;
+
+  const navBottom = sidebar.querySelector("nav.nav-bottom");
+  if (!navBottom) return;
+
+  const wrap = document.createElement("div");
+  wrap.dataset.role = "sidebar-footer";
+  wrap.className = "sidebar-footer";
+  wrap.innerHTML = `
+    <div class="sidebar-footer-note">
+      Progetto indipendente: nessuna affiliazione o sponsorizzazione; marchi e contenuti di terzi restano dei rispettivi titolari.
+    </div>
+    <div class="sidebar-footer-tagline">Corallo Stats • built for reliability</div>
+  `.trim();
+
+  navBottom.insertAdjacentElement("afterend", wrap);
+}
+
 export function initShell({ active } = {}) {
   const sidebar = document.querySelector("#sidebar");
   const openBtn = document.querySelector("#sidebar-open");
@@ -157,6 +179,8 @@ export function initShell({ active } = {}) {
       if (root) applyActiveInContainer(root, "a");
     }
   }
+
+  ensureSidebarFooter();
 
   // Legacy "active" flag support (kept for compatibility)
   if (active) {

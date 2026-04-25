@@ -567,6 +567,16 @@ dialog::backdrop{
   gap:10px;
   border-bottom:1px solid var(--border);
 }
+.modal-close{
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,.18);
+}
+html[data-theme="light"] .modal-close{
+  background: rgba(9,12,18,.04);
+}
+.modal-close:hover{
+  background: var(--panel-2);
+}
 .dialog-head-left{min-width:0}
 .dialog-title-row{
   display:flex;
@@ -636,6 +646,7 @@ dialog::backdrop{
 }
 .publish-grid > .field{min-width:0}
 .publish-grid > .tag-field{grid-column: 2}
+.publish-grid > .field.wide{grid-column: 1 / -1}
 .publish-modal .field{width:100%}
 .publish-modal .input{width:100%}
 .publish-modal .input-group{width:100%}
@@ -900,6 +911,11 @@ dialog::backdrop{
   .publish-actions-right .btn{width: 100%}
   .server-details-grid{grid-template-columns: 1fr}
   .server-details-actions .btn{flex: 1 1 100%}
+}
+
+@media (pointer: coarse){
+  .publish-grid{grid-template-columns: 1fr}
+  .publish-grid > .tag-field{grid-column:auto}
 }
 .modal .list{
   margin:0;
@@ -1170,6 +1186,21 @@ dialog::backdrop{
 
 .nav{margin-top:8px; display:flex; flex-direction:column; gap:6px}
 .nav-bottom{margin-top:auto; display:flex; flex-direction:column; gap:6px; padding-top: 10px}
+.sidebar-footer{
+  margin-top: 10px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+.sidebar-footer-note{opacity: .95}
+.sidebar-footer-tagline{
+  margin-top: 10px;
+  font-weight: 900;
+  letter-spacing: -.01em;
+  color: var(--text);
+}
 .nav-title{
   padding: 10px 12px 6px 12px;
   font-size: 11px;
@@ -1294,6 +1325,8 @@ dialog::backdrop{
   background: linear-gradient(180deg, rgba(88,101,242,.14), rgba(255,255,255,.03));
   padding: 14px 14px 12px;
   margin-bottom: 12px;
+  touch-action: pan-y;
+  position: relative;
 }
 .bot-modal .bot-slider-top{
   display:flex;
@@ -1327,6 +1360,15 @@ html[data-theme="light"] .bot-modal .bot-slider-progress{
 .bot-modal .bot-slide{
   transition: opacity .18s ease, transform .18s ease;
   will-change: opacity, transform;
+}
+.bot-modal .bot-slide-viewport{
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+}
+.bot-modal .bot-slide-ghost{
+  position: absolute;
+  inset: 0;
 }
 .bot-modal .bot-slide.is-changing{
   opacity: .72;

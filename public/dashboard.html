@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" data-assets-v="20260422">
+<html lang="it" data-assets-v="20260424">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -27,6 +27,8 @@
                  <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
                  <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
                  <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+                 <div class="nav-divider"></div>
+                 <a class="nav-item" href="/servers"><span class="aico nav-ico" data-icon="line-md:discord" aria-hidden="true"></span><span data-i18n="nav.servers">Servers</span></a>
              </nav>
 
             <nav class="nav-bottom" aria-label="Risorse">
@@ -44,7 +46,7 @@
                 </div>
                 <div class="nav-right">
             <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
-                    <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+                    <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login</a>
                     <a class="btn" href="/docs/overview" data-i18n="nav.docs">Docs</a>
                 </div>
             </header>
@@ -93,7 +95,7 @@
                         <div class="controls">
                             <button class="btn" id="page-prev" type="button">Prev</button>
                             <button class="btn" id="page-next" type="button">Next</button>
-                            <select class="input" id="page-size" style="min-width:140px; flex:0;">
+                            <select class="input" id="page-size" data-ui="select" style="min-width:140px; flex:0;">
                                 <option value="12">12 / pagina</option>
                                 <option value="24" selected>24 / pagina</option>
                                 <option value="48">48 / pagina</option>
@@ -106,7 +108,7 @@
                     <h2>API Tester</h2>
                     <p class="muted" style="margin:6px 0 0 0;">Esegui una richiesta e vedi la risposta JSON.</p>
                     <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-                        <select class="input" id="tester-endpoint" style="min-width:260px; flex:0;">
+                        <select class="input" id="tester-endpoint" data-ui="select" style="min-width:260px; flex:0;">
                             <option value="/api/v1/summary">GET /api/v1/summary</option>
                             <option value="/api/v1/clans">GET /api/v1/clans</option>
                             <option value="/api/v1/results?limit=25">GET /api/v1/results?limit=25</option>
@@ -160,7 +162,7 @@
                                   <a class="btn" id="player-open-coral" href="#" target="_blank" rel="noreferrer">
                                     <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i><span>Apri su Coral</span>
                                   </a>
-                                  <select class="input" id="player-mode" aria-label="Modalità stats">
+                                  <select class="input" id="player-mode" data-ui="select" aria-label="Modalità stats">
                                     <option value="bedwars">BedWars</option>
                                     <option value="kitpvp">KitPvP</option>
                                     <option value="duels">Duels</option>

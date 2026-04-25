@@ -17,6 +17,10 @@ export async function mountPage(pageId) {
     const mod = await import("../pages/analytics.js");
     return mod.mount?.();
   }
+  if (id === "servers") {
+    const mod = await import("../pages/servers.js");
+    return mod.mount?.();
+  }
 
   // Static docs pages: shell/user chip already mounted.
   return null;

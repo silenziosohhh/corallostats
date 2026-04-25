@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema(
     username: { type: String, default: null },
     globalName: { type: String, default: null },
     avatar: { type: String, default: null },
+    email: { type: String, default: null, index: true },
     lastLoginAt: { type: Date, default: null },
 
     apiKeyHash: { type: String, default: null, index: true },

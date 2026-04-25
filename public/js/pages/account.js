@@ -2,9 +2,11 @@ import { api } from "../lib/apiClient.js";
 import { qs, setText } from "../lib/dom.js";
 import { showToast } from "../lib/toast.js";
 import { copyToClipboard } from "../lib/clipboard.js";
+import { uiConfirm } from "../lib/confirmDialog.js";
 import { clearSkeletonText, setSkeletonText } from "../lib/skeleton.js";
-import { getCachedMeProfile, setCachedMeProfile } from "../lib/userCache.js";
+import { clearUserCache, getCachedMeProfile, setCachedMeProfile } from "../lib/userCache.js";
 import { preferAnimatedCdnUrl } from "../lib/discordCdn.js";
+import { el as uiEl, renderServerCard, requestJson } from "../lib/serversUi.js";
 
 const API_KEY_MASK = "••••••••••••••••••••••••";
 const API_KEY_AUTOHIDE_MS = 10 * 60 * 1000;
@@ -280,6 +282,65 @@ function setLoading(on) {
   if (full) full.classList.remove("skel-input");
 }
 
+async function loadMyServers() {
+  const meta = document.querySelector("#account-servers-meta");
+  const list = document.querySelector("#account-servers-list");
+  if (meta) setText(meta, "Caricamento…");
+  if (list) list.innerHTML = "";
+
+  try {
+    const out = await requestJson("/api/servers/mine");
+    const servers = Array.isArray(out?.servers) ? out.servers : [];
+    if (meta) setText(meta, `${servers.length} servers`);
+
+    if (list) {
+      for (const s of servers) {
+        const del = uiEl("button", { className: "btn danger block", text: "Rimuovi" });
+        del.type = "button";
+        del.style.marginTop = "12px";
+        del.addEventListener("click", async () => {
+          const ok = await uiConfirm({
+            title: "Rimuovere server?",
+            message: "Vuoi rimuovere questo server dalla directory?",
+            details: [
+              "Il server non comparirà più nella directory pubblica.",
+              "Per riaggiungerlo dovrai ripubblicarlo.",
+            ],
+            confirmText: "Rimuovi",
+            cancelText: "Annulla",
+            variant: "danger",
+          });
+          if (!ok) return;
+
+          del.disabled = true;
+          try {
+            const resp = await requestJson(`/api/servers/${encodeURIComponent(s.id)}`, { method: "DELETE" });
+            if (Number(resp?.deleted || 0) > 0) showToast("Server rimosso");
+            else showToast("Nessuna modifica", { variant: "error" });
+            await loadMyServers();
+          } catch (err) {
+            showToast(err?.body?.error || err?.message || "Errore", { variant: "error" });
+            del.disabled = false;
+          }
+        });
+
+        list.appendChild(renderServerCard(s, { compact: true, actions: del }));
+      }
+      if (!servers.length) {
+        list.appendChild(
+          uiEl("div", {
+            className: "muted grid-span-12",
+            text: "Ancora nessun server Discord pubblicato. Usa “Apri directory” per aggiungerne uno.",
+          })
+        );
+      }
+    }
+  } catch (err) {
+    if (meta) setText(meta, err?.message || "Errore");
+    if (list) list.appendChild(uiEl("div", { class: "muted", text: "Impossibile caricare i tuoi servers." }));
+  }
+}
+
 export async function mount() {
   setLoading(true);
 
@@ -350,7 +411,18 @@ export async function mount() {
   });
 
   qs("#delete-account").addEventListener("click", async () => {
-    const ok = window.confirm("Vuoi eliminare l'account? Perderai l'accesso e la tua API key sarà invalidata.");
+    const ok = await uiConfirm({
+      title: "Eliminare account?",
+      message: "Vuoi eliminare definitivamente l'account?",
+      details: [
+        "Perderai l'accesso al profilo e alle impostazioni.",
+        "La tua API key verrà invalidata e non sarà più utilizzabile.",
+        "I tuoi server pubblicati verranno rimossi dalla directory.",
+      ],
+      confirmText: "Elimina",
+      cancelText: "Annulla",
+      variant: "danger",
+    });
     if (!ok) return;
 
     qs("#delete-account").disabled = true;
@@ -361,6 +433,7 @@ export async function mount() {
       });
       const payload = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(payload?.error || `HTTP ${res.status}`);
+      clearUserCache();
       window.location.href = "/";
     } catch (err) {
       showToast(err?.message || "Errore", { variant: "error" });
@@ -371,6 +444,7 @@ export async function mount() {
   try {
     await fetchProfile();
     await fetchApiKey();
+    await loadMyServers();
     setLoading(false);
   } catch (err) {
     setLoading(false);

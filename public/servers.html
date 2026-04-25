@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="it" data-assets-v="20260424">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Servers - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+  </head>
+  <body class="app-shell" data-page="servers">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a class="logo" href="/">
+            <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+            <span class="logo-text">Corallo Stats</span>
+          </a>
+          <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar">
+            <span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <nav class="nav" aria-label="Pagine">
+          <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+          <a class="nav-item" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+          <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+          <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+          <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+          <div class="nav-divider"></div>
+          <a class="nav-item" href="/servers"><span class="aico nav-ico" data-icon="line-md:discord" aria-hidden="true"></span><span data-i18n="nav.servers">Servers</span></a>
+        </nav>
+
+        <nav class="nav-bottom" aria-label="Risorse">
+          <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+        </nav>
+      </aside>
+
+      <div class="main">
+        <header class="navbar">
+          <div class="nav-left">
+            <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-right">
+            <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login</a>
+            <a class="btn" href="/docs/overview" data-i18n="nav.docs">Docs</a>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="page-title">
+            <h1>Servers</h1>
+            <p class="muted">Directory dei server Discord pubblicati dalla community.</p>
+          </section>
+
+          <section class="grid">
+            <article class="card stat">
+              <div class="k">Health</div>
+              <div class="v" id="srv-health">—</div>
+              <div class="muted">GET <code>/health</code></div>
+            </article>
+
+            <article class="card stat">
+              <div class="k">Scraper</div>
+              <div class="v" id="srv-scraper">—</div>
+              <div class="muted" id="srv-scraper-meta"></div>
+            </article>
+          </section>
+
+          <section class="card pad" style="margin-top:12px;">
+            <div class="section-head">
+              <h2>Esplora</h2>
+              <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+                <input class="input" id="srv-q" type="search" placeholder="Cerca per nome, tag o descrizione…" autocomplete="off" style="min-width:260px;">
+                <select class="input" id="srv-tag" data-ui="select" style="min-width:180px;">
+                  <option value="">Tutti i tag</option>
+                </select>
+                <button class="btn" type="button" id="srv-refresh">Ricarica</button>
+                <button class="btn primary" type="button" id="srv-open-publish">Pubblica</button>
+              </div>
+            </div>
+            <div class="divider"></div>
+            <div class="muted" id="srv-list-meta">—</div>
+            <div class="grid" id="srv-list" style="margin-top:12px;"></div>
+          </section>
+
+          <dialog id="srv-bot-dialog" aria-label="Aggiungi bot">
+            <div class="modal">
+              <header>
+                <div class="dialog-head-left">
+                  <div style="font-weight:900">Aggiungi il bot al tuo server Discord</div>
+                  <div class="muted" style="margin-top:4px;">
+                    Per pubblicare servono: almeno 1 tag, un invite Discord valido, e il bot dentro la stessa guild.
+                  </div>
+                </div>
+                <button class="btn" type="button" id="srv-bot-close">Chiudi</button>
+              </header>
+              <main>
+                <ol class="muted" style="margin:0; padding-left:18px;">
+                  <li>Apri il link di invito e aggiungi il bot alla guild.</li>
+                  <li>Assicurati che l’invite Discord che stai usando punti a quella guild.</li>
+                  <li>Torna su questa pagina e premi di nuovo “Pubblica” (o “Verifica bot”).</li>
+                </ol>
+
+                <div class="divider"></div>
+
+                <div class="field">
+                  <label>Guild rilevata</label>
+                  <div class="inline">
+                    <input class="input" id="srv-bot-guild" readonly value="—" />
+                  </div>
+                </div>
+
+                <div class="field">
+                  <label>Link per aggiungere il bot</label>
+                  <div class="inline">
+                    <input class="input" id="srv-bot-invite-url" readonly value="—" />
+                    <a class="btn" id="srv-bot-open" href="#" target="_blank" rel="noreferrer">Apri</a>
+                    <button class="btn primary" id="srv-bot-copy" type="button">Copia</button>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </dialog>
+
+          <dialog id="srv-publish-dialog" aria-label="Pubblica server Discord">
+            <div class="modal publish-modal">
+              <header>
+                <div class="dialog-head-left">
+                  <div class="dialog-title">Pubblica server Discord</div>
+                  <div class="muted dialog-subtitle">
+                    Serve un invite Discord valido. Se il bot non è nella guild, ti guiderò ad aggiungerlo.
+                  </div>
+                </div>
+              </header>
+              <main>
+                <div class="publish-form">
+                  <div class="publish-grid">
+                    <div class="field wide">
+                      <label for="srv-name">Nome (opzionale)</label>
+                      <input class="input" id="srv-name" placeholder="Nome server" autocomplete="off" maxlength="64" />
+                      <div class="muted publish-hint">Se vuoto, uso il nome della guild.</div>
+                    </div>
+                    <div class="field">
+                      <div class="field-head">
+                        <label for="srv-invite">Invite Discord</label>
+                        <div class="muted field-counter" id="srv-invite-count" aria-hidden="true">0/32</div>
+                      </div>
+                      <div class="input-group" role="group" aria-label="Invite Discord">
+                        <span class="input-group-prefix" aria-hidden="true">https://discord.gg/</span>
+                        <input
+                          class="input input-group-input"
+                          id="srv-invite"
+                          placeholder="codice"
+                          autocomplete="off"
+                          inputmode="text"
+                          autocapitalize="none"
+                          spellcheck="false"
+                          maxlength="32"
+                        />
+                      </div>
+                      <div class="muted publish-hint">Incolla solo il codice (o anche l’URL: lo pulisco in automatico).</div>
+                    </div>
+
+                    <div class="field tag-field">
+                      <label>Tag</label>
+                      <div class="muted publish-hint">Almeno 1 tag (max 10).</div>
+                      <div class="dd tag-dd" id="srv-tags-dd">
+                        <button class="dd-btn" type="button" id="srv-tags-btn" aria-haspopup="menu" aria-expanded="false">
+                          <span class="dd-label" id="srv-tags-label">Seleziona tag</span>
+                        </button>
+                        <div id="srv-tags" class="dd-menu tag-dd-menu" role="menu" aria-label="Selezione tag"></div>
+                      </div>
+                      <div id="srv-tags-chips" class="publish-tags" aria-label="Tag selezionati"></div>
+                    </div>
+                  </div>
+
+                  <div class="field wide">
+                    <div class="field-head">
+                      <label for="srv-desc">Descrizione</label>
+                      <div class="muted field-counter" id="srv-desc-count" aria-hidden="true">0/600</div>
+                    </div>
+                    <textarea
+                      class="input"
+                      id="srv-desc"
+                      rows="5"
+                      placeholder="Una descrizione breve (modalità, features, ecc.)"
+                      maxlength="600"
+                    ></textarea>
+                    <div class="muted publish-hint">Max 600 caratteri (inclusi simboli tipo **test**, _test_, __test__).</div>
+                  </div>
+
+                  <div class="publish-actions">
+                    <div class="muted" id="srv-publish-status"></div>
+                    <div class="publish-actions-right">
+                      <button class="btn" type="button" id="srv-publish-close">Chiudi</button>
+                      <button class="btn primary" type="button" id="srv-publish">Pubblica</button>
+                    </div>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </dialog>
+
+          <dialog id="srv-details-dialog" aria-label="Dettagli server">
+            <div class="modal server-details-modal">
+              <header>
+                <div class="dialog-head-left">
+                  <div class="dialog-title" id="srv-details-title">Server</div>
+                  <div class="muted dialog-subtitle" id="srv-details-sub">—</div>
+                </div>
+                <button class="btn" type="button" id="srv-details-close">Chiudi</button>
+              </header>
+              <main>
+                <div class="server-details-body">
+                  <div class="invite-head" id="srv-details-head"></div>
+
+                  <div class="divider"></div>
+
+                  <div class="server-details-section">
+                    <div class="server-details-label">Descrizione</div>
+                    <div class="server-details-desc" id="srv-details-desc">—</div>
+                  </div>
+
+                  <div class="server-details-section">
+                    <div class="server-details-label">Tag</div>
+                    <div class="invite-chips" id="srv-details-tags"></div>
+                  </div>
+
+                  <div class="server-details-grid">
+                    <div class="server-details-kv">
+                      <div class="server-details-label">Online</div>
+                      <div class="server-details-value" id="srv-details-online">—</div>
+                    </div>
+                    <div class="server-details-kv">
+                      <div class="server-details-label">Members</div>
+                      <div class="server-details-value" id="srv-details-members">—</div>
+                    </div>
+                    <div class="server-details-kv">
+                      <div class="server-details-label">Guild</div>
+                      <div class="server-details-value" id="srv-details-guild">—</div>
+                    </div>
+                    <div class="server-details-kv">
+                      <div class="server-details-label">Aggiornato</div>
+                      <div class="server-details-value" id="srv-details-updated">—</div>
+                    </div>
+                  </div>
+
+                  <div class="server-details-actions">
+                    <a class="btn success" id="srv-details-open" href="#" target="_blank" rel="noreferrer">Apri Discord</a>
+                    <button class="btn primary" type="button" id="srv-details-copy">Copia invite</button>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </dialog>
+
+          <div id="toast" class="toast" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+  </body>
+</html>

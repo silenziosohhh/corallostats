@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it" data-assets-v="20260422">
+<html lang="it" data-assets-v="20260424">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -20,17 +20,18 @@
         <nav class="legal-actions">
           <a class="btn" href="/docs/overview">Docs</a>
           <a class="btn nav-auth-link" id="nav-account" href="/account" style="display:none;">Account</a>
-          <a class="btn primary nav-auth-link" id="nav-login" href="/auth/login">Login Discord</a>
+          <a class="btn primary nav-auth-link" id="nav-login" href="/auth/login">Login</a>
         </nav>
       </header>
 
       <main class="card pad legal-card">
         <h1>Privacy Policy</h1>
         <div class="legal-meta">
-          <span>Ultimo aggiornamento: 22 aprile 2026</span>
+          <span>Ultimo aggiornamento: 25 aprile 2026</span>
           <span class="pill">Discord OAuth</span>
           <span class="pill">Sessioni</span>
           <span class="pill">API key</span>
+          <span class="pill">Directory</span>
         </div>
 
         <p>
@@ -51,55 +52,70 @@
           <li><b>Dati tecnici</b>: indirizzo IP, user agent, log di accesso e metadati di richiesta necessari per sicurezza, diagnostica e rate limit.</li>
           <li><b>Sessione</b>: cookie di sessione e dati di sessione (es. stato login) per mantenere autenticazione e preferenze di UI.</li>
           <li><b>API key</b>: la chiave completa non viene memorizzata in chiaro; viene memorizzato un hash e un prefisso per identificarla.</li>
+          <li>
+            <b>Directory server Discord</b>: se pubblichi un server nella Directory, trattiamo i dati inseriti e/o derivati dall’invite Discord, ad es.
+            nome e descrizione della scheda, tag, codice invite, ID/nome/icon della guild e conteggi approssimati (members/online), oltre all’ID Discord del proprietario (owner).
+          </li>
         </ul>
 
         <h2>3. Finalità e basi giuridiche</h2>
         <ul>
           <li>Fornire il Servizio, autenticare l’utente e generare/gestire l’API key.</li>
           <li>Prevenire abusi, applicare rate limit e garantire sicurezza e stabilità.</li>
+          <li>Gestire la Directory (pubblicazione, verifica tecnica dell’invite/guild e visualizzazione pubblica delle schede).</li>
           <li>Inviare comunicazioni strettamente necessarie legate all’account (es. conferma/elaborazione eliminazione account) o a violazioni dei Termini/Privacy, se disponiamo di un contatto email tramite le scope Discord autorizzate.</li>
           <li>Assistenza e debugging in caso di errori segnalati.</li>
         </ul>
+
+        <h2>4. Dati resi pubblici nella Directory</h2>
+        <p>
+          Se pubblichi un server nella Directory, alcune informazioni della scheda possono essere visibili a chiunque (anche senza login), ad esempio
+          nome, descrizione, tag, icona della guild e link di invito (o codice invito). Non pubblicare dati sensibili.
+        </p>
 
         <h2>4. Conservazione</h2>
         <p>
           Conserviamo i dati per il tempo necessario a erogare il Servizio e a mantenerlo sicuro. Puoi eliminare l’account e i dati associati
           tramite l’apposita funzione disponibile in <a href="/account">Account</a>, quando presente.
         </p>
+        <p>
+          Le schede pubblicate nella Directory restano disponibili finché non vengono rimosse dall’utente (o dall’amministrazione per motivi di abuso/sicurezza) o finché l’account non viene eliminato.
+        </p>
 
-        <h2>5. Condivisione e destinatari</h2>
+        <h2>6. Condivisione e destinatari</h2>
         <ul>
           <li><b>Discord</b>: l’autenticazione avviene tramite Discord OAuth; i dati sono forniti da Discord secondo le scope autorizzate.</li>
+          <li><b>Discord API (inviti)</b>: per verificare e aggiornare le informazioni delle schede della Directory, possiamo interrogare l’API di Discord a partire dal codice invito.</li>
           <li><b>Fornitori tecnici</b>: hosting, database e infrastruttura possono trattare dati tecnici per erogare il Servizio.</li>
           <li>Non vendiamo i dati personali e non li condividiamo per finalità pubblicitarie.</li>
         </ul>
 
-        <h2>6. Riferimenti a terze parti e diritti</h2>
+        <h2>7. Riferimenti a terze parti e diritti</h2>
         <p>
           Il Servizio può fare riferimento a terze parti (es. CoralMC) per descrivere l’origine o il contesto di alcuni dati. Corallo Stats è un progetto
           indipendente e non è affiliato, sponsorizzato o approvato da terzi, salvo indicazione esplicita. Non rivendichiamo alcun diritto su nomi, loghi,
           brand o contenuti di terzi: restano dei rispettivi titolari. La finalità è tecnica (stabilità, cache e rate limit), non appropriarsi del lavoro altrui.
         </p>
 
-        <h2>7. Cookie e storage</h2>
+        <h2>8. Cookie e storage</h2>
         <p>
           Usiamo cookie di sessione per mantenere l’autenticazione. Possiamo usare storage locale del browser per preferenze (es. tema).
           Disabilitare i cookie può impedire il funzionamento della login e della webapp.
         </p>
 
-        <h2>8. Sicurezza</h2>
+        <h2>9. Sicurezza</h2>
         <p>
           Applichiamo misure ragionevoli per proteggere account e API key (es. hashing della key, rate limit). Nessun sistema è “sicuro al 100%”:
           se noti un problema, contattaci quanto prima.
         </p>
 
-        <h2>9. Diritti dell’interessato</h2>
+        <h2>10. Diritti dell’interessato</h2>
         <p>
           In base alla normativa applicabile (es. GDPR), puoi richiedere accesso, rettifica, cancellazione e altre informazioni sul trattamento.
           Per richieste, usa i contatti indicati nella sezione “Titolare e contatti”.
         </p>
 
-        <h2>10. Modifiche alla Privacy Policy</h2>
+        <h2>11. Modifiche alla Privacy Policy</h2>
         <p>
           Possiamo aggiornare questa informativa. La data di “Ultimo aggiornamento” indica l’ultima revisione.
         </p>

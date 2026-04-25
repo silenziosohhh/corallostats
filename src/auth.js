@@ -20,6 +20,46 @@ function ensureDiscordConfigured(req, res, next) {
     res.status(503).send('Discord OAuth non configurato sul server');
 }
 
+function safeReturnTo(input) {
+    const s = String(input || '').trim();
+    if (!s) return null;
+    if (!s.startsWith('/')) return null;
+    if (s.startsWith('//')) return null;
+    if (s.includes('://')) return null;
+    if (s.startsWith('/auth')) return null;
+    return s;
+}
+
+function returnToFromReferer(req) {
+    const ref = String(req.get('referer') || '').trim();
+    if (!ref) return null;
+
+    try {
+        const base = `${req.protocol}://${req.get('host')}`;
+        const u = new URL(ref, base);
+        const b = new URL(base);
+        if (u.origin !== b.origin) return null;
+        return safeReturnTo(`${u.pathname}${u.search || ''}`);
+    } catch {
+        return null;
+    }
+}
+
+function rememberReturnTo(req, res, next) {
+    const fromQuery = safeReturnTo(req.query?.returnTo);
+    const fromRef = fromQuery ? null : returnToFromReferer(req);
+    const toStore = fromQuery || fromRef || null;
+
+    if (toStore) {
+        req.session.returnTo = toStore;
+        if (typeof req.session.save === 'function') {
+            req.session.save(() => next());
+            return;
+        }
+    }
+    next();
+}
+
 async function upsertDiscordUser(profile) {
     const discordId = String(profile?.id || '');
     if (!discordId) throw new Error('Missing discord id');
@@ -27,18 +67,23 @@ async function upsertDiscordUser(profile) {
     const username = profile?.username || null;
     const globalName = profile?.global_name || profile?.displayName || null;
     const avatar = profile?.avatar || null;
+    const emailRaw = profile?.email || profile?._json?.email || null;
+    const email = emailRaw && String(emailRaw).trim() ? String(emailRaw).trim().slice(0, 254) : null;
 
     const now = new Date();
+
+    const set = {
+        username,
+        globalName,
+        avatar,
+        lastLoginAt: now,
+    };
+    if (email) set.email = email;
 
     const user = await User.findOneAndUpdate(
         { discordId },
         {
-            $set: {
-                username,
-                globalName,
-                avatar,
-                lastLoginAt: now,
-            },
+            $set: set,
         },
         { upsert: true, new: true }
     );
@@ -69,7 +114,7 @@ async function ensureUserApiKey(user, req) {
 }
 
 // Rotte Autenticazione
-router.get('/login', ensureDiscordConfigured, passport.authenticate('discord'));
+router.get('/login', ensureDiscordConfigured, rememberReturnTo, passport.authenticate('discord'));
 
 router.get('/callback', ensureDiscordConfigured, passport.authenticate('discord', {
     failureRedirect: '/'
@@ -80,11 +125,14 @@ router.get('/callback', ensureDiscordConfigured, passport.authenticate('discord'
     } catch {
         // ignore provisioning error, UI will show error
     }
+
+    const to = safeReturnTo(req.session?.returnTo) || '/account';
+    if (req.session) delete req.session.returnTo;
     if (typeof req.session.save === 'function') {
-        req.session.save(() => res.redirect('/account'));
+        req.session.save(() => res.redirect(to));
         return;
     }
-    res.redirect('/account');
+    res.redirect(to);
 });
 
 router.get('/logout', (req, res) => {
@@ -201,6 +249,17 @@ router.get('/me', ensureAuthenticated, async (req, res) => {
                     connections = null;
                     connectionsError = 'fetch_failed';
                 }
+            }
+        }
+
+        const emailRaw = discordMe?.email ?? null;
+        const email = emailRaw && String(emailRaw).trim() ? String(emailRaw).trim().slice(0, 254) : null;
+        if (email && email !== user.email) {
+            try {
+                await User.updateOne({ discordId: user.discordId }, { $set: { email } });
+                user.email = email;
+            } catch {
+                // ignore
             }
         }
 

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it" data-assets-v="20260422">
+<html lang="it" data-assets-v="20260424">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -26,6 +26,8 @@
           <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
           <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
           <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+          <div class="nav-divider"></div>
+          <a class="nav-item" href="/servers"><span class="aico nav-ico" data-icon="line-md:discord" aria-hidden="true"></span><span data-i18n="nav.servers">Servers</span></a>
         </nav>
 
         <nav class="nav-bottom" aria-label="Risorse">
@@ -42,7 +44,7 @@
             <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
           </div>
           <div class="nav-right">
-            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login</a>
             <a class="btn" href="/auth/logout" id="nav-logout" data-i18n="ui.logout">Logout</a>
           </div>
         </header>
@@ -50,7 +52,7 @@
         <div class="content">
           <section class="page-title">
             <h1>Account</h1>
-            <p class="muted">Login Discord + gestione della tua API key.</p>
+            <p class="muted">Login + gestione della tua API key.</p>
           </section>
 
           <section class="grid-2">
@@ -88,6 +90,8 @@
               </div>
             </article>
 
+            <div class="divider mobile-only"></div>
+
             <div class="account-right">
               <article class="card pad">
                 <h2><i class="fa-solid fa-key" aria-hidden="true"></i>API Key</h2>
@@ -119,6 +123,8 @@
                 <div class="muted" id="key-hint" style="margin-top:10px;">—</div>
               </article>
 
+              <div class="divider mobile-only"></div>
+
               <section class="card pad">
                 <h2><i class="fa-solid fa-trash" aria-hidden="true"></i>Elimina account</h2>
                 <p class="muted" style="margin:6px 0 0 0;">
@@ -129,6 +135,16 @@
                 </div>
               </section>
             </div>
+          </section>
+
+          <section class="card pad" id="account-servers-card">
+            <div class="section-head">
+              <h2><i class="fa-brands fa-discord" aria-hidden="true"></i>Discord Servers
+              <div class="muted" id="account-servers-meta" style="font-size: 14px;">—</div>
+            </h2>
+              <a class="btn" href="/servers">Apri directory</a>
+            </div>
+            <div class="grid" id="account-servers-list" style="margin-top:12px;"></div>
           </section>
 
           <div id="toast" class="toast" style="display:none;"></div>

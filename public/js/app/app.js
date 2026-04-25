@@ -7,6 +7,7 @@ import { initCodeblocks } from "./codeblocks.js";
 import { initAnimatedIcons } from "../lib/animatedIcons.js";
 import { initInlineIcons } from "../lib/inlineIcons.js";
 import { initDialogLock } from "../lib/dialogLock.js";
+import { enhanceSelects } from "../lib/customSelect.js";
 
 let currentUnmount = null;
 let navInFlight = null;
@@ -34,6 +35,8 @@ function isAppPath(pathname) {
   if (pathname.startsWith("/dashboard/")) return true;
   if (pathname === "/analytics") return true;
   if (pathname === "/account") return true;
+  if (pathname === "/servers") return true;
+  if (pathname.startsWith("/servers/")) return true;
   if (pathname === "/docs") return true;
   if (pathname.startsWith("/docs/")) return true;
   return false;
@@ -87,6 +90,7 @@ async function bootCurrentPage() {
   const pageId = document.body?.dataset?.page || null;
   const out = await mountPage(pageId);
   currentUnmount = typeof out === "function" ? out : null;
+  enhanceSelects(document);
   initCodeblocks(document);
 }
 
@@ -209,6 +213,15 @@ window.addEventListener("popstate", () => {
   const curPage = document.body?.dataset?.page || "";
   const isDashboard = curPage === "dashboard";
   if (isDashboard && (u.pathname === "/dashboard" || u.pathname.startsWith("/dashboard/"))) return;
+
+  if (curPage === "servers" && (u.pathname === "/servers" || u.pathname.startsWith("/servers/"))) {
+    try {
+      window.dispatchEvent(new CustomEvent("servers:route", { detail: { pathname: u.pathname } }));
+    } catch {
+      // ignore
+    }
+    return;
+  }
 
   fetchAndSwap(u.toString(), { push: false }).catch(() => {
     window.location.href = u.toString();

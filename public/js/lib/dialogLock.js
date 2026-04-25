@@ -1,10 +1,12 @@
 let locked = false;
 let scrollY = 0;
+let scrollbarW = 0;
 
 function lockScroll() {
   if (locked) return;
   locked = true;
   scrollY = window.scrollY || 0;
+  scrollbarW = Math.max(0, (window.innerWidth || 0) - (document.documentElement?.clientWidth || 0));
 
   document.documentElement.classList.add("dialog-open");
   document.body.classList.add("dialog-open");
@@ -15,6 +17,10 @@ function lockScroll() {
   document.body.style.left = "0";
   document.body.style.right = "0";
   document.body.style.width = "100%";
+  document.body.style.paddingRight = scrollbarW ? `${scrollbarW}px` : "";
+
+  document.documentElement.style.overflow = "hidden";
+  document.body.style.overflow = "hidden";
 }
 
 function unlockScroll() {
@@ -29,6 +35,10 @@ function unlockScroll() {
   document.body.style.left = "";
   document.body.style.right = "";
   document.body.style.width = "";
+  document.body.style.paddingRight = "";
+
+  document.documentElement.style.overflow = "";
+  document.body.style.overflow = "";
 
   window.scrollTo(0, scrollY);
 }
@@ -57,4 +67,3 @@ export function initDialogLock() {
   document.addEventListener("close", applyFromDom, true);
   document.addEventListener("cancel", applyFromDom, true);
 }
-

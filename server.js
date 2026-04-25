@@ -24,6 +24,8 @@ const { WebSocketServer } = require("ws");
 const { verifyWsToken } = require("./src/lib/wsToken");
 const { buildAnalytics } = require("./src/lib/analytics");
 const { analyticsUpdates } = require("./src/lib/analyticsUpdates");
+const { createServersRouter } = require("./src/serversApi");
+const { createServersPublicRouter } = require("./src/serversPublicApi");
 
 const app = express();
 const config = getConfig();
@@ -69,13 +71,12 @@ function redirectTo(res, to) {
     res.redirect(301, to);
 }
 
-// Clean URLs (preferred)
 app.get('/dashboard', requireAuthPage, (req, res) => sendPublicFile(res, ['dashboard.html']));
-// Deep links under /dashboard/* must serve the dashboard shell (also on refresh).
-// Use a RegExp route to avoid path-to-regexp wildcard syntax differences across Express versions.
 app.get(/^\/dashboard(\/.*)?$/, requireAuthPage, (req, res) => sendPublicFile(res, ['dashboard.html']));
 app.get('/analytics', requireAuthPage, (req, res) => sendPublicFile(res, ['analytics.html']));
 app.get('/account', requireAuthPage, (req, res) => sendPublicFile(res, ['account.html']));
+app.get('/servers', (req, res) => sendPublicFile(res, ['servers.html']));
+app.get(/^\/servers\/[^/]+$/, (req, res) => sendPublicFile(res, ['servers.html']));
 app.get('/docs', (req, res) => sendPublicFile(res, ['docs.html']));
 app.get('/docs/overview', (req, res) => sendPublicFile(res, ['docs', 'overview.html']));
 app.get('/docs/auth', (req, res) => sendPublicFile(res, ['docs', 'auth.html']));
@@ -84,10 +85,10 @@ app.get('/docs/notes', (req, res) => sendPublicFile(res, ['docs', 'notes.html'])
 app.get('/terms', (req, res) => sendPublicFile(res, ['terms.html']));
 app.get('/privacy', (req, res) => sendPublicFile(res, ['privacy.html']));
 
-// Backwards compatibility (.html -> clean)
 app.get('/dashboard.html', requireAuthPage, (req, res) => redirectTo(res, '/dashboard'));
 app.get('/analytics.html', requireAuthPage, (req, res) => redirectTo(res, '/analytics'));
 app.get('/account.html', requireAuthPage, (req, res) => redirectTo(res, '/account'));
+app.get('/servers.html', (req, res) => redirectTo(res, '/servers'));
 app.get('/docs.html', (req, res) => redirectTo(res, '/docs'));
 app.get('/docs/overview.html', (req, res) => redirectTo(res, '/docs/overview'));
 app.get('/docs/auth.html', (req, res) => redirectTo(res, '/docs/auth'));
@@ -96,7 +97,6 @@ app.get('/docs/notes.html', (req, res) => redirectTo(res, '/docs/notes'));
 app.get('/terms.html', (req, res) => redirectTo(res, '/terms'));
 app.get('/privacy.html', (req, res) => redirectTo(res, '/privacy'));
 
-// Public bot profile (used for sidebar promo)
 app.get('/bot/profile', async (req, res) => {
     try {
         const profile = await getBotProfile();
@@ -118,7 +118,7 @@ app.use(
             }
             // Make JS/CSS update quickly during dev without killing caching for images/fonts.
             if (p.endsWith(".js") || p.endsWith(".css")) {
-                res.setHeader("Cache-Control", "public, max-age=0, must-revalidate");
+                res.setHeader("Cache-Control", "no-store");
             }
         },
     })
@@ -129,6 +129,8 @@ const apiRouter = require('./src/api');
 
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
+app.use("/api/servers", createServersRouter());
+app.use("/api/public", createServersPublicRouter());
 
 let v1Mounted = false;
 

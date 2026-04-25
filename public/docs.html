@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="it" data-assets-v="20260422">
+<html lang="it" data-assets-v="20260424">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -28,6 +28,8 @@
           <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
           <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
           <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+          <div class="nav-divider"></div>
+          <a class="nav-item" href="/servers"><span class="aico nav-ico" data-icon="line-md:discord" aria-hidden="true"></span><span data-i18n="nav.servers">Servers</span></a>
 
           <div class="nav-sep"></div>
           <div class="nav-title" data-i18n="nav.docsTitle">Docs</div>
@@ -58,7 +60,7 @@
           </div>
           <div class="nav-right">
             <a class="btn" href="/account" id="nav-account" data-i18n="nav.account">Account</a>
-            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login Discord</a>
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login</a>
           </div>
         </header>
 
@@ -76,7 +78,7 @@
                   <input id="doc-search" class="search-input" type="search" placeholder="Cerca endpoint…" autocomplete="off" />
                   <span class="search-hint">Ctrl K</span>
                 </div>
-                <select class="input" id="category" style="min-width:180px; flex:0;">
+                <select class="input" id="category" data-ui="select" style="min-width:180px; flex:0;">
                   <option value="all" selected>Tutte le categorie</option>
                 </select>
                 <div class="muted" id="endpoint-count">—</div>

@@ -1,4 +1,5 @@
 import { clearUserCache, getCachedUiProfileEntry, setCachedUiProfile } from "../lib/userCache.js";
+import { refreshAuthState } from "../lib/authState.js";
 
 import { preferAnimatedCdnUrl } from "../lib/discordCdn.js";
 
@@ -34,6 +35,10 @@ function renderLoggedOut({ account, login, logout }) {
   if (account) account.style.display = "none";
   if (logout) logout.style.display = "none";
   if (login) login.style.display = "";
+  if (login) {
+    const rt = `${window.location.pathname || "/"}${window.location.search || ""}${window.location.hash || ""}`;
+    login.href = `/auth/login?returnTo=${encodeURIComponent(rt)}`;
+  }
 }
 
 export async function initUserChip({
@@ -58,6 +63,19 @@ export async function initUserChip({
     logout.addEventListener("click", () => {
       clearUserCache();
     });
+  }
+
+  // Always re-check session so we don't show a stale avatar after logout/account deletion.
+  // This is a light call and uses no-store.
+  try {
+    const st = await refreshAuthState();
+    if (!st?.loggedIn) {
+      clearUserCache();
+      renderLoggedOut({ account, login, logout });
+      return;
+    }
+  } catch {
+    // If the network is flaky, keep cached chip (if any) to avoid flicker.
   }
 
   const shouldRevalidate = !cached || (cachedEntry?.ageMs != null && cachedEntry.ageMs > 2 * 60 * 1000);

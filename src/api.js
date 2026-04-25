@@ -43,9 +43,10 @@ router.get('/summary', ensureAuthenticated, (req, res) => {
     });
 });
 
-router.get('/stats/endpoints', ensureAuthenticated, (req, res) => {
+router.get('/stats/endpoints', (req, res) => {
     const reg = getStatsRegistry();
     const list = reg?.endpoints || [];
+    res.setHeader("Cache-Control", "public, max-age=300");
     res.json({
         fetchedAt: reg?.fetchedAt || null,
         count: list.length,

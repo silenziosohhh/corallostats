@@ -251,8 +251,8 @@ async function init() {
     showToast(err?.message || "Impossibile caricare /api/v1/summary", { variant: "error" });
   }
 
-  // Autocomplete endpoints (solo se autenticato: endpoint list richiede sessione)
-  if (auth.loggedIn && resultsRoot) {
+  // Autocomplete endpoints
+  if (resultsRoot) {
     let endpoints = null;
     let endpointsPromise = null;
     let activeIndex = 0;
@@ -302,7 +302,7 @@ async function init() {
         list = eps.filter((ep) => endpointHaystack(ep).includes(term)).slice(0, 8);
       } catch {
         setAriaBusy(resultsRoot, false);
-        resultsRoot.innerHTML = `<div class="search-empty"><b>Login richiesto</b> • apri Account per continuare</div>`;
+        resultsRoot.innerHTML = `<div class="search-empty"><b>Elenco endpoint non disponibile</b> • riprova più tardi</div>`;
         resultsRoot.style.display = "block";
         return;
       } finally {

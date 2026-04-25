@@ -51,6 +51,10 @@
 }
 
 html{color-scheme: dark}
+html{
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 html[data-theme="light"]{
   color-scheme: light;
@@ -1637,8 +1641,10 @@ a.nav-auth-link:hover{
 .key-input,
 select.input,
 textarea.input{
-  min-width: 400px;
-  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  flex: 1 1 0%;
   border: 1px solid rgba(255,255,255,.12);
   border-radius: 16px;
   background:
@@ -1939,7 +1945,7 @@ body.app-shell[data-page="account"] .account-right{
 body.app-shell[data-page="account"] .discord-body{padding: 16px}
 body.app-shell[data-page="account"] .discord-section{margin-top: 12px}
 body.app-shell[data-page="account"] .discord-section + .discord-section{padding-top: 12px; border-top: 1px solid var(--border)}
-body.app-shell[data-page="account"] .field .inline{flex-wrap: nowrap}
+body.app-shell[data-page="account"] .field .inline{flex-wrap: wrap}
 body.app-shell[data-page="account"] .field .inline .btn{flex: 0 0 auto; white-space: nowrap}
 body.app-shell[data-page="account"] .field .inline .icon-btn{flex: 0 0 auto}
 body.app-shell[data-page="account"] #key-prefix,
@@ -2350,15 +2356,18 @@ html[data-theme="light"] .codeblock .codecopy-btn{background: var(--panel-2)}
     align-items: center;
   }
   body.app-shell .field .inline{
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
   }
   body.app-shell .field .inline .btn{
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     white-space: nowrap;
   }
   body.app-shell .field .inline .icon-btn{
     flex: 0 0 auto;
     width: 38px;
+  }
+  body.app-shell .field .inline .input{
+    flex: 1 1 100%;
   }
   body.app-shell .btn.block{
     width: 100%;

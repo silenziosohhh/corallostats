@@ -20,6 +20,7 @@ let clanMetaPollTimer = null;
 let applyingRoute = false;
 let currentRoute = { kind: "base" };
 let lastClanContext = null;
+let playerBackClan = null;
 let currentPlayerUsername = null;
 let currentStatsMode = "bedwars";
 
@@ -124,14 +125,7 @@ function setupPlayerDialog() {
       const username = String(currentPlayerUsername || "").trim();
       if (!username) return;
 
-      if (currentRoute.kind === "clan_player") {
-        openPlayerRoute(username, { fromClan: currentRoute.clanName, mode: nextMode, replaceUrl: true }).catch(() => {
-          // ignore
-        });
-        return;
-      }
-
-      openPlayerRoute(username, { mode: nextMode, replaceUrl: true }).catch(() => {
+      openPlayerRoute(username, { fromClan: playerBackClan, mode: nextMode, replaceUrl: true }).catch(() => {
         // ignore
       });
     });
@@ -139,11 +133,8 @@ function setupPlayerDialog() {
   dialog.addEventListener("close", () => {
     if (applyingRoute) return;
     if (currentRoute.kind === "player") {
-      setDashboardRoute({ kind: "base" });
-      return;
-    }
-    if (currentRoute.kind === "clan_player") {
-      const clanName = currentRoute.clanName || lastClanContext;
+      const clanName = String(playerBackClan || "").trim();
+      playerBackClan = null;
       if (!clanName) {
         setDashboardRoute({ kind: "base" });
         return;
@@ -152,6 +143,7 @@ function setupPlayerDialog() {
       applyRoute({ kind: "clan", clanName }).catch(() => {
         // ignore
       });
+      return;
     }
   });
 }
@@ -446,6 +438,7 @@ async function openClanRoute(clanName, { syncUrl = true, replaceUrl = false } = 
   const safe = String(clanName || "").trim();
   if (!safe) return false;
   lastClanContext = safe;
+  playerBackClan = null;
   const next = { kind: "clan", clanName: safe };
   if (syncUrl) setDashboardRoute(next, { replace: replaceUrl });
   currentRoute = next;
@@ -461,14 +454,13 @@ async function openPlayerRoute(
 
   const clanName = fromClan ? String(fromClan).trim() : null;
   if (clanName) lastClanContext = clanName;
+  playerBackClan = clanName || null;
 
   const statsMode = normalizeStatsMode(mode || currentStatsMode || loadStatsModePref());
   currentStatsMode = statsMode;
   saveStatsModePref(statsMode);
 
-  const next = clanName
-    ? { kind: "clan_player", clanName, playerName: safe, mode: statsMode }
-    : { kind: "player", playerName: safe, mode: statsMode };
+  const next = { kind: "player", playerName: safe, mode: statsMode };
 
   if (syncUrl) setDashboardRoute(next, { replace: replaceUrl });
   currentRoute = next;
@@ -514,19 +506,14 @@ async function applyRoute(route) {
     if (route.kind === "clan") {
       closePlayer();
       lastClanContext = route.clanName;
+      playerBackClan = null;
       await openClanDialogUI(route.clanName);
       return;
     }
 
     if (route.kind === "player") {
       closeClan();
-      await openPlayerDialogUI(route.playerName, { mode: route.mode || currentStatsMode });
-      return;
-    }
-
-    if (route.kind === "clan_player") {
-      closeClan();
-      lastClanContext = route.clanName;
+      playerBackClan = null;
       await openPlayerDialogUI(route.playerName, { mode: route.mode || currentStatsMode });
       return;
     }
@@ -544,6 +531,14 @@ async function applyRoute(route) {
 
       if (m !== "bedwars") {
         currentRoute = { kind: "player", playerName: name, mode: m };
+        playerBackClan = null;
+        try {
+          const nextUrl = buildDashboardUrl(currentRoute);
+          const cur = `${window.location.pathname || ""}${window.location.search || ""}`;
+          if (nextUrl && cur !== nextUrl) window.history.replaceState({}, "", nextUrl);
+        } catch {
+          // ignore
+        }
         await openPlayerDialogUI(name, { mode: m });
         return;
       }
@@ -559,11 +554,20 @@ async function applyRoute(route) {
       if (isClan) {
         currentRoute = { kind: "clan", clanName: name };
         lastClanContext = name;
+        playerBackClan = null;
         await openClanDialogUI(name);
         return;
       }
 
       currentRoute = { kind: "player", playerName: name, mode: "bedwars" };
+      playerBackClan = null;
+      try {
+        const nextUrl = buildDashboardUrl(currentRoute);
+        const cur = `${window.location.pathname || ""}${window.location.search || ""}`;
+        if (nextUrl && cur !== nextUrl) window.history.replaceState({}, "", nextUrl);
+      } catch {
+        // ignore
+      }
       await openPlayerDialogUI(name, { mode: "bedwars" });
     }
   } finally {
@@ -819,6 +823,17 @@ export function mount() {
     const initial = parseDashboardLocation(window.location);
     currentRoute = initial;
     await applyRoute(initial);
+
+    try {
+      const p = String(window.location.pathname || "");
+      if (p.startsWith("/dashboard/") && currentRoute.kind !== "base") {
+        const nextUrl = buildDashboardUrl(currentRoute);
+        const cur = `${window.location.pathname || ""}${window.location.search || ""}`;
+        if (nextUrl && cur !== nextUrl) window.history.replaceState({}, "", nextUrl);
+      }
+    } catch {
+      // ignore
+    }
 
     return () => {
       try {

@@ -11,6 +11,19 @@ function getConfig() {
   }
 
   const sessionSecret = process.env.SESSION_SECRET || null;
+  const trustProxy =
+    String(process.env.TRUST_PROXY || "").trim() === "1" ||
+    String(process.env.TRUST_PROXY || "").trim().toLowerCase() === "true";
+
+  const cookieSecureOverrideRaw = String(process.env.SESSION_COOKIE_SECURE || "").trim().toLowerCase();
+  const cookieSecureOverride =
+    cookieSecureOverrideRaw === "1" || cookieSecureOverrideRaw === "true"
+      ? true
+      : cookieSecureOverrideRaw === "0" || cookieSecureOverrideRaw === "false"
+        ? false
+        : cookieSecureOverrideRaw === "auto"
+          ? "auto"
+          : null;
 
   const discordEnabled =
     Boolean(process.env.DISCORD_CLIENT_ID) &&
@@ -27,10 +40,11 @@ function getConfig() {
     port,
     session: {
       secret: sessionSecret,
+      trustProxy,
       cookie: {
         httpOnly: true,
         sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
+        secure: cookieSecureOverride ?? "auto",
         maxAgeMs: 7 * 24 * 60 * 60 * 1000,
       },
     },

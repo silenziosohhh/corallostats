@@ -117,7 +117,7 @@ async function ensureUserApiKey(user, req) {
 router.get('/login', ensureDiscordConfigured, rememberReturnTo, passport.authenticate('discord'));
 
 router.get('/callback', ensureDiscordConfigured, passport.authenticate('discord', {
-    failureRedirect: '/'
+    failureRedirect: '/?oauth=failed'
 }), async (req, res) => {
     try {
         const user = await upsertDiscordUser(req.user);

@@ -30,6 +30,21 @@ const { createServersPublicRouter } = require("./src/serversPublicApi");
 const app = express();
 const config = getConfig();
 
+if (
+    config.session?.trustProxy === true ||
+    config.session?.cookie?.secure === true ||
+    config.session?.cookie?.secure === "auto"
+) {
+    app.set("trust proxy", 1);
+}
+
+console.log(
+    "Session cookie secure:",
+    config.session?.cookie?.secure,
+    "| trust proxy:",
+    config.session?.trustProxy === true
+);
+
 if (String(process.env.DEBUG_REQUESTS || '') === '1') {
     app.use((req, res, next) => {
         if (req.url.startsWith('/api/v1')) {
@@ -43,6 +58,7 @@ app.use(session({
     secret: config.session.secret || 'dev_only_change_me',
     resave: false,
     saveUninitialized: false,
+    proxy: config.session?.trustProxy === true,
     cookie: {
         httpOnly: config.session.cookie.httpOnly,
         sameSite: config.session.cookie.sameSite,
@@ -84,6 +100,91 @@ app.get('/docs/examples', (req, res) => sendPublicFile(res, ['docs', 'examples.h
 app.get('/docs/notes', (req, res) => sendPublicFile(res, ['docs', 'notes.html']));
 app.get('/terms', (req, res) => sendPublicFile(res, ['terms.html']));
 app.get('/privacy', (req, res) => sendPublicFile(res, ['privacy.html']));
+
+function safeDecodeSegment(segment) {
+    try {
+        return decodeURIComponent(String(segment || ''));
+    } catch {
+        return String(segment || '');
+    }
+}
+
+function normalizeStatsMode(mode) {
+    const m = String(mode || '').toLowerCase().trim();
+    if (m === 'kitpvp') return 'kitpvp';
+    if (m === 'duels') return 'duels';
+    if (m === 'player') return 'player';
+    return 'bedwars';
+}
+
+function parseModeTokenFromSearch(search, params) {
+    const byKey = params?.get('m') || params?.get('mode') || null;
+    if (byKey) return normalizeStatsMode(byKey);
+
+    const s = String(search || '');
+    if (!s || s === '?') return null;
+    const raw = s.startsWith('?') ? s.slice(1) : s;
+    const first = (raw.split('&')[0] || '').trim();
+    if (!first || first.includes('=')) return null;
+    return normalizeStatsMode(first);
+}
+
+const reservedRootSegments = new Set([
+    'dashboard',
+    'analytics',
+    'account',
+    'servers',
+    'docs',
+    'terms',
+    'privacy',
+    'health',
+    'api',
+    'auth',
+    'bot',
+    'ws',
+    'css',
+    'js',
+    'images',
+    'icons',
+    'vendor',
+]);
+
+function isReservedRootSegment(segment) {
+    const s = String(segment || '').toLowerCase().trim();
+    return reservedRootSegments.has(s);
+}
+
+function redirectToLogin(req, res) {
+    const returnTo = encodeURIComponent(String(req.originalUrl || '/'));
+    res.redirect(302, `/auth/login?returnTo=${returnTo}`);
+}
+
+// Legacy: /<clanName>/<playerNick>  ->  /<playerNick>?<mode>
+app.get(/^\/([^/.]+)\/([^/.]+)\/?$/, (req, res, next) => {
+    const clan = String(req.params?.[0] || '').trim();
+    const player = String(req.params?.[1] || '').trim();
+    if (!clan || !player) return next();
+    if (isReservedRootSegment(clan)) return next();
+
+    try {
+        const u = new URL(req.originalUrl || '', `http://${req.headers.host || 'localhost'}`);
+        const mode = parseModeTokenFromSearch(u.search, u.searchParams) || 'bedwars';
+        const to = `/${encodeURIComponent(safeDecodeSegment(player))}?${encodeURIComponent(mode)}`;
+        return redirectTo(res, to);
+    } catch {
+        const to = `/${encodeURIComponent(safeDecodeSegment(player))}?bedwars`;
+        return redirectTo(res, to);
+    }
+});
+
+// Canonical: /<clanName> and /<playerNick>?<mode> both load the dashboard UI.
+app.get(/^\/([^/.]+)\/?$/, (req, res, next) => {
+    const name = String(req.params?.[0] || '').trim();
+    if (!name) return next();
+    if (isReservedRootSegment(name)) return next();
+    if (req.isAuthenticated?.() !== true) return redirectToLogin(req, res);
+    return sendPublicFile(res, ['dashboard.html']);
+});
 
 app.get('/dashboard.html', requireAuthPage, (req, res) => redirectTo(res, '/dashboard'));
 app.get('/analytics.html', requireAuthPage, (req, res) => redirectTo(res, '/analytics'));

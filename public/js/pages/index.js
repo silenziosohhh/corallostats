@@ -120,6 +120,18 @@ function renderSearchSkeleton({ root, count = 6 }) {
 }
 
 async function init() {
+  try {
+    const params = new URLSearchParams(window.location.search || "");
+    if (params.get("oauth") === "failed") {
+      showToast("Login Discord fallito. Riprova.", { variant: "error" });
+      params.delete("oauth");
+      const next = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ""}`;
+      window.history.replaceState({}, "", next);
+    }
+  } catch {
+    // ignore
+  }
+
   initTopNavPrefs();
   bindI18n();
   initReveal();

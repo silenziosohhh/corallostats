@@ -170,7 +170,6 @@ function createPublicApiRouter() {
   });
 
   router.get("/clans-ranked", (req, res) => {
-    // Response shape can change (preview/progress). Avoid stale caches.
     res.setHeader("Cache-Control", "no-store");
 
     const clans = store.readWithMeta("clans.json");

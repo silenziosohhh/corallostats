@@ -32,7 +32,6 @@ async function fetchDiscordConnections(accessToken) {
 
 function avatarDecorationUrl(asset) {
   if (!asset) return null;
-  // Discord CDN currently serves avatar decoration presets as PNG (even when the hash starts with "a_").
   return `https://cdn.discordapp.com/avatar-decoration-presets/${asset}.png`;
 }
 

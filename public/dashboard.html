@@ -79,8 +79,14 @@
 
                 <section class="card pad" id="clans" style="margin-top:12px;">
                     <div class="section-head">
-                        <h2>Clans</h2>
+                        <h2 id="list-title">Clans</h2>
                         <div style="display:flex; gap:10px; align-items:center;">
+                            <select class="input" id="dashboard-view" data-ui="select" aria-label="Lista dashboard" style="min-width:220px; flex:0;">
+                                <option value="clans" selected>Clans</option>
+                                <option value="bedwars">BedWars (players)</option>
+                                <option value="duels">Duels (players)</option>
+                                <option value="kitpvp">KitPvP (players)</option>
+                            </select>
                             <span class="pill" id="visible-count">0</span>
                             <button class="btn" id="refresh" type="button">Ricarica</button>
                         </div>

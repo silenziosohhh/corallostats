@@ -7,9 +7,12 @@ import { animateCount } from "../lib/motion.js";
 import { clearSkeletonText, setAriaBusy, setSkeletonText, skelBlock } from "../lib/skeleton.js";
 import { buildDashboardUrl, parseDashboardLocation, sameDashboardUrl } from "./dashboardRoute.js";
 import { modeLabel, normalizeStatsMode, pickGenericStats, pickPlayerAggregateStats, statsEndpointFor } from "./playerStatsRender.js";
+import { coralStatsPageUrl } from "./coralLinks.js";
 
 const state = {
+  view: "clans",
   clans: [],
+  players: [],
   filtered: [],
   page: 1,
   pageSize: 24,
@@ -23,6 +26,10 @@ let lastClanContext = null;
 let playerBackClan = null;
 let currentPlayerUsername = null;
 let currentStatsMode = "bedwars";
+let syncingModeSelects = false;
+let syncingViewSelect = false;
+let summaryMetaText = "—";
+let syncingPagerControls = false;
 
 function loadStatsModePref() {
   try {
@@ -33,12 +40,109 @@ function loadStatsModePref() {
   }
 }
 
+function normalizeDashboardView(view) {
+  const v = String(view || "").toLowerCase().trim();
+  if (v === "bedwars") return "bedwars";
+  if (v === "duels") return "duels";
+  if (v === "kitpvp") return "kitpvp";
+  return "clans";
+}
+
+function loadDashboardViewPref() {
+  try {
+    const v = localStorage.getItem("cs_dashboard_view");
+    return normalizeDashboardView(v);
+  } catch {
+    return "clans";
+  }
+}
+
+function saveDashboardViewPref(view) {
+  try {
+    localStorage.setItem("cs_dashboard_view", normalizeDashboardView(view));
+  } catch {
+    // ignore
+  }
+}
+
+function viewLabel(view) {
+  const v = normalizeDashboardView(view);
+  if (v === "bedwars") return "BedWars (players)";
+  if (v === "duels") return "Duels (players)";
+  if (v === "kitpvp") return "KitPvP (players)";
+  return "Clans";
+}
+
+function syncViewSelect(view) {
+  const sel = qs("#dashboard-view");
+  if (!sel) return;
+  const v = normalizeDashboardView(view);
+  syncingViewSelect = true;
+  try {
+    if (String(sel.value || "") !== v) {
+      sel.value = v;
+      sel.dispatchEvent(new Event("change", { bubbles: true }));
+    }
+  } catch {
+    // ignore
+  } finally {
+    syncingViewSelect = false;
+  }
+}
+
+function syncStatsModeSelects(mode) {
+  const m = normalizeStatsMode(mode);
+  const ids = ["#player-mode"];
+  syncingModeSelects = true;
+  try {
+    for (const id of ids) {
+      const node = qs(id);
+      if (!node) continue;
+      const prev = String(node.value || "");
+      if (prev === m) continue;
+      try {
+        node.value = m;
+        node.dispatchEvent(new Event("change", { bubbles: true }));
+      } catch {
+        // ignore
+      }
+    }
+  } finally {
+    syncingModeSelects = false;
+  }
+}
+
+function syncMembersAriaLabels(mode) {
+  const list = qs("#members-list");
+  if (!list) return;
+  const label = modeLabel(mode);
+  for (const li of list.querySelectorAll("li.member-item[data-username]")) {
+    const username = String(li.dataset.username || "").trim();
+    if (!username) continue;
+    li.setAttribute("aria-label", `Apri stats ${label} di ${username}`);
+  }
+}
+
 function saveStatsModePref(mode) {
   try {
     localStorage.setItem("cs_stats_mode", normalizeStatsMode(mode));
   } catch {
     // ignore
   }
+}
+
+function renderDashboardMeta({ listMeta = null } = {}) {
+  const view = normalizeDashboardView(state.view);
+  if (view === "clans") {
+    setText(qs("#clans-meta"), summaryMetaText || "—");
+    return;
+  }
+
+  const parts = [];
+  if (summaryMetaText && summaryMetaText !== "—") parts.push(summaryMetaText);
+  if (listMeta) parts.push(listMeta);
+  if (!parts.length) parts.push("—");
+  setText(qs("#clans-meta"), parts.join(" • "));
 }
 
 function setDashboardRoute(next, { replace = false } = {}) {
@@ -56,6 +160,14 @@ function setDashboardRoute(next, { replace = false } = {}) {
   const url = buildDashboardUrl(next);
   if (replace) window.history.replaceState({}, "", url);
   else window.history.pushState({}, "", url);
+}
+
+function syncBaseRoute({ replace = true } = {}) {
+  if (currentRoute?.kind !== "base") return;
+  setDashboardRoute(
+    { kind: "base", view: state.view, page: state.page, pageSize: state.pageSize },
+    { replace }
+  );
 }
 
 function debounce(fn, ms) {
@@ -95,7 +207,12 @@ function setupDialog() {
   });
   dialog.addEventListener("close", () => {
     if (applyingRoute) return;
-    if (currentRoute.kind === "clan") setDashboardRoute({ kind: "base" });
+    if (currentRoute.kind === "clan") {
+      setDashboardRoute({ kind: "base", view: state.view, page: state.page, pageSize: state.pageSize });
+      applyDashboardView(state.view, { force: false }).catch(() => {
+        // ignore
+      });
+    }
   });
 }
 
@@ -117,9 +234,11 @@ function setupPlayerDialog() {
       // ignore
     }
     modeSelect.addEventListener("change", () => {
+      if (syncingModeSelects) return;
       const nextMode = normalizeStatsMode(modeSelect.value);
       currentStatsMode = nextMode;
       saveStatsModePref(nextMode);
+      syncMembersAriaLabels(nextMode);
 
       if (!dialog.open) return;
       const username = String(currentPlayerUsername || "").trim();
@@ -136,7 +255,10 @@ function setupPlayerDialog() {
       const clanName = String(playerBackClan || "").trim();
       playerBackClan = null;
       if (!clanName) {
-        setDashboardRoute({ kind: "base" });
+        setDashboardRoute({ kind: "base", view: state.view, page: state.page, pageSize: state.pageSize });
+        applyDashboardView(state.view, { force: false }).catch(() => {
+          // ignore
+        });
         return;
       }
       setDashboardRoute({ kind: "clan", clanName }, { replace: true });
@@ -177,6 +299,7 @@ async function openPlayerDialogUI(username, { mode = "bedwars" } = {}) {
   const statsMode = normalizeStatsMode(mode);
   currentStatsMode = statsMode;
   currentPlayerUsername = String(username || "").trim();
+  syncStatsModeSelects(statsMode);
 
   setText(qs("#player-title"), "Player");
   setText(qs("#player-name"), username || "—");
@@ -199,7 +322,7 @@ async function openPlayerDialogUI(username, { mode = "bedwars" } = {}) {
 
   const skin = qs("#player-skin");
   if (skin) {
-    skin.src = `https://render.crafty.gg/3d/full/${encodeURIComponent(username)}` || `https://minotar.net/avatar/${encodeURIComponent(username)}/160`;
+    skin.src = `https://render.crafty.gg/3d/full/${encodeURIComponent(username)}`;
     skin.alt = "";
     skin.loading = "eager";
     skin.referrerPolicy = "no-referrer";
@@ -216,7 +339,7 @@ async function openPlayerDialogUI(username, { mode = "bedwars" } = {}) {
   }
 
   const coralLink = qs("#player-open-coral");
-  if (coralLink) coralLink.href = `https://coralmc.it/it/stats/player/${encodeURIComponent(username)}`;
+  if (coralLink) coralLink.href = coralStatsPageUrl(username, statsMode);
 
   const clanPill = qs("#player-clan-pill");
   if (clanPill) clanPill.style.display = "none";
@@ -345,6 +468,7 @@ async function openClanDialogUI(clanName) {
   setText(qs("#dialog-subtitle"), "Membri del clan");
   setText(qs("#dialog-status"), "Caricamento…");
   setText(qs("#dialog-xp"), "—");
+  syncStatsModeSelects(currentStatsMode);
   const list = qs("#members-list");
   clear(list);
   setAriaBusy(list, true);
@@ -395,7 +519,8 @@ async function openClanDialogUI(clanName) {
       const li = el("li", { className: "member-item" });
       li.tabIndex = 0;
       li.setAttribute("role", "button");
-      li.setAttribute("aria-label", `Apri stats di ${username}`);
+      li.dataset.username = username;
+      li.setAttribute("aria-label", `Apri stats ${modeLabel(currentStatsMode)} di ${username}`);
       const left = el("div", { className: "member-left" });
       const img = el("img", { className: "mc-avatar" });
       img.loading = "lazy";
@@ -499,7 +624,29 @@ async function applyRoute(route) {
     if (!route || route.kind === "base") {
       closePlayer();
       closeClan();
-      currentRoute = { kind: "base" };
+      const nextView = normalizeDashboardView(route?.view || "clans");
+
+      const nextPage = Math.max(1, Math.floor(Number(route?.page || 1)));
+      const nextSizeRaw = Math.floor(Number(route?.pageSize || 24));
+      const nextPageSize = nextSizeRaw === 12 || nextSizeRaw === 24 || nextSizeRaw === 48 ? nextSizeRaw : 24;
+
+      state.view = nextView;
+      state.page = nextPage;
+      state.pageSize = nextPageSize;
+
+      const pageSizeSelect = qs("#page-size");
+      syncingPagerControls = true;
+      try {
+        pageSizeSelect.value = String(nextPageSize);
+        pageSizeSelect.dispatchEvent(new Event("change", { bubbles: true }));
+      } catch {
+        // ignore
+      } finally {
+        syncingPagerControls = false;
+      }
+
+      currentRoute = { kind: "base", view: nextView, page: nextPage, pageSize: nextPageSize };
+      await applyDashboardView(nextView, { force: false });
       return;
     }
 
@@ -631,11 +778,131 @@ function renderClans(list) {
   );
 }
 
-function applyFilter() {
+function leaderboardItemsFromPayload(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (Array.isArray(payload?.leaderboard)) return payload.leaderboard;
+  if (Array.isArray(payload?.players)) return payload.players;
+  if (Array.isArray(payload?.items)) return payload.items;
+  return [];
+}
+
+function usernameFromLeaderboardItem(item) {
+  if (typeof item === "string") return item.trim() || null;
+  if (!item || typeof item !== "object") return null;
+  const player = item?.player;
+  const v =
+    item.username ||
+    item.name ||
+    item.nick ||
+    item.ign ||
+    (typeof player === "string" ? player : null) ||
+    item?.player?.username ||
+    item?.player?.name ||
+    null;
+  const s = v != null ? String(v).trim() : "";
+  return s || null;
+}
+
+function pickLeaderboardSubtitle(item, idx) {
+  if (!item || typeof item !== "object") return `#${idx + 1}`;
+
+  const candidates = [
+    ["Elo", "elo"],
+    ["Rating", "rating"],
+    ["Score", "score"],
+    ["Points", "points"],
+    ["Wins", "wins"],
+    ["Kills", "kills"],
+  ];
+
+  for (const [label, key] of candidates) {
+    const n = Number(item[key]);
+    if (Number.isFinite(n)) return `#${idx + 1} • ${label}: ${formatInt(n)}`;
+  }
+
+  return `#${idx + 1}`;
+}
+
+function renderPlayers(list) {
+  const total = list.length;
+  const totalPages = Math.max(1, Math.ceil(total / state.pageSize));
+  if (state.page > totalPages) state.page = totalPages;
+  if (state.page < 1) state.page = 1;
+
+  const start = (state.page - 1) * state.pageSize;
+  const end = Math.min(start + state.pageSize, total);
+  const pageItems = list.slice(start, end);
+
+  const container = qs("#clan-container");
+  clear(container);
+
+  const mode = normalizeDashboardView(state.view);
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < pageItems.length; i++) {
+    const it = pageItems[i];
+    const username = String(it?.username || "").trim();
+    if (!username) continue;
+
+    const card = el("article", { className: "card clan" });
+    const left = el("div");
+    const subtitle = pickLeaderboardSubtitle(it?.raw, it?.rank ?? start + i);
+
+    const skinUrl = `https://minotar.net/avatar/${encodeURIComponent(username)}/32`;
+    const head = el("div", { className: "member-left" });
+    const img = el("img", { className: "mc-avatar" });
+    img.loading = "lazy";
+    img.alt = "";
+    img.src = skinUrl;
+    img.referrerPolicy = "no-referrer";
+    head.append(img, el("div", { className: "member-name", text: username }));
+
+    left.append(head, el("div", { className: "muted", text: subtitle }));
+
+    const right = el("div", { style: "display:flex; gap:10px; align-items:center;" });
+    const btn = el("button", { className: "btn primary", type: "button", text: "Dettagli" });
+    btn.addEventListener("click", () => {
+      openPlayerRoute(username, { fromClan: null, mode }).catch(() => {
+        // ignore
+      });
+    });
+    right.append(btn);
+
+    card.append(left, right);
+    frag.append(card);
+  }
+  container.append(frag);
+
+  setText(qs("#visible-count"), `${total}`);
+
+  const prev = qs("#page-prev");
+  const next = qs("#page-next");
+  prev.disabled = state.page <= 1;
+  next.disabled = state.page >= totalPages;
+  setText(
+    qs("#page-meta"),
+    total === 0 ? "Nessun risultato" : `Pagina ${state.page} / ${totalPages} • Mostro ${start + 1}-${end} di ${total}`
+  );
+}
+
+function renderCurrent() {
+  const view = normalizeDashboardView(state.view);
+  if (view === "clans") return renderClans(state.filtered);
+  return renderPlayers(state.filtered);
+}
+
+function applyFilter({ resetPage = true, syncUrl = true } = {}) {
   const term = qs("#search").value.trim().toLowerCase();
-  state.filtered = term ? state.clans.filter((c) => c.toLowerCase().includes(term)) : [...state.clans];
-  state.page = 1;
-  renderClans(state.filtered);
+  const view = normalizeDashboardView(state.view);
+  if (view === "clans") {
+    state.filtered = term ? state.clans.filter((c) => c.toLowerCase().includes(term)) : [...state.clans];
+  } else {
+    state.filtered = term
+      ? state.players.filter((p) => String(p?.username || "").toLowerCase().includes(term))
+      : [...state.players];
+  }
+  if (resetPage) state.page = 1;
+  renderCurrent();
+  if (syncUrl) syncBaseRoute({ replace: true });
 }
 
 async function loadSummary() {
@@ -660,7 +927,8 @@ async function loadSummary() {
       summary.updatedAt != null && summary.clansCount != null
         ? `Dataset: ${summary.clansCount} clan`
         : "Dataset non pronto (metadata mancante?)";
-    setText(qs("#clans-meta"), meta);
+    summaryMetaText = meta;
+    renderDashboardMeta();
   } finally {
     clearSkeletonText(qs("#updated-at"));
     clearSkeletonText(qs("#duration"));
@@ -716,8 +984,10 @@ async function loadClans({ silent = false } = {}) {
     const changed = !sameStringArray(state.clans, nextClans);
     state.clans = nextClans;
     state.clanPreview = !Array.isArray(payload) && payload?.preview ? payload.preview : {};
-    if (!silent || changed) applyFilter();
-    if (silent && !changed) renderClans(state.filtered);
+
+    if (normalizeDashboardView(state.view) !== "clans") return;
+    if (!silent || changed) applyFilter({ resetPage: false, syncUrl: false });
+    if (silent && !changed) renderCurrent();
 
     const meta = payload && !Array.isArray(payload) ? payload.meta : null;
     if (meta?.building && meta?.covered < meta?.total) {
@@ -739,6 +1009,101 @@ async function loadClans({ silent = false } = {}) {
   } finally {
     setAriaBusy(container, false);
   }
+}
+
+async function loadLeaderboard(view, { silent = false } = {}) {
+  const mode = normalizeDashboardView(view);
+  if (mode === "clans") return false;
+
+  const container = qs("#clan-container");
+  setAriaBusy(container, !silent);
+
+  if (!silent) {
+    container.innerHTML = "";
+    const skelCount = Math.max(12, Math.min(36, state.pageSize || 24));
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < skelCount; i++) {
+      const card = el("article", { className: "card clan" });
+      const left = el("div");
+      left.append(
+        skelBlock({ widthPct: 48, height: 14, radius: 10, className: "skel-text skel-block" }),
+        skelBlock({ widthPct: 66, height: 12, radius: 10, className: "skel-text skel-block" })
+      );
+      const right = el("div", { style: "display:flex; gap:10px; align-items:center;" });
+      right.append(skelBlock({ widthPct: 26, height: 34, radius: 14, className: "skel-text skel-inline" }));
+      card.append(left, right);
+      frag.append(card);
+    }
+    container.append(frag);
+  }
+
+  try {
+    const payload = await api.getJson(`/api/v1/stats/${encodeURIComponent(mode)}/leaderboard`, { cache: "no-store" });
+    const items = leaderboardItemsFromPayload(payload);
+
+    const normalized = [];
+    for (let i = 0; i < items.length; i++) {
+      const raw = items[i];
+      const username = usernameFromLeaderboardItem(raw);
+      if (!username) continue;
+      normalized.push({ username, raw, rank: i });
+    }
+
+    state.players = normalized;
+    if (normalizeDashboardView(state.view) !== mode) return true;
+
+    renderDashboardMeta({ listMeta: `Lista: ${viewLabel(mode)} • ${normalized.length} player` });
+    applyFilter({ resetPage: false, syncUrl: false });
+    return true;
+  } catch (err) {
+    state.players = [];
+    if (normalizeDashboardView(state.view) === mode) {
+      renderDashboardMeta({ listMeta: `Lista: ${viewLabel(mode)} • errore` });
+      applyFilter({ resetPage: false, syncUrl: false });
+    }
+    showToast(err?.message || "Errore", { variant: "error" });
+    return false;
+  } finally {
+    setAriaBusy(container, false);
+  }
+}
+
+async function applyDashboardView(view, { force = false } = {}) {
+  const nextView = normalizeDashboardView(view);
+  if (!force && state.view === nextView) {
+    syncViewSelect(nextView);
+    setText(qs("#list-title"), nextView === "clans" ? "Clans" : "Players");
+    qs("#search").setAttribute("placeholder", nextView === "clans" ? "Cerca clan…" : "Cerca player…");
+    renderDashboardMeta();
+
+    const needsLoad =
+      (nextView === "clans" && (!Array.isArray(state.clans) || state.clans.length === 0)) ||
+      (nextView !== "clans" && (!Array.isArray(state.players) || state.players.length === 0));
+
+    if (needsLoad) {
+      if (nextView === "clans") await loadClans({ silent: false });
+      else await loadLeaderboard(nextView, { silent: false });
+      return;
+    }
+
+    applyFilter({ resetPage: false, syncUrl: false });
+    return;
+  }
+
+  state.view = nextView;
+  saveDashboardViewPref(nextView);
+  syncViewSelect(nextView);
+  setText(qs("#list-title"), nextView === "clans" ? "Clans" : "Players");
+  qs("#search").setAttribute("placeholder", nextView === "clans" ? "Cerca clan…" : "Cerca player…");
+  state.page = 1;
+
+  if (nextView === "clans") {
+    renderDashboardMeta();
+    await loadClans({ silent: false });
+    return;
+  }
+
+  await loadLeaderboard(nextView, { silent: false });
 }
 
 async function runTester() {
@@ -764,34 +1129,62 @@ export function mount() {
   setupPlayerDialog();
 
   currentStatsMode = loadStatsModePref();
+  syncStatsModeSelects(currentStatsMode);
+  state.view = "clans";
+  syncViewSelect("clans");
 
   enhanceSelect(qs("#page-size"));
   enhanceSelect(qs("#tester-endpoint"), { buttonText: (label) => label.replace(/^GET\\s+/i, "") });
   enhanceSelect(qs("#player-mode"), { buttonText: (label) => label });
+  enhanceSelect(qs("#dashboard-view"), { buttonText: (label) => label });
 
-  qs("#search").addEventListener("input", debounce(applyFilter, 90));
+  const viewSelect = qs("#dashboard-view");
+  viewSelect.addEventListener("change", () => {
+    if (syncingViewSelect) return;
+    const nextView = normalizeDashboardView(viewSelect.value);
+    state.page = 1;
+    setDashboardRoute({ kind: "base", view: nextView, page: 1, pageSize: state.pageSize });
+    applyDashboardView(nextView, { force: true }).catch(() => {
+      // ignore
+    });
+  });
+
+  qs("#search").addEventListener(
+    "input",
+    debounce(() => {
+      applyFilter({ resetPage: true, syncUrl: true });
+    }, 90)
+  );
 
   const pageSizeSelect = qs("#page-size");
   state.pageSize = Number(pageSizeSelect.value) || 24;
 
   qs("#page-prev").addEventListener("click", () => {
     state.page -= 1;
-    renderClans(state.filtered);
+    renderCurrent();
+    syncBaseRoute({ replace: true });
   });
   qs("#page-next").addEventListener("click", () => {
     state.page += 1;
-    renderClans(state.filtered);
+    renderCurrent();
+    syncBaseRoute({ replace: true });
   });
   pageSizeSelect.addEventListener("change", () => {
+    if (syncingPagerControls) return;
     const v = Number(pageSizeSelect.value);
     state.pageSize = Number.isFinite(v) ? Math.max(6, Math.min(96, v)) : 24;
     state.page = 1;
-    renderClans(state.filtered);
+    renderCurrent();
+    syncBaseRoute({ replace: true });
   });
 
   qs("#refresh").addEventListener("click", async () => {
     try {
-      await Promise.all([loadSummary(), loadClans({ silent: false })]);
+      const v = normalizeDashboardView(state.view);
+      await Promise.all([
+        loadSummary(),
+        v === "clans" ? loadClans({ silent: false }) : loadLeaderboard(v, { silent: false }),
+      ]);
       showToast("Aggiornato");
     } catch (err) {
       showToast(err?.message || "Errore", { variant: "error" });
@@ -819,7 +1212,7 @@ export function mount() {
 
   window.addEventListener("popstate", onPopState);
 
-  return Promise.all([loadSummary(), loadClans({ silent: false })]).then(async () => {
+  return Promise.all([loadSummary()]).then(async () => {
     const initial = parseDashboardLocation(window.location);
     currentRoute = initial;
     await applyRoute(initial);

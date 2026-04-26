@@ -8,6 +8,20 @@ function titleCaseKey(key) {
   return s.replace(/\b\w/g, (m) => m.toUpperCase());
 }
 
+function labelOverride(key) {
+  const k = String(key || "").trim().toLowerCase();
+  const map = {
+    "globalstats.totalplays": "Partite giocate",
+  };
+  return map[k] || null;
+}
+
+function labelForKey(key) {
+  const ov = labelOverride(key);
+  if (ov) return ov;
+  return titleCaseKey(key);
+}
+
 function formatDateTimeIt(value) {
   if (value === null || value === undefined || value === "") return "—";
 
@@ -73,9 +87,9 @@ export function pickPlayerAggregateStats(data) {
     if (known.has(key.toLowerCase())) continue;
     if (v === null || v === undefined) continue;
 
-    if (typeof v === "boolean") extras.push([titleCaseKey(key), v ? "Sì" : "No"]);
-    else if (typeof v === "number" && Number.isFinite(v)) extras.push([titleCaseKey(key), v]);
-    else if (typeof v === "string" && v.trim()) extras.push([titleCaseKey(key), v.trim()]);
+    if (typeof v === "boolean") extras.push([labelForKey(key), v ? "Sì" : "No"]);
+    else if (typeof v === "number" && Number.isFinite(v)) extras.push([labelForKey(key), v]);
+    else if (typeof v === "string" && v.trim()) extras.push([labelForKey(key), v.trim()]);
   }
 
   return extras.length ? [...rows, ...extras] : rows;
@@ -121,7 +135,7 @@ export function pickGenericStats(data, { limit = 20 } = {}) {
   const out = [];
   for (const [k, v] of merged) {
     if (out.length >= limit) break;
-    out.push([titleCaseKey(k), v]);
+    out.push([labelForKey(k), v]);
   }
   return out;
 }

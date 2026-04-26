@@ -1,5 +1,27 @@
 import { normalizeStatsMode } from "./playerStatsRender.js";
 
+function normalizeDashboardView(view) {
+  const v = String(view || "").toLowerCase().trim();
+  if (v === "bedwars") return "bedwars";
+  if (v === "duels") return "duels";
+  if (v === "kitpvp") return "kitpvp";
+  return "clans";
+}
+
+function normalizeBasePage(raw) {
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return 1;
+  return Math.max(1, Math.floor(n));
+}
+
+function normalizeBasePageSize(raw) {
+  const n = Number(raw);
+  if (!Number.isFinite(n)) return 24;
+  const v = Math.floor(n);
+  if (v === 12 || v === 24 || v === 48) return v;
+  return 24;
+}
+
 function safeDecode(segment) {
   try {
     return decodeURIComponent(String(segment || ""));
@@ -10,6 +32,30 @@ function safeDecode(segment) {
 
 function safeEncode(segment) {
   return encodeURIComponent(String(segment || ""));
+}
+
+function parseViewFromSearch(search) {
+  const s = String(search || "");
+  if (!s || s === "?") return "clans";
+  const params = new URLSearchParams(s);
+  const v = params.get("view") || params.get("list") || null;
+  return normalizeDashboardView(v);
+}
+
+function parsePageFromSearch(search) {
+  const s = String(search || "");
+  if (!s || s === "?") return 1;
+  const params = new URLSearchParams(s);
+  const p = params.get("page") || params.get("p") || null;
+  return normalizeBasePage(p || 1);
+}
+
+function parsePageSizeFromSearch(search) {
+  const s = String(search || "");
+  if (!s || s === "?") return 24;
+  const params = new URLSearchParams(s);
+  const ps = params.get("size") || params.get("ps") || params.get("pageSize") || null;
+  return normalizeBasePageSize(ps || 24);
 }
 
 function parseModeFromSearch(search) {
@@ -34,7 +80,14 @@ export function parseDashboardLocation(loc = window.location) {
   const search = String(loc?.search || "");
 
   const base = "/dashboard";
-  if (pathname === "/" || pathname === base || pathname === `${base}/`) return { kind: "base" };
+  if (pathname === base || pathname === `${base}/`) {
+    return {
+      kind: "base",
+      view: parseViewFromSearch(search),
+      page: parsePageFromSearch(search),
+      pageSize: parsePageSizeFromSearch(search),
+    };
+  }
 
   const modeFromSearch = parseModeFromSearch(search);
 
@@ -70,7 +123,20 @@ export function parseDashboardLocation(loc = window.location) {
 }
 
 export function buildDashboardUrl(route) {
-  if (!route || route.kind === "base") return "/dashboard";
+  if (!route || route.kind === "base") {
+    const view = normalizeDashboardView(route?.view);
+    const page = normalizeBasePage(route?.page || 1);
+    const pageSize = normalizeBasePageSize(route?.pageSize || 24);
+
+    const params = new URLSearchParams();
+    if (view !== "clans") params.set("view", view);
+    if (page > 1) params.set("page", String(page));
+    if (pageSize !== 24) params.set("size", String(pageSize));
+
+    const q = params.toString();
+    if (q) return `/dashboard?${q}`;
+    return "/dashboard";
+  }
 
   if (route.kind === "clan") return `/${safeEncode(route.clanName)}`;
   if (route.kind === "player") {

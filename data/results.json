@@ -137,11 +137,11 @@
         "role": 0
       },
       {
-        "username": "Ale_spara",
+        "username": "titis23",
         "role": 0
       },
       {
-        "username": "titis23",
+        "username": "Ale_spara",
         "role": 0
       },
       {
@@ -561,10 +561,6 @@
         "role": 0
       },
       {
-        "username": "Shoy_zenese",
-        "role": 0
-      },
-      {
         "username": "Kkalash",
         "role": 0
       },
@@ -629,6 +625,10 @@
         "role": 0
       },
       {
+        "username": "Dialettica",
+        "role": 0
+      },
+      {
         "username": "solesme",
         "role": 0
       },
@@ -641,7 +641,15 @@
         "role": 0
       },
       {
+        "username": "GiuliaStorti",
+        "role": 0
+      },
+      {
         "username": "Cherrycougar29",
+        "role": 0
+      },
+      {
+        "username": "godnxxss",
         "role": 0
       },
       {
@@ -653,11 +661,11 @@
         "role": 0
       },
       {
-        "username": "jassinoo",
+        "username": "nicolas__11",
         "role": 0
       },
       {
-        "username": "nicolas__11",
+        "username": "jassinoo",
         "role": 0
       },
       {
@@ -669,15 +677,7 @@
         "role": 0
       },
       {
-        "username": "gennaro_13",
-        "role": 0
-      },
-      {
         "username": "17yr",
-        "role": 0
-      },
-      {
-        "username": "ErMiticoStorto",
         "role": 0
       },
       {
@@ -692,74 +692,7 @@
   },
   {
     "username": "RedTiger__",
-    "clan": "Nebula",
-    "membersCount": 16,
-    "members": [
-      {
-        "username": "Justnute",
-        "role": 3
-      },
-      {
-        "username": "Saetta1234",
-        "role": 1
-      },
-      {
-        "username": "i4cop0_x09",
-        "role": 1
-      },
-      {
-        "username": "RedTiger__",
-        "role": 0
-      },
-      {
-        "username": "y6ix_",
-        "role": 0
-      },
-      {
-        "username": "Therealkikk",
-        "role": 0
-      },
-      {
-        "username": "Swamp101_",
-        "role": 0
-      },
-      {
-        "username": "Elia2009Ita",
-        "role": 0
-      },
-      {
-        "username": "Particolare__",
-        "role": 0
-      },
-      {
-        "username": "Vqlty",
-        "role": 0
-      },
-      {
-        "username": "Zenithql",
-        "role": 0
-      },
-      {
-        "username": "oLatios",
-        "role": 0
-      },
-      {
-        "username": "ImAnnaaa_",
-        "role": 0
-      },
-      {
-        "username": "vKean",
-        "role": 0
-      },
-      {
-        "username": "MinecraftCuboso",
-        "role": 0
-      },
-      {
-        "username": "Benedettino",
-        "role": 0
-      }
-    ]
+    "clan": null
   },
   {
     "username": "Spadaccino2017",
@@ -1220,11 +1153,11 @@
         "role": 0
       },
       {
-        "username": "matrixx9",
+        "username": "MatsITA",
         "role": 0
       },
       {
-        "username": "MatsITA",
+        "username": "matrixx9",
         "role": 0
       },
       {
@@ -1240,19 +1173,19 @@
         "role": 0
       },
       {
-        "username": "xxryzexx",
-        "role": 0
-      },
-      {
         "username": "_ShadowWalk_",
         "role": 0
       },
       {
-        "username": "sonoZorooooo",
+        "username": "xxryzexx",
         "role": 0
       },
       {
         "username": "il_thiaghittoita",
+        "role": 0
+      },
+      {
+        "username": "sonoZorooooo",
         "role": 0
       },
       {
@@ -1363,11 +1296,11 @@
         "role": 0
       },
       {
-        "username": "FelpaScura",
+        "username": "Felpa1987",
         "role": 0
       },
       {
-        "username": "Felpa1987",
+        "username": "FelpaScura",
         "role": 0
       },
       {
@@ -1375,11 +1308,11 @@
         "role": 0
       },
       {
-        "username": "quittMinecraft",
+        "username": "Determinazione",
         "role": 0
       },
       {
-        "username": "Determinazione",
+        "username": "quittMinecraft",
         "role": 0
       }
     ]
@@ -1460,7 +1393,7 @@
   {
     "username": "samyRimini",
     "clan": "Tits",
-    "membersCount": 43,
+    "membersCount": 42,
     "members": [
       {
         "username": "mini4xel",
@@ -1583,19 +1516,15 @@
         "role": 0
       },
       {
-        "username": "ImUsingMisplace",
-        "role": 0
-      },
-      {
         "username": "Capufa",
         "role": 0
       },
       {
-        "username": "Lasty78",
+        "username": "ImUsingMisplace",
         "role": 0
       },
       {
-        "username": "Innevato_",
+        "username": "Lasty78",
         "role": 0
       },
       {
@@ -1664,6 +1593,73 @@
     "clan": null
   },
   {
+    "username": "Justnute",
+    "clan": "Nebula",
+    "membersCount": 15,
+    "members": [
+      {
+        "username": "Justnute",
+        "role": 3
+      },
+      {
+        "username": "Saetta1234",
+        "role": 1
+      },
+      {
+        "username": "i4cop0_x09",
+        "role": 1
+      },
+      {
+        "username": "y6ix_",
+        "role": 0
+      },
+      {
+        "username": "Therealkikk",
+        "role": 0
+      },
+      {
+        "username": "Swamp101_",
+        "role": 0
+      },
+      {
+        "username": "Elia2009Ita",
+        "role": 0
+      },
+      {
+        "username": "Particolare__",
+        "role": 0
+      },
+      {
+        "username": "Vqlty",
+        "role": 0
+      },
+      {
+        "username": "Zenithql",
+        "role": 0
+      },
+      {
+        "username": "oLatios",
+        "role": 0
+      },
+      {
+        "username": "ImAnnaaa_",
+        "role": 0
+      },
+      {
+        "username": "vKean",
+        "role": 0
+      },
+      {
+        "username": "MinecraftCuboso",
+        "role": 0
+      },
+      {
+        "username": "Benedettino",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "JustGiulyyy",
     "clan": "DioKai",
     "membersCount": 5,
@@ -1693,7 +1689,7 @@
   {
     "username": "Kheryx_",
     "clan": "Anything",
-    "membersCount": 32,
+    "membersCount": 31,
     "members": [
       {
         "username": "Kheryx_",
@@ -1769,10 +1765,6 @@
       },
       {
         "username": "BigDip88",
-        "role": 0
-      },
-      {
-        "username": "Kxshwastaken",
         "role": 0
       },
       {
@@ -1911,11 +1903,11 @@
         "role": 0
       },
       {
-        "username": "Okyra",
+        "username": "Tryings",
         "role": 0
       },
       {
-        "username": "Tryings",
+        "username": "Okyra",
         "role": 0
       },
       {
@@ -2118,7 +2110,7 @@
   {
     "username": "_Quaranta_",
     "clan": "Omnis",
-    "membersCount": 16,
+    "membersCount": 17,
     "members": [
       {
         "username": "Fabry283_",
@@ -2169,6 +2161,10 @@
         "role": 0
       },
       {
+        "username": "fed_21",
+        "role": 0
+      },
+      {
         "username": "Ns5uno",
         "role": 0
       },
@@ -2189,7 +2185,7 @@
   {
     "username": "Dani3le_MC",
     "clan": "5LAYER",
-    "membersCount": 47,
+    "membersCount": 45,
     "members": [
       {
         "username": "Sulwaa",
@@ -2264,10 +2260,6 @@
         "role": 0
       },
       {
-        "username": "salamalekum209",
-        "role": 0
-      },
-      {
         "username": "Arcangel1899",
         "role": 0
       },
@@ -2276,11 +2268,11 @@
         "role": 0
       },
       {
-        "username": "rrasgb",
+        "username": "JustPio",
         "role": 0
       },
       {
-        "username": "JustPio",
+        "username": "rrasgb",
         "role": 0
       },
       {
@@ -2296,11 +2288,11 @@
         "role": 0
       },
       {
-        "username": "Infinity2819",
+        "username": "WolfKiller7",
         "role": 0
       },
       {
-        "username": "WolfKiller7",
+        "username": "Infinity2819",
         "role": 0
       },
       {
@@ -2316,11 +2308,11 @@
         "role": 0
       },
       {
-        "username": "dadocacca104",
+        "username": "SonoAlex9832",
         "role": 0
       },
       {
-        "username": "SonoAlex9832",
+        "username": "dadocacca104",
         "role": 0
       },
       {
@@ -2328,15 +2320,11 @@
         "role": 0
       },
       {
-        "username": "manda_mam",
-        "role": 0
-      },
-      {
         "username": "scyde",
         "role": 0
       },
       {
-        "username": "08451",
+        "username": "manda_mam",
         "role": 0
       },
       {
@@ -2348,11 +2336,11 @@
         "role": 0
       },
       {
-        "username": "Pecora90",
+        "username": "Skary_15",
         "role": 0
       },
       {
-        "username": "Skary_15",
+        "username": "Pecora90",
         "role": 0
       },
       {
@@ -2368,11 +2356,11 @@
         "role": 0
       },
       {
-        "username": "biondino_12",
+        "username": "GoofySblop",
         "role": 0
       },
       {
-        "username": "GoofySblop",
+        "username": "biondino_12",
         "role": 0
       },
       {
@@ -2502,6 +2490,10 @@
         "role": 0
       },
       {
+        "username": "Arkimede82",
+        "role": 0
+      },
+      {
         "username": "simpaticissimo",
         "role": 0
       },
@@ -2510,19 +2502,15 @@
         "role": 0
       },
       {
-        "username": "Arkimede82",
-        "role": 0
-      },
-      {
         "username": "mattonella2945",
         "role": 0
       },
       {
-        "username": "AlesTech",
+        "username": "150Htz",
         "role": 0
       },
       {
-        "username": "150Htz",
+        "username": "AlesTech",
         "role": 0
       },
       {
@@ -2604,7 +2592,7 @@
   {
     "username": "affogati",
     "clan": "IAmMusic",
-    "membersCount": 38,
+    "membersCount": 37,
     "members": [
       {
         "username": "affogati",
@@ -2695,19 +2683,15 @@
         "role": 0
       },
       {
-        "username": "Requested",
-        "role": 0
-      },
-      {
         "username": "Fum4to",
         "role": 0
       },
       {
-        "username": "dissimulazione",
+        "username": "zorvaxs",
         "role": 0
       },
       {
-        "username": "zorvaxs",
+        "username": "dissimulazione",
         "role": 0
       },
       {
@@ -2723,19 +2707,15 @@
         "role": 0
       },
       {
-        "username": "Serioh",
-        "role": 0
-      },
-      {
         "username": "Precisioniste",
         "role": 0
       },
       {
-        "username": "laauma",
+        "username": "Serioh",
         "role": 0
       },
       {
-        "username": "FiatTipo",
+        "username": "laauma",
         "role": 0
       },
       {
@@ -2747,15 +2727,19 @@
         "role": 0
       },
       {
+        "username": "FiatTipo",
+        "role": 0
+      },
+      {
+        "username": "FanN1DixAlepux",
+        "role": 0
+      },
+      {
         "username": "CoLorsOs_",
         "role": 0
       },
       {
         "username": "yereu",
-        "role": 0
-      },
-      {
-        "username": "FanN1DixAlepux",
         "role": 0
       }
     ]
@@ -2872,11 +2856,15 @@
   {
     "username": "gamer12_000",
     "clan": "AntiKB",
-    "membersCount": 17,
+    "membersCount": 16,
     "members": [
       {
         "username": "gamer12_000",
         "role": 3
+      },
+      {
+        "username": "Dani_0908",
+        "role": 0
       },
       {
         "username": "N0Healing_",
@@ -2892,10 +2880,6 @@
       },
       {
         "username": "IGRIS_LEVEL",
-        "role": 0
-      },
-      {
-        "username": "GiuliaStorti",
         "role": 0
       },
       {
@@ -2927,15 +2911,11 @@
         "role": 0
       },
       {
-        "username": "LVSN09",
-        "role": 0
-      },
-      {
         "username": "BongHeavyHitter",
         "role": 0
       },
       {
-        "username": "Encryptnebula61",
+        "username": "LVSN09",
         "role": 0
       },
       {
@@ -3005,7 +2985,7 @@
   {
     "username": "AyoMazzo",
     "clan": "Aetherion",
-    "membersCount": 31,
+    "membersCount": 29,
     "members": [
       {
         "username": "SqualSolos",
@@ -3036,10 +3016,6 @@
         "role": 0
       },
       {
-        "username": "NotHerobrine1",
-        "role": 0
-      },
-      {
         "username": "marioparide",
         "role": 0
       },
@@ -3049,10 +3025,6 @@
       },
       {
         "username": "ILY24",
-        "role": 0
-      },
-      {
-        "username": "6acc",
         "role": 0
       },
       {
@@ -3413,11 +3385,15 @@
         "role": 0
       },
       {
+        "username": "Zerythos",
+        "role": 0
+      },
+      {
         "username": "Camomillah_",
         "role": 0
       },
       {
-        "username": "Zerythos",
+        "username": "Pxmpers",
         "role": 0
       },
       {
@@ -3426,10 +3402,6 @@
       },
       {
         "username": "tripegga",
-        "role": 0
-      },
-      {
-        "username": "Pxmpers",
         "role": 0
       },
       {
@@ -3638,7 +3610,7 @@
   {
     "username": "PHYiiXz",
     "clan": "Alicers",
-    "membersCount": 4,
+    "membersCount": 6,
     "members": [
       {
         "username": "JustFr4",
@@ -3654,6 +3626,14 @@
       },
       {
         "username": "Obvir",
+        "role": 0
+      },
+      {
+        "username": ".MUCHUOGUSTO",
+        "role": 0
+      },
+      {
+        "username": "105pm",
         "role": 0
       }
     ]
@@ -3842,43 +3822,142 @@
   },
   {
     "username": "dislessiq",
-    "clan": "41bis",
-    "membersCount": 9,
+    "clan": "bar3oush",
+    "membersCount": 27,
     "members": [
       {
-        "username": "GIOVANIPAOLO21",
+        "username": "Zvik",
         "role": 3
       },
       {
+        "username": "onlyymoon",
+        "role": 2
+      },
+      {
+        "username": "Amelie",
+        "role": 2
+      },
+      {
         "username": "dislessiq",
-        "role": 2
-      },
-      {
-        "username": "xX_Nizar_Xx",
-        "role": 2
-      },
-      {
-        "username": "91e2182kje2",
-        "role": 2
-      },
-      {
-        "username": "Aearth",
-        "role": 2
-      },
-      {
-        "username": "MatteoproO9",
-        "role": 2
-      },
-      {
-        "username": "Feryzz1",
-        "role": 1
-      },
-      {
-        "username": "Zvik",
         "role": 0
       },
       {
-        "username": "StellarZebra3942",
+        "username": "leoimpa",
+        "role": 0
+      },
+      {
+        "username": "ANTOGAMER13",
+        "role": 0
+      },
+      {
+        "username": "Matteo2513",
+        "role": 0
+      },
+      {
+        "username": "Mansiquel9",
+        "role": 0
+      },
+      {
+        "username": "NotHerobrine1",
+        "role": 0
+      },
+      {
+        "username": "6acc",
+        "role": 0
+      },
+      {
+        "username": "Samuletto29",
+        "role": 0
+      },
+      {
+        "username": "FlackGamer0",
+        "role": 0
+      },
+      {
+        "username": "Kafff",
+        "role": 0
+      },
+      {
+        "username": "Supreme2318",
+        "role": 0
+      },
+      {
+        "username": "Kxshwastaken",
+        "role": 0
+      },
+      {
+        "username": "salamalekum209",
+        "role": 0
+      },
+      {
+        "username": "matxe24",
+        "role": 0
+      },
+      {
+        "username": "mouhamougame",
+        "role": 0
+      },
+      {
+        "username": "CoinMarket",
+        "role": 0
+      },
+      {
+        "username": "Requested",
+        "role": 0
+      },
+      {
+        "username": "08451",
+        "role": 0
+      },
+      {
+        "username": "qultura",
+        "role": 0
+      },
+      {
+        "username": "gabri_77YT",
+        "role": 0
+      },
+      {
+        "username": "hope_despair",
+        "role": 0
+      },
+      {
+        "username": "_LusCamp_",
+        "role": 0
+      },
+      {
+        "username": "KristianLabianca",
+        "role": 0
+      },
+      {
+        "username": "J0shJSW",
+        "role": 0
+      }
+    ]
+  },
+  {
+    "username": "Seal_15",
+    "clan": "Luftwaffe",
+    "membersCount": 5,
+    "members": [
+      {
+        "username": "Seal_15",
+        "role": 3
+      },
+      {
+        "username": "RattoMafioso",
+        "role": 0
+      },
+      {
+        "username": "Seventeen167",
+        "role": 0
+      },
+      {
+        "username": "Twenty167",
+        "role": 0
+      },
+      {
+        "username": "piccionespennato",
         "role": 0
       }
     ]
@@ -3957,15 +4036,15 @@
         "role": 0
       },
       {
+        "username": "goatedhawke_",
+        "role": 0
+      },
+      {
         "username": "JYLO0",
         "role": 0
       },
       {
         "username": "qtrayaan",
-        "role": 0
-      },
-      {
-        "username": "goatedhawke_",
         "role": 0
       }
     ]
@@ -4082,33 +4161,6 @@
     ]
   },
   {
-    "username": "Seal_15",
-    "clan": "Luftwaffe",
-    "membersCount": 5,
-    "members": [
-      {
-        "username": "Seal_15",
-        "role": 3
-      },
-      {
-        "username": "RattoMafioso",
-        "role": 0
-      },
-      {
-        "username": "Seventeen167",
-        "role": 0
-      },
-      {
-        "username": "Twenty167",
-        "role": 0
-      },
-      {
-        "username": "piccionespennato",
-        "role": 0
-      }
-    ]
-  },
-  {
     "username": "universalprince",
     "clan": null
   },
@@ -4165,6 +4217,10 @@
         "role": 0
       }
     ]
+  },
+  {
+    "username": "amanaspirina",
+    "clan": null
   },
   {
     "username": "Rapuuuu",
@@ -4294,10 +4350,6 @@
     ]
   },
   {
-    "username": "amanaspirina",
-    "clan": null
-  },
-  {
     "username": "Sakuyaw",
     "clan": null
   },
@@ -4398,15 +4450,15 @@
         "role": 0
       },
       {
-        "username": "Masterix01",
-        "role": 0
-      },
-      {
         "username": "Eren_Jeager",
         "role": 0
       },
       {
         "username": "NotFana_v2",
+        "role": 0
+      },
+      {
+        "username": "Masterix01",
         "role": 0
       }
     ]
@@ -4708,7 +4760,7 @@
   {
     "username": "dxnovan",
     "clan": "Cuenta",
-    "membersCount": 50,
+    "membersCount": 49,
     "members": [
       {
         "username": "FOWKZ",
@@ -4807,15 +4859,11 @@
         "role": 0
       },
       {
-        "username": "lucat79",
-        "role": 0
-      },
-      {
         "username": "SimplyItz",
         "role": 0
       },
       {
-        "username": "Dialettica",
+        "username": "lucat79",
         "role": 0
       },
       {
@@ -4867,11 +4915,11 @@
         "role": 0
       },
       {
-        "username": "wSaiko",
+        "username": "_WeiKr",
         "role": 0
       },
       {
-        "username": "_WeiKr",
+        "username": "wSaiko",
         "role": 0
       },
       {
@@ -4887,19 +4935,19 @@
         "role": 0
       },
       {
-        "username": "_SCG_Cobra",
-        "role": 0
-      },
-      {
         "username": "BYGUNZ",
         "role": 0
       },
       {
-        "username": "Rocket22",
+        "username": "_SCG_Cobra",
         "role": 0
       },
       {
         "username": "0P0Z",
+        "role": 0
+      },
+      {
+        "username": "Rocket22",
         "role": 0
       },
       {
@@ -4917,10 +4965,6 @@
     "clan": null
   },
   {
-    "username": "leoimpa",
-    "clan": null
-  },
-  {
     "username": "XioN_BlackSebo",
     "clan": "AGEM",
     "membersCount": 1,
@@ -4930,10 +4974,6 @@
         "role": 3
       }
     ]
-  },
-  {
-    "username": "ANTOGAMER13",
-    "clan": null
   },
   {
     "username": "latticinii",
@@ -5084,15 +5124,15 @@
         "role": 0
       },
       {
-        "username": "TheHippopotamus_",
-        "role": 0
-      },
-      {
         "username": "MostroDellaTorta",
         "role": 0
       },
       {
         "username": "MaxClappedYou_",
+        "role": 0
+      },
+      {
+        "username": "TheHippopotamus_",
         "role": 0
       },
       {
@@ -5159,11 +5199,11 @@
         "role": 0
       },
       {
-        "username": "Zqlc",
+        "username": "Marocchinoo",
         "role": 0
       },
       {
-        "username": "Marocchinoo",
+        "username": "Zqlc",
         "role": 0
       }
     ]
@@ -5326,65 +5366,6 @@
     ]
   },
   {
-    "username": "Matteo2513",
-    "clan": "Opposition",
-    "membersCount": 13,
-    "members": [
-      {
-        "username": "beffa_acaule",
-        "role": 3
-      },
-      {
-        "username": "FervidVoyage149",
-        "role": 2
-      },
-      {
-        "username": "Matteo2513",
-        "role": 0
-      },
-      {
-        "username": "ous_2009",
-        "role": 0
-      },
-      {
-        "username": "GM03ITA",
-        "role": 0
-      },
-      {
-        "username": "amo_03",
-        "role": 0
-      },
-      {
-        "username": "CensedWilliam",
-        "role": 0
-      },
-      {
-        "username": "K1ng_07",
-        "role": 0
-      },
-      {
-        "username": "Matti200IQ",
-        "role": 0
-      },
-      {
-        "username": "vinci_boss",
-        "role": 0
-      },
-      {
-        "username": "BandanaViola",
-        "role": 0
-      },
-      {
-        "username": "Tarunda",
-        "role": 0
-      },
-      {
-        "username": "oAndree",
-        "role": 0
-      }
-    ]
-  },
-  {
     "username": "zFrxncesck1",
     "clan": "Reducer",
     "membersCount": 1,
@@ -5495,8 +5476,15 @@
     ]
   },
   {
-    "username": "Mansiquel9",
-    "clan": null
+    "username": "Simi1628",
+    "clan": "DaiRagaAndiamo",
+    "membersCount": 1,
+    "members": [
+      {
+        "username": "Simi1628",
+        "role": 3
+      }
+    ]
   },
   {
     "username": "Jace2",
@@ -5526,20 +5514,9 @@
     ]
   },
   {
-    "username": "Simi1628",
-    "clan": "DaiRagaAndiamo",
-    "membersCount": 1,
-    "members": [
-      {
-        "username": "Simi1628",
-        "role": 3
-      }
-    ]
-  },
-  {
     "username": "ItsMeAiko",
     "clan": "Kyori",
-    "membersCount": 10,
+    "membersCount": 11,
     "members": [
       {
         "username": "marmottaa",
@@ -5579,6 +5556,10 @@
       },
       {
         "username": "yomanyoman",
+        "role": 0
+      },
+      {
+        "username": "aAyokevinBello_",
         "role": 0
       }
     ]
@@ -5699,7 +5680,7 @@
   {
     "username": "tvdmznico",
     "clan": "Devils",
-    "membersCount": 30,
+    "membersCount": 29,
     "members": [
       {
         "username": "Gabry_08",
@@ -5747,10 +5728,6 @@
       },
       {
         "username": "Hidroes",
-        "role": 0
-      },
-      {
-        "username": "PysichOrd_",
         "role": 0
       },
       {
@@ -5961,21 +5938,6 @@
     ]
   },
   {
-    "username": "Paga2593",
-    "clan": "paga",
-    "membersCount": 2,
-    "members": [
-      {
-        "username": "Paga2593",
-        "role": 3
-      },
-      {
-        "username": "iusewurst_",
-        "role": 2
-      }
-    ]
-  },
-  {
     "username": "UniqStorm",
     "clan": "ThousandSunny",
     "membersCount": 6,
@@ -6005,6 +5967,29 @@
         "role": 0
       }
     ]
+  },
+  {
+    "username": "Paga2593",
+    "clan": "paga",
+    "membersCount": 2,
+    "members": [
+      {
+        "username": "Paga2593",
+        "role": 3
+      },
+      {
+        "username": "iusewurst_",
+        "role": 2
+      }
+    ]
+  },
+  {
+    "username": "Gianpeppino04",
+    "clan": null
+  },
+  {
+    "username": "ghiaccio12345",
+    "clan": null
   },
   {
     "username": "keschifoo",
@@ -6040,14 +6025,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "ghiaccio12345",
-    "clan": null
-  },
-  {
-    "username": "Gianpeppino04",
-    "clan": null
   },
   {
     "username": "3jvi",
@@ -6421,19 +6398,19 @@
         "role": 0
       },
       {
-        "username": "falco1081",
-        "role": 0
-      },
-      {
         "username": "nto2sa",
         "role": 0
       },
       {
-        "username": "White_Gamer89",
+        "username": "falco1081",
         "role": 0
       },
       {
         "username": "zFirezip",
+        "role": 0
+      },
+      {
+        "username": "White_Gamer89",
         "role": 0
       },
       {
@@ -6489,11 +6466,11 @@
         "role": 0
       },
       {
-        "username": "Ornella_Vanoni_",
+        "username": "ibxaa",
         "role": 0
       },
       {
-        "username": "ibxaa",
+        "username": "Ornella_Vanoni_",
         "role": 0
       },
       {
@@ -6629,6 +6606,37 @@
     "clan": null
   },
   {
+    "username": "Chris2551",
+    "clan": null
+  },
+  {
+    "username": "tenkonotfound",
+    "clan": "gojoUwU",
+    "membersCount": 5,
+    "members": [
+      {
+        "username": "tenkonotfound",
+        "role": 3
+      },
+      {
+        "username": "Destroyer_",
+        "role": 2
+      },
+      {
+        "username": "chill",
+        "role": 1
+      },
+      {
+        "username": "Epatite",
+        "role": 0
+      },
+      {
+        "username": "GuessMonster",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "Astrovision",
     "clan": "HIV",
     "membersCount": 16,
@@ -6698,37 +6706,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "tenkonotfound",
-    "clan": "gojoUwU",
-    "membersCount": 5,
-    "members": [
-      {
-        "username": "tenkonotfound",
-        "role": 3
-      },
-      {
-        "username": "Destroyer_",
-        "role": 2
-      },
-      {
-        "username": "chill",
-        "role": 1
-      },
-      {
-        "username": "Epatite",
-        "role": 0
-      },
-      {
-        "username": "GuessMonster",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "Chris2551",
-    "clan": null
   },
   {
     "username": "ColuiCheOsservax",
@@ -6840,6 +6817,10 @@
     ]
   },
   {
+    "username": "Malax99",
+    "clan": null
+  },
+  {
     "username": "INFOrmar",
     "clan": "Vapid",
     "membersCount": 16,
@@ -6909,10 +6890,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "Malax99",
-    "clan": null
   },
   {
     "username": "QUERCIA10",
@@ -7098,11 +7075,11 @@
         "role": 0
       },
       {
-        "username": "KillerGamerPls",
+        "username": "Faze_Creeper",
         "role": 0
       },
       {
-        "username": "Faze_Creeper",
+        "username": "KillerGamerPls",
         "role": 0
       },
       {
@@ -7114,15 +7091,15 @@
         "role": 0
       },
       {
-        "username": "epialmax",
-        "role": 0
-      },
-      {
         "username": "ItsTawing",
         "role": 0
       },
       {
         "username": "SONOKMB9",
+        "role": 0
+      },
+      {
+        "username": "epialmax",
         "role": 0
       }
     ]
@@ -7409,11 +7386,11 @@
         "role": 0
       },
       {
-        "username": "Enzo_",
+        "username": "02km",
         "role": 0
       },
       {
-        "username": "02km",
+        "username": "Enzo_",
         "role": 0
       },
       {
@@ -7451,10 +7428,6 @@
     "clan": null
   },
   {
-    "username": "_Delusioneh",
-    "clan": null
-  },
-  {
     "username": "TheGabri3005",
     "clan": "coli",
     "membersCount": 3,
@@ -7464,17 +7437,21 @@
         "role": 3
       },
       {
-        "username": "TheGabri3005",
+        "username": "Jan11091",
         "role": 2
       },
       {
-        "username": "Jan11091",
+        "username": "TheGabri3005",
         "role": 2
       }
     ]
   },
   {
     "username": "iTz_NeexuS",
+    "clan": null
+  },
+  {
+    "username": "_Delusioneh",
     "clan": null
   },
   {
@@ -7529,6 +7506,29 @@
     "clan": null
   },
   {
+    "username": "Hype0290",
+    "clan": null
+  },
+  {
+    "username": "disconnesso",
+    "clan": "Daddy",
+    "membersCount": 3,
+    "members": [
+      {
+        "username": "disconnesso",
+        "role": 3
+      },
+      {
+        "username": "My_Big_G",
+        "role": 2
+      },
+      {
+        "username": "Amnesja",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "_ImPie",
     "clan": "TETTINE",
     "membersCount": 11,
@@ -7580,29 +7580,6 @@
     ]
   },
   {
-    "username": "Hype0290",
-    "clan": null
-  },
-  {
-    "username": "disconnesso",
-    "clan": "Daddy",
-    "membersCount": 3,
-    "members": [
-      {
-        "username": "disconnesso",
-        "role": 3
-      },
-      {
-        "username": "My_Big_G",
-        "role": 2
-      },
-      {
-        "username": "Amnesja",
-        "role": 0
-      }
-    ]
-  },
-  {
     "username": "Grew007",
     "clan": "Belvedere",
     "membersCount": 5,
@@ -7628,10 +7605,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "ItzBarella23",
-    "clan": null
   },
   {
     "username": "itsAntic",
@@ -7697,6 +7670,10 @@
     ]
   },
   {
+    "username": "ItzBarella23",
+    "clan": null
+  },
+  {
     "username": "zDreamqh",
     "clan": null
   },
@@ -7760,32 +7737,32 @@
     "clan": null
   },
   {
+    "username": "CarmineDavide07_",
+    "clan": null
+  },
+  {
     "username": "distruzioneh",
     "clan": null
   },
   {
     "username": "xPlayerBlue",
-    "clan": "kittens",
-    "membersCount": 33,
+    "clan": "BlackSide",
+    "membersCount": 26,
     "members": [
       {
-        "username": "sbovvantee",
+        "username": "k1rom_",
         "role": 3
       },
       {
-        "username": "Thewolfa_",
+        "username": "84Kk",
         "role": 2
       },
       {
-        "username": "Artic97w",
-        "role": 2
+        "username": "enomis150",
+        "role": 1
       },
       {
-        "username": "golbatt",
-        "role": 2
-      },
-      {
-        "username": "Talameba",
+        "username": "Lugozzi90",
         "role": 1
       },
       {
@@ -7793,118 +7770,90 @@
         "role": 0
       },
       {
-        "username": "Geffer",
+        "username": "Richiii",
         "role": 0
       },
       {
-        "username": "kirua",
+        "username": "Infinity_984",
         "role": 0
       },
       {
-        "username": "identificato",
+        "username": "itzer0",
         "role": 0
       },
       {
-        "username": "ciao6955",
+        "username": "Simo809TheZombi3",
         "role": 0
       },
       {
-        "username": "SeppiaBrillante",
+        "username": "SHEREKESISTE",
         "role": 0
       },
       {
-        "username": "nyxay",
+        "username": "preserva_gigio",
         "role": 0
       },
       {
-        "username": "TheyCallMeJare",
+        "username": "0hArc0_",
         "role": 0
       },
       {
-        "username": "_JustM4rkex_",
+        "username": "hmom",
         "role": 0
       },
       {
-        "username": "MaZi_Xx",
+        "username": "RedDark7",
         "role": 0
       },
       {
-        "username": "youseffo",
+        "username": "VenooMC_",
         "role": 0
       },
       {
-        "username": "xjwcy_",
+        "username": "SNITCHIOLAS",
         "role": 0
       },
       {
-        "username": "davide_x",
+        "username": "Marchigno205",
         "role": 0
       },
       {
-        "username": "Itz_Gabibbo",
+        "username": "Andy14ITA",
         "role": 0
       },
       {
-        "username": "sottona",
+        "username": "Lor3110",
         "role": 0
       },
       {
-        "username": "CrispyBBQ_",
+        "username": "PierLombrico",
         "role": 0
       },
       {
-        "username": "LeoMiao",
+        "username": "kell0gs09",
         "role": 0
       },
       {
-        "username": "andrebellutto",
+        "username": "AndreXVIII_",
         "role": 0
       },
       {
-        "username": "aceynb",
+        "username": "Ciobs_",
         "role": 0
       },
       {
-        "username": "kendacarly",
+        "username": "lugozzi95",
         "role": 0
       },
       {
-        "username": "gado__",
+        "username": "DanyBuo",
         "role": 0
       },
       {
-        "username": "Patrizioofficial",
-        "role": 0
-      },
-      {
-        "username": "h8k6",
-        "role": 0
-      },
-      {
-        "username": "annaaaaaaaa",
-        "role": 0
-      },
-      {
-        "username": "PixelMyas",
-        "role": 0
-      },
-      {
-        "username": "ilyxceline",
-        "role": 0
-      },
-      {
-        "username": "bruciatoh",
-        "role": 0
-      },
-      {
-        "username": "jsuisJwcy",
+        "username": "ItzPrime_",
         "role": 0
       }
     ]
-  },
-  {
-    "username": "CarmineDavide07_",
-    "clan": null
   },
   {
     "username": "7xkd_",
@@ -8006,11 +7955,11 @@
     "clan": null
   },
   {
-    "username": "N4P0L3T4N0",
+    "username": "BestEmaa",
     "clan": null
   },
   {
-    "username": "BestEmaa",
+    "username": "N4P0L3T4N0",
     "clan": null
   },
   {
@@ -8173,11 +8122,11 @@
         "role": 0
       },
       {
-        "username": "latuamadre",
+        "username": "andreajop0",
         "role": 0
       },
       {
-        "username": "andreajop0",
+        "username": "latuamadre",
         "role": 0
       },
       {
@@ -8225,15 +8174,15 @@
         "role": 0
       },
       {
-        "username": "Jkartstreaming",
-        "role": 0
-      },
-      {
         "username": "roraazz",
         "role": 0
       },
       {
         "username": "aliixx20",
+        "role": 0
+      },
+      {
+        "username": "Jkartstreaming",
         "role": 0
       },
       {
@@ -8294,6 +8243,141 @@
       {
         "username": "xKingAlpha",
         "role": 3
+      }
+    ]
+  },
+  {
+    "username": "Thewolfa_",
+    "clan": "kittens",
+    "membersCount": 32,
+    "members": [
+      {
+        "username": "sbovvantee",
+        "role": 3
+      },
+      {
+        "username": "Thewolfa_",
+        "role": 2
+      },
+      {
+        "username": "Artic97w",
+        "role": 2
+      },
+      {
+        "username": "golbatt",
+        "role": 2
+      },
+      {
+        "username": "Talameba",
+        "role": 1
+      },
+      {
+        "username": "Geffer",
+        "role": 0
+      },
+      {
+        "username": "kirua",
+        "role": 0
+      },
+      {
+        "username": "identificato",
+        "role": 0
+      },
+      {
+        "username": "ciao6955",
+        "role": 0
+      },
+      {
+        "username": "SeppiaBrillante",
+        "role": 0
+      },
+      {
+        "username": "nyxay",
+        "role": 0
+      },
+      {
+        "username": "TheyCallMeJare",
+        "role": 0
+      },
+      {
+        "username": "_JustM4rkex_",
+        "role": 0
+      },
+      {
+        "username": "MaZi_Xx",
+        "role": 0
+      },
+      {
+        "username": "youseffo",
+        "role": 0
+      },
+      {
+        "username": "xjwcy_",
+        "role": 0
+      },
+      {
+        "username": "davide_x",
+        "role": 0
+      },
+      {
+        "username": "Itz_Gabibbo",
+        "role": 0
+      },
+      {
+        "username": "sottona",
+        "role": 0
+      },
+      {
+        "username": "CrispyBBQ_",
+        "role": 0
+      },
+      {
+        "username": "LeoMiao",
+        "role": 0
+      },
+      {
+        "username": "andrebellutto",
+        "role": 0
+      },
+      {
+        "username": "aceynb",
+        "role": 0
+      },
+      {
+        "username": "kendacarly",
+        "role": 0
+      },
+      {
+        "username": "gado__",
+        "role": 0
+      },
+      {
+        "username": "Patrizioofficial",
+        "role": 0
+      },
+      {
+        "username": "h8k6",
+        "role": 0
+      },
+      {
+        "username": "annaaaaaaaa",
+        "role": 0
+      },
+      {
+        "username": "PixelMyas",
+        "role": 0
+      },
+      {
+        "username": "ilyxceline",
+        "role": 0
+      },
+      {
+        "username": "bruciatoh",
+        "role": 0
+      },
+      {
+        "username": "jsuisJwcy",
+        "role": 0
       }
     ]
   },
@@ -8390,11 +8474,11 @@
         "role": 0
       },
       {
-        "username": "Maglco",
+        "username": "OGWashed",
         "role": 0
       },
       {
-        "username": "OGWashed",
+        "username": "Maglco",
         "role": 0
       },
       {
@@ -8449,15 +8533,15 @@
         "role": 0
       },
       {
+        "username": "Veronicah",
+        "role": 0
+      },
+      {
         "username": "Nutibis",
         "role": 0
       },
       {
         "username": "GNC_04",
-        "role": 0
-      },
-      {
-        "username": "Veronicah",
         "role": 0
       },
       {
@@ -8925,6 +9009,10 @@
     ]
   },
   {
+    "username": "andreab1105",
+    "clan": null
+  },
+  {
     "username": "_xZEROx",
     "clan": "Monster",
     "membersCount": 15,
@@ -8974,26 +9062,22 @@
         "role": 0
       },
       {
-        "username": "nik_qlf",
-        "role": 0
-      },
-      {
         "username": "Ripicca",
         "role": 0
       },
       {
-        "username": "ImZippyy",
+        "username": "nik_qlf",
         "role": 0
       },
       {
         "username": "PinoGinoLino",
         "role": 0
+      },
+      {
+        "username": "ImZippyy",
+        "role": 0
       }
     ]
-  },
-  {
-    "username": "andreab1105",
-    "clan": null
   },
   {
     "username": "bombardamento8",
@@ -9053,11 +9137,11 @@
         "role": 0
       },
       {
-        "username": "OnlyLama",
+        "username": "Jabaryy",
         "role": 0
       },
       {
-        "username": "Jabaryy",
+        "username": "OnlyLama",
         "role": 0
       },
       {
@@ -9083,11 +9167,11 @@
     ]
   },
   {
-    "username": "1k_batman_1",
+    "username": "Shoy_zenese",
     "clan": null
   },
   {
-    "username": "itsAndryh",
+    "username": "1k_batman_1",
     "clan": null
   },
   {
@@ -9110,7 +9194,7 @@
     ]
   },
   {
-    "username": "TheKenny08",
+    "username": "itsAndryh",
     "clan": null
   },
   {
@@ -9175,11 +9259,11 @@
         "role": 0
       },
       {
-        "username": "Esclamazione_",
+        "username": "eEluxx",
         "role": 0
       },
       {
-        "username": "eEluxx",
+        "username": "Esclamazione_",
         "role": 0
       },
       {
@@ -9203,6 +9287,10 @@
         "role": 0
       }
     ]
+  },
+  {
+    "username": "TheKenny08",
+    "clan": null
   },
   {
     "username": "Sgnaft29",
@@ -9257,11 +9345,11 @@
         "role": 0
       },
       {
-        "username": "cristoebello",
+        "username": "ItzPurpl3s",
         "role": 0
       },
       {
-        "username": "ItzPurpl3s",
+        "username": "cristoebello",
         "role": 0
       },
       {
@@ -9285,15 +9373,15 @@
         "role": 0
       },
       {
-        "username": "Dani_500",
-        "role": 0
-      },
-      {
         "username": "ale_neitor",
         "role": 0
       },
       {
         "username": "Its_Diego4",
+        "role": 0
+      },
+      {
+        "username": "Dani_500",
         "role": 0
       },
       {
@@ -9337,15 +9425,11 @@
         "role": 0
       },
       {
-        "username": "ImAlbyy_",
-        "role": 0
-      },
-      {
         "username": "0hTristezzah",
         "role": 0
       },
       {
-        "username": "CST_Marco",
+        "username": "ImAlbyy_",
         "role": 0
       },
       {
@@ -9357,7 +9441,7 @@
         "role": 0
       },
       {
-        "username": "ItsMatty",
+        "username": "CST_Marco",
         "role": 0
       },
       {
@@ -9365,11 +9449,11 @@
         "role": 0
       },
       {
-        "username": "Delusionneee",
+        "username": "ItsMatty",
         "role": 0
       },
       {
-        "username": "_ImPsycho_",
+        "username": "Delusionneee",
         "role": 0
       },
       {
@@ -9381,11 +9465,15 @@
         "role": 0
       },
       {
-        "username": "fabryyyyyyyyy",
+        "username": "_ImPsycho_",
         "role": 0
       },
       {
         "username": "GabboNex",
+        "role": 0
+      },
+      {
+        "username": "fabryyyyyyyyy",
         "role": 0
       },
       {
@@ -9441,6 +9529,17 @@
     ]
   },
   {
+    "username": "Nicolas2975",
+    "clan": "AceGamer",
+    "membersCount": 1,
+    "members": [
+      {
+        "username": "Nicolas2975",
+        "role": 3
+      }
+    ]
+  },
+  {
     "username": "OverTheLimits",
     "clan": "Limits",
     "membersCount": 3,
@@ -9477,7 +9576,7 @@
   {
     "username": "colouicheosserva",
     "clan": "Invincibili",
-    "membersCount": 17,
+    "membersCount": 15,
     "members": [
       {
         "username": "doppiokaioken",
@@ -9508,10 +9607,6 @@
         "role": 0
       },
       {
-        "username": "Dani_0908",
-        "role": 0
-      },
-      {
         "username": "Saveri0",
         "role": 0
       },
@@ -9521,10 +9616,6 @@
       },
       {
         "username": "giorgioF__YT",
-        "role": 0
-      },
-      {
-        "username": "matxe24",
         "role": 0
       },
       {
@@ -9554,22 +9645,11 @@
     "clan": null
   },
   {
-    "username": "Nicolas2975",
-    "clan": "AceGamer",
-    "membersCount": 1,
-    "members": [
-      {
-        "username": "Nicolas2975",
-        "role": 3
-      }
-    ]
-  },
-  {
-    "username": "xMrKevin",
+    "username": "youngestpepoh",
     "clan": null
   },
   {
-    "username": "youngestpepoh",
+    "username": "xMrKevin",
     "clan": null
   },
   {
@@ -9848,11 +9928,11 @@
         "role": 0
       },
       {
-        "username": "KentoIsnoob",
+        "username": "12Lordark",
         "role": 0
       },
       {
-        "username": "12Lordark",
+        "username": "KentoIsnoob",
         "role": 0
       },
       {
@@ -9969,11 +10049,11 @@
         "role": 0
       },
       {
-        "username": "lorak_12",
+        "username": "Vincenzo13",
         "role": 0
       },
       {
-        "username": "Vincenzo13",
+        "username": "lorak_12",
         "role": 0
       },
       {
@@ -9989,11 +10069,11 @@
         "role": 0
       },
       {
-        "username": "Giomore345",
+        "username": "Fede0ita_",
         "role": 0
       },
       {
-        "username": "Fede0ita_",
+        "username": "Giomore345",
         "role": 0
       },
       {
@@ -10033,10 +10113,6 @@
         "role": 0
       },
       {
-        "username": "demon007thepro",
-        "role": 0
-      },
-      {
         "username": "Chisio",
         "role": 0
       },
@@ -10045,11 +10121,19 @@
         "role": 0
       },
       {
-        "username": "davidmarsjdk",
+        "username": "demon007thepro",
         "role": 0
       },
       {
         "username": "ClxdzWasTaken",
+        "role": 0
+      },
+      {
+        "username": "davidmarsjdk",
+        "role": 0
+      },
+      {
+        "username": "krus7yyt",
         "role": 0
       },
       {
@@ -10070,10 +10154,6 @@
       },
       {
         "username": "eros08",
-        "role": 0
-      },
-      {
-        "username": "krus7yyt",
         "role": 0
       },
       {
@@ -10112,11 +10192,11 @@
         "role": 0
       },
       {
-        "username": "ZeroTwoh",
+        "username": "Impiccato",
         "role": 0
       },
       {
-        "username": "Impiccato",
+        "username": "ZeroTwoh",
         "role": 0
       },
       {
@@ -10148,15 +10228,15 @@
         "role": 0
       },
       {
+        "username": "SmallExe48",
+        "role": 0
+      },
+      {
         "username": "teknee",
         "role": 0
       },
       {
         "username": "Justino_SIUM",
-        "role": 0
-      },
-      {
-        "username": "SmallExe48",
         "role": 0
       },
       {
@@ -10215,11 +10295,11 @@
         "role": 0
       },
       {
-        "username": "ros3lix3",
+        "username": "annapii04",
         "role": 0
       },
       {
-        "username": "annapii04",
+        "username": "ros3lix3",
         "role": 0
       },
       {
@@ -10403,11 +10483,11 @@
         "role": 2
       },
       {
-        "username": "wLeleh",
+        "username": "NyanzaDye",
         "role": 0
       },
       {
-        "username": "NyanzaDye",
+        "username": "wLeleh",
         "role": 0
       },
       {
@@ -10712,11 +10792,11 @@
         "role": 0
       },
       {
-        "username": "ambro33",
+        "username": "giuly_uwu",
         "role": 0
       },
       {
-        "username": "giuly_uwu",
+        "username": "ambro33",
         "role": 0
       },
       {
@@ -10728,15 +10808,19 @@
         "role": 0
       },
       {
-        "username": "ayoAterna",
-        "role": 0
-      },
-      {
         "username": "Cecitina",
         "role": 0
       },
       {
+        "username": "ayoAterna",
+        "role": 0
+      },
+      {
         "username": "r0y4l3yt",
+        "role": 0
+      },
+      {
+        "username": "Dor0ty",
         "role": 0
       },
       {
@@ -10745,10 +10829,6 @@
       },
       {
         "username": "lipixy",
-        "role": 0
-      },
-      {
-        "username": "Dor0ty",
         "role": 0
       },
       {
@@ -10910,15 +10990,15 @@
         "role": 0
       },
       {
+        "username": "JACK_JACK0909",
+        "role": 0
+      },
+      {
         "username": "SickCrom",
         "role": 0
       },
       {
         "username": "DJ_BRIL6187",
-        "role": 0
-      },
-      {
-        "username": "JACK_JACK0909",
         "role": 0
       },
       {
@@ -10976,6 +11056,10 @@
     ]
   },
   {
+    "username": "JustAle_",
+    "clan": null
+  },
+  {
     "username": "Mungos_",
     "clan": "IMangiati",
     "membersCount": 4,
@@ -11016,10 +11100,6 @@
         "role": 2
       }
     ]
-  },
-  {
-    "username": "JustAle_",
-    "clan": null
   },
   {
     "username": "Flash_Rock",
@@ -11365,11 +11445,11 @@
         "role": 0
       },
       {
-        "username": "tom99",
+        "username": "Pariacaca_s_Cry",
         "role": 0
       },
       {
-        "username": "Pariacaca_s_Cry",
+        "username": "tom99",
         "role": 0
       },
       {
@@ -11403,26 +11483,7 @@
     "clan": null
   },
   {
-    "username": "Lokki_Fire",
-    "clan": null
-  },
-  {
     "username": "Xx_lupo",
-    "clan": null
-  },
-  {
-    "username": "PaperTrain2829",
-    "clan": "CrazyMarsico",
-    "membersCount": 1,
-    "members": [
-      {
-        "username": "PaperTrain2829",
-        "role": 3
-      }
-    ]
-  },
-  {
-    "username": "SignorCous",
     "clan": null
   },
   {
@@ -11479,19 +11540,19 @@
         "role": 0
       },
       {
-        "username": "sonoManu072_",
-        "role": 0
-      },
-      {
         "username": "_eliax_",
         "role": 0
       },
       {
-        "username": "eliax",
+        "username": "sonoManu072_",
         "role": 0
       },
       {
         "username": "Sebadelloca",
+        "role": 0
+      },
+      {
+        "username": "eliax",
         "role": 0
       },
       {
@@ -11501,15 +11562,34 @@
     ]
   },
   {
+    "username": "PaperTrain2829",
+    "clan": "CrazyMarsico",
+    "membersCount": 1,
+    "members": [
+      {
+        "username": "PaperTrain2829",
+        "role": 3
+      }
+    ]
+  },
+  {
+    "username": "SignorCous",
+    "clan": null
+  },
+  {
+    "username": "Lokki_Fire",
+    "clan": null
+  },
+  {
     "username": "GANGMEMBERSCQRY",
     "clan": null
   },
   {
-    "username": "Tom12348",
+    "username": "Volpix_3418_",
     "clan": null
   },
   {
-    "username": "Volpix_3418_",
+    "username": "Tom12348",
     "clan": null
   },
   {
@@ -11518,6 +11598,21 @@
   },
   {
     "username": "TheMassimo07",
+    "clan": null
+  },
+  {
+    "username": "Skillex_01",
+    "clan": "Napoletame",
+    "membersCount": 1,
+    "members": [
+      {
+        "username": "Skillex_01",
+        "role": 3
+      }
+    ]
+  },
+  {
+    "username": "mianonna",
     "clan": null
   },
   {
@@ -11637,27 +11732,12 @@
         "role": 0
       },
       {
-        "username": "mirrormage",
+        "username": ".LilVenox",
         "role": 0
       },
       {
-        "username": ".LilVenox",
+        "username": "mirrormage",
         "role": 0
-      }
-    ]
-  },
-  {
-    "username": "mianonna",
-    "clan": null
-  },
-  {
-    "username": "Skillex_01",
-    "clan": "Napoletame",
-    "membersCount": 1,
-    "members": [
-      {
-        "username": "Skillex_01",
-        "role": 3
       }
     ]
   },
@@ -11727,6 +11807,10 @@
     ]
   },
   {
+    "username": "lillucre",
+    "clan": null
+  },
+  {
     "username": "z_andrek_yt",
     "clan": "Fuego",
     "membersCount": 6,
@@ -11758,10 +11842,6 @@
     ]
   },
   {
-    "username": "lillucre",
-    "clan": null
-  },
-  {
     "username": "itz_WhiteJ",
     "clan": null
   },
@@ -11772,6 +11852,172 @@
   {
     "username": "Alessya_",
     "clan": null
+  },
+  {
+    "username": "ip3r_",
+    "clan": "Vortex",
+    "membersCount": 14,
+    "members": [
+      {
+        "username": "TheKingFIRE88",
+        "role": 3
+      },
+      {
+        "username": "_sshade",
+        "role": 2
+      },
+      {
+        "username": "MDN07",
+        "role": 1
+      },
+      {
+        "username": "LilZeko",
+        "role": 1
+      },
+      {
+        "username": "ip3r_",
+        "role": 0
+      },
+      {
+        "username": "ROTCIV07",
+        "role": 0
+      },
+      {
+        "username": "LanciaLord",
+        "role": 0
+      },
+      {
+        "username": "itz_AbU__2008",
+        "role": 0
+      },
+      {
+        "username": "I_Dani_I",
+        "role": 0
+      },
+      {
+        "username": "Mattyya",
+        "role": 0
+      },
+      {
+        "username": "signorinobruce",
+        "role": 0
+      },
+      {
+        "username": "NotPolka_",
+        "role": 0
+      },
+      {
+        "username": "JamaicahAlMax_",
+        "role": 0
+      },
+      {
+        "username": "LilPilu",
+        "role": 0
+      }
+    ]
+  },
+  {
+    "username": "Kuba_Termosifone",
+    "clan": "Mafiosi",
+    "membersCount": 24,
+    "members": [
+      {
+        "username": "matewoh_",
+        "role": 3
+      },
+      {
+        "username": "Kuba_Termosifone",
+        "role": 1
+      },
+      {
+        "username": "onlyake",
+        "role": 1
+      },
+      {
+        "username": "AleFedeRicky_ITA",
+        "role": 1
+      },
+      {
+        "username": "KratoOP",
+        "role": 1
+      },
+      {
+        "username": "_0blivyn",
+        "role": 1
+      },
+      {
+        "username": "marcostart",
+        "role": 0
+      },
+      {
+        "username": "aragosta88",
+        "role": 0
+      },
+      {
+        "username": "CamihUnderwood",
+        "role": 0
+      },
+      {
+        "username": "Invidioso_ITA",
+        "role": 0
+      },
+      {
+        "username": "Greko109",
+        "role": 0
+      },
+      {
+        "username": "tottiermejo",
+        "role": 0
+      },
+      {
+        "username": "FelpaViolaa",
+        "role": 0
+      },
+      {
+        "username": "Tigrocc",
+        "role": 0
+      },
+      {
+        "username": "matty7xx",
+        "role": 0
+      },
+      {
+        "username": "x35_7",
+        "role": 0
+      },
+      {
+        "username": "lastdeath",
+        "role": 0
+      },
+      {
+        "username": "The_Serpy",
+        "role": 0
+      },
+      {
+        "username": "thestak123gg",
+        "role": 0
+      },
+      {
+        "username": "Encryptnebula61",
+        "role": 0
+      },
+      {
+        "username": "midrs",
+        "role": 0
+      },
+      {
+        "username": "Bcoz_IT",
+        "role": 0
+      },
+      {
+        "username": "MayTeo007",
+        "role": 0
+      },
+      {
+        "username": "Restrizionq_",
+        "role": 0
+      }
+    ]
   },
   {
     "username": "zXenoFire",
@@ -11975,276 +12221,6 @@
     ]
   },
   {
-    "username": "ip3r_",
-    "clan": "Vortex",
-    "membersCount": 14,
-    "members": [
-      {
-        "username": "TheKingFIRE88",
-        "role": 3
-      },
-      {
-        "username": "_sshade",
-        "role": 2
-      },
-      {
-        "username": "MDN07",
-        "role": 1
-      },
-      {
-        "username": "LilZeko",
-        "role": 1
-      },
-      {
-        "username": "ip3r_",
-        "role": 0
-      },
-      {
-        "username": "ROTCIV07",
-        "role": 0
-      },
-      {
-        "username": "LanciaLord",
-        "role": 0
-      },
-      {
-        "username": "itz_AbU__2008",
-        "role": 0
-      },
-      {
-        "username": "I_Dani_I",
-        "role": 0
-      },
-      {
-        "username": "Mattyya",
-        "role": 0
-      },
-      {
-        "username": "signorinobruce",
-        "role": 0
-      },
-      {
-        "username": "NotPolka_",
-        "role": 0
-      },
-      {
-        "username": "JamaicahAlMax_",
-        "role": 0
-      },
-      {
-        "username": "LilPilu",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "Alve223",
-    "clan": "FACTOL",
-    "membersCount": 48,
-    "members": [
-      {
-        "username": "Dragon_45_",
-        "role": 3
-      },
-      {
-        "username": "Alve223",
-        "role": 2
-      },
-      {
-        "username": "PAKOS2014",
-        "role": 2
-      },
-      {
-        "username": "Papa_Orlando_I",
-        "role": 2
-      },
-      {
-        "username": "ArimaShulker07",
-        "role": 2
-      },
-      {
-        "username": "seviper007a",
-        "role": 2
-      },
-      {
-        "username": "quby0108142014",
-        "role": 1
-      },
-      {
-        "username": "Nico_R2013",
-        "role": 1
-      },
-      {
-        "username": "ilprogamer_",
-        "role": 1
-      },
-      {
-        "username": "andrearghij",
-        "role": 1
-      },
-      {
-        "username": "sonoonoio",
-        "role": 1
-      },
-      {
-        "username": "FreeChricchia13",
-        "role": 1
-      },
-      {
-        "username": "NicoloSc",
-        "role": 1
-      },
-      {
-        "username": "ErTambs",
-        "role": 0
-      },
-      {
-        "username": "alex10c",
-        "role": 0
-      },
-      {
-        "username": "iGiulio12",
-        "role": 0
-      },
-      {
-        "username": "foenix0312",
-        "role": 0
-      },
-      {
-        "username": "Morceus",
-        "role": 0
-      },
-      {
-        "username": "fazeGioM",
-        "role": 0
-      },
-      {
-        "username": "posaeidn",
-        "role": 0
-      },
-      {
-        "username": "Mattyss",
-        "role": 0
-      },
-      {
-        "username": "AUTRONS",
-        "role": 0
-      },
-      {
-        "username": "Bacman_",
-        "role": 0
-      },
-      {
-        "username": "Giovik0618",
-        "role": 0
-      },
-      {
-        "username": "_SuperAl3x_",
-        "role": 0
-      },
-      {
-        "username": "DavGiuSPQR",
-        "role": 0
-      },
-      {
-        "username": "glassy_01",
-        "role": 0
-      },
-      {
-        "username": "Off_Miky",
-        "role": 0
-      },
-      {
-        "username": "NerminIlBro2",
-        "role": 0
-      },
-      {
-        "username": "_Davidus",
-        "role": 0
-      },
-      {
-        "username": "Thereal67Ari",
-        "role": 0
-      },
-      {
-        "username": "LegendSamuelSK8",
-        "role": 0
-      },
-      {
-        "username": "valerioreal",
-        "role": 0
-      },
-      {
-        "username": "HeeDahv",
-        "role": 0
-      },
-      {
-        "username": "diego_innit",
-        "role": 0
-      },
-      {
-        "username": "Ernev_",
-        "role": 0
-      },
-      {
-        "username": "RicRoma17",
-        "role": 0
-      },
-      {
-        "username": ".HolisticStew186",
-        "role": 0
-      },
-      {
-        "username": "Tachipirina_450g",
-        "role": 0
-      },
-      {
-        "username": "G0GG0",
-        "role": 0
-      },
-      {
-        "username": "Skali4765",
-        "role": 0
-      },
-      {
-        "username": "Sono_abdoul",
-        "role": 0
-      },
-      {
-        "username": "LB_2015",
-        "role": 0
-      },
-      {
-        "username": "Ema_789",
-        "role": 0
-      },
-      {
-        "username": "Lollo0912",
-        "role": 0
-      },
-      {
-        "username": "Frecciazza",
-        "role": 0
-      },
-      {
-        "username": "thebest1butnot2",
-        "role": 0
-      },
-      {
-        "username": "programmingbrosc",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "Kuba_Termosifone",
-    "clan": null
-  },
-  {
-    "username": "KARUJANZ25",
-    "clan": null
-  },
-  {
     "username": "GiorgiaGc",
     "clan": "SendNudes",
     "membersCount": 22,
@@ -12340,7 +12316,214 @@
     ]
   },
   {
-    "username": "AsteriosGaming",
+    "username": "KARUJANZ25",
+    "clan": null
+  },
+  {
+    "username": "Alve223",
+    "clan": "FACTOL",
+    "membersCount": 48,
+    "members": [
+      {
+        "username": "Dragon_45_",
+        "role": 3
+      },
+      {
+        "username": "Alve223",
+        "role": 2
+      },
+      {
+        "username": "PAKOS2014",
+        "role": 2
+      },
+      {
+        "username": "Papa_Orlando_I",
+        "role": 2
+      },
+      {
+        "username": "ArimaShulker07",
+        "role": 2
+      },
+      {
+        "username": "seviper007a",
+        "role": 2
+      },
+      {
+        "username": "quby0108142014",
+        "role": 1
+      },
+      {
+        "username": "Nico_R2013",
+        "role": 1
+      },
+      {
+        "username": "ilprogamer_",
+        "role": 1
+      },
+      {
+        "username": "andrearghij",
+        "role": 1
+      },
+      {
+        "username": "sonoonoio",
+        "role": 1
+      },
+      {
+        "username": "NicoloSc",
+        "role": 1
+      },
+      {
+        "username": "FreeChricchia13",
+        "role": 1
+      },
+      {
+        "username": "ErTambs",
+        "role": 0
+      },
+      {
+        "username": "alex10c",
+        "role": 0
+      },
+      {
+        "username": "iGiulio12",
+        "role": 0
+      },
+      {
+        "username": "foenix0312",
+        "role": 0
+      },
+      {
+        "username": "Morceus",
+        "role": 0
+      },
+      {
+        "username": "fazeGioM",
+        "role": 0
+      },
+      {
+        "username": "posaeidn",
+        "role": 0
+      },
+      {
+        "username": "Mattyss",
+        "role": 0
+      },
+      {
+        "username": "AUTRONS",
+        "role": 0
+      },
+      {
+        "username": "Bacman_",
+        "role": 0
+      },
+      {
+        "username": "Giovik0618",
+        "role": 0
+      },
+      {
+        "username": "_SuperAl3x_",
+        "role": 0
+      },
+      {
+        "username": "DavGiuSPQR",
+        "role": 0
+      },
+      {
+        "username": "glassy_01",
+        "role": 0
+      },
+      {
+        "username": "Off_Miky",
+        "role": 0
+      },
+      {
+        "username": "Thereal67Ari",
+        "role": 0
+      },
+      {
+        "username": "LegendSamuelSK8",
+        "role": 0
+      },
+      {
+        "username": "NerminIlBro2",
+        "role": 0
+      },
+      {
+        "username": "_Davidus",
+        "role": 0
+      },
+      {
+        "username": "valerioreal",
+        "role": 0
+      },
+      {
+        "username": "HeeDahv",
+        "role": 0
+      },
+      {
+        "username": "diego_innit",
+        "role": 0
+      },
+      {
+        "username": "Ernev_",
+        "role": 0
+      },
+      {
+        "username": ".HolisticStew186",
+        "role": 0
+      },
+      {
+        "username": "RicRoma17",
+        "role": 0
+      },
+      {
+        "username": "Tachipirina_450g",
+        "role": 0
+      },
+      {
+        "username": "G0GG0",
+        "role": 0
+      },
+      {
+        "username": "Sono_abdoul",
+        "role": 0
+      },
+      {
+        "username": "Skali4765",
+        "role": 0
+      },
+      {
+        "username": "LB_2015",
+        "role": 0
+      },
+      {
+        "username": "Ema_789",
+        "role": 0
+      },
+      {
+        "username": "Lollo0912",
+        "role": 0
+      },
+      {
+        "username": "Frecciazza",
+        "role": 0
+      },
+      {
+        "username": "programmingbrosc",
+        "role": 0
+      },
+      {
+        "username": "thebest1butnot2",
+        "role": 0
+      }
+    ]
+  },
+  {
+    "username": "KepperHD",
+    "clan": null
+  },
+  {
+    "username": "Jekov_09",
     "clan": null
   },
   {
@@ -12397,6 +12580,22 @@
         "role": 0
       },
       {
+        "username": "TTSB0t",
+        "role": 0
+      },
+      {
+        "username": "8761LaRue",
+        "role": 0
+      },
+      {
+        "username": "ErMign0tta",
+        "role": 0
+      },
+      {
+        "username": "DrSbavaro",
+        "role": 0
+      },
+      {
         "username": "NTrandini",
         "role": 0
       },
@@ -12415,39 +12614,11 @@
       {
         "username": "D0minazione",
         "role": 0
-      },
-      {
-        "username": "TTSB0t",
-        "role": 0
-      },
-      {
-        "username": "8761LaRue",
-        "role": 0
-      },
-      {
-        "username": "ErMign0tta",
-        "role": 0
-      },
-      {
-        "username": "DrSbavaro",
-        "role": 0
       }
     ]
   },
   {
-    "username": "KepperHD",
-    "clan": null
-  },
-  {
-    "username": "Jekov_09",
-    "clan": null
-  },
-  {
-    "username": "ItsMqrtyy",
-    "clan": null
-  },
-  {
-    "username": "matteor_100",
+    "username": "AsteriosGaming",
     "clan": null
   },
   {
@@ -12468,6 +12639,14 @@
         "role": 0
       }
     ]
+  },
+  {
+    "username": "ItsMqrtyy",
+    "clan": null
+  },
+  {
+    "username": "matteor_100",
+    "clan": null
   },
   {
     "username": "checkmate15M",
@@ -12531,11 +12710,11 @@
         "role": 0
       },
       {
-        "username": "ImPlayingToo",
+        "username": "Lazynesss",
         "role": 0
       },
       {
-        "username": "Lazynesss",
+        "username": "ImPlayingToo",
         "role": 0
       },
       {
@@ -12591,6 +12770,33 @@
     "clan": null
   },
   {
+    "username": "gvngzone",
+    "clan": "777",
+    "membersCount": 5,
+    "members": [
+      {
+        "username": "gvngzone",
+        "role": 3
+      },
+      {
+        "username": "idkwntp",
+        "role": 2
+      },
+      {
+        "username": "Eccellenza",
+        "role": 2
+      },
+      {
+        "username": "blueth_",
+        "role": 0
+      },
+      {
+        "username": "SbobAfkFarmer",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "xDe4dLy",
     "clan": "MCPEplayers",
     "membersCount": 34,
@@ -12644,11 +12850,11 @@
         "role": 0
       },
       {
-        "username": "_XoX",
+        "username": "GADF_",
         "role": 0
       },
       {
-        "username": "GADF_",
+        "username": "_XoX",
         "role": 0
       },
       {
@@ -12660,6 +12866,10 @@
         "role": 0
       },
       {
+        "username": "gianmartina",
+        "role": 0
+      },
+      {
         "username": "x2pksi",
         "role": 0
       },
@@ -12668,15 +12878,11 @@
         "role": 0
       },
       {
-        "username": "gianmartina",
+        "username": "NotLauda",
         "role": 0
       },
       {
         "username": "troiabalena",
-        "role": 0
-      },
-      {
-        "username": "NotLauda",
         "role": 0
       },
       {
@@ -12708,6 +12914,10 @@
         "role": 0
       },
       {
+        "username": "0x80000200",
+        "role": 0
+      },
+      {
         "username": "IlTurrets",
         "role": 0
       },
@@ -12717,10 +12927,6 @@
       },
       {
         "username": "gianmartini",
-        "role": 0
-      },
-      {
-        "username": "0x80000200",
         "role": 0
       },
       {
@@ -12734,146 +12940,12 @@
     ]
   },
   {
-    "username": "gvngzone",
-    "clan": "777",
-    "membersCount": 5,
-    "members": [
-      {
-        "username": "gvngzone",
-        "role": 3
-      },
-      {
-        "username": "idkwntp",
-        "role": 2
-      },
-      {
-        "username": "Eccellenza",
-        "role": 2
-      },
-      {
-        "username": "blueth_",
-        "role": 0
-      },
-      {
-        "username": "SbobAfkFarmer",
-        "role": 0
-      }
-    ]
-  },
-  {
     "username": "FModus",
     "clan": null
   },
   {
     "username": "erkebabbaro97",
     "clan": null
-  },
-  {
-    "username": "enomis150",
-    "clan": "BlackSide",
-    "membersCount": 25,
-    "members": [
-      {
-        "username": "k1rom_",
-        "role": 3
-      },
-      {
-        "username": "84Kk",
-        "role": 2
-      },
-      {
-        "username": "enomis150",
-        "role": 1
-      },
-      {
-        "username": "Lugozzi90",
-        "role": 1
-      },
-      {
-        "username": "Richiii",
-        "role": 0
-      },
-      {
-        "username": "Infinity_984",
-        "role": 0
-      },
-      {
-        "username": "itzer0",
-        "role": 0
-      },
-      {
-        "username": "Simo809TheZombi3",
-        "role": 0
-      },
-      {
-        "username": "SHEREKESISTE",
-        "role": 0
-      },
-      {
-        "username": "preserva_gigio",
-        "role": 0
-      },
-      {
-        "username": "0hArc0_",
-        "role": 0
-      },
-      {
-        "username": "hmom",
-        "role": 0
-      },
-      {
-        "username": "RedDark7",
-        "role": 0
-      },
-      {
-        "username": "SNITCHIOLAS",
-        "role": 0
-      },
-      {
-        "username": "VenooMC_",
-        "role": 0
-      },
-      {
-        "username": "Marchigno205",
-        "role": 0
-      },
-      {
-        "username": "Andy14ITA",
-        "role": 0
-      },
-      {
-        "username": "Lor3110",
-        "role": 0
-      },
-      {
-        "username": "PierLombrico",
-        "role": 0
-      },
-      {
-        "username": "kell0gs09",
-        "role": 0
-      },
-      {
-        "username": "Ciobs_",
-        "role": 0
-      },
-      {
-        "username": "lugozzi95",
-        "role": 0
-      },
-      {
-        "username": "AndreXVIII_",
-        "role": 0
-      },
-      {
-        "username": "DanyBuo",
-        "role": 0
-      },
-      {
-        "username": "ItzPrime_",
-        "role": 0
-      }
-    ]
   },
   {
     "username": "wtfAntoniox",
@@ -12991,15 +13063,15 @@
         "role": 0
       },
       {
-        "username": "Testa_di_fungo",
-        "role": 0
-      },
-      {
         "username": "bxllismo",
         "role": 0
       },
       {
         "username": "autoclickisfunny",
+        "role": 0
+      },
+      {
+        "username": "Testa_di_fungo",
         "role": 0
       },
       {
@@ -13069,21 +13141,6 @@
   },
   {
     "username": "WhyDoUPlay",
-    "clan": null
-  },
-  {
-    "username": "Melapower1672",
-    "clan": "HoralloMC",
-    "membersCount": 1,
-    "members": [
-      {
-        "username": "Melapower1672",
-        "role": 3
-      }
-    ]
-  },
-  {
-    "username": "LGBT_AmarenA",
     "clan": null
   },
   {
@@ -13176,6 +13233,14 @@
         "role": 0
       },
       {
+        "username": "Boughed",
+        "role": 0
+      },
+      {
+        "username": "wifebeater0000",
+        "role": 0
+      },
+      {
         "username": "Sebzaoo",
         "role": 0
       },
@@ -13186,23 +13251,30 @@
       {
         "username": "ChanelTotti",
         "role": 0
-      },
-      {
-        "username": "Boughed",
-        "role": 0
-      },
-      {
-        "username": "wifebeater0000",
-        "role": 0
       }
     ]
   },
   {
-    "username": "Ambrqzz",
+    "username": "Melapower1672",
+    "clan": "HoralloMC",
+    "membersCount": 1,
+    "members": [
+      {
+        "username": "Melapower1672",
+        "role": 3
+      }
+    ]
+  },
+  {
+    "username": "LGBT_AmarenA",
     "clan": null
   },
   {
-    "username": "Fanon22",
+    "username": "Giiusee666",
+    "clan": null
+  },
+  {
+    "username": "Ambrqzz",
     "clan": null
   },
   {
@@ -13265,7 +13337,15 @@
     ]
   },
   {
-    "username": "Giiusee666",
+    "username": "Fanon22",
+    "clan": null
+  },
+  {
+    "username": "Stailyy",
+    "clan": null
+  },
+  {
+    "username": "OnlyCamma",
     "clan": null
   },
   {
@@ -13285,14 +13365,6 @@
   },
   {
     "username": "Flyroon",
-    "clan": null
-  },
-  {
-    "username": "Stailyy",
-    "clan": null
-  },
-  {
-    "username": "OnlyCamma",
     "clan": null
   },
   {
@@ -13353,11 +13425,11 @@
         "role": 0
       },
       {
-        "username": "Gioker271409",
+        "username": "CalmestWharf806",
         "role": 0
       },
       {
-        "username": "CalmestWharf806",
+        "username": "Gioker271409",
         "role": 0
       },
       {
@@ -13397,15 +13469,15 @@
         "role": 0
       },
       {
-        "username": "GIUX202011",
-        "role": 0
-      },
-      {
         "username": "Athen",
         "role": 0
       },
       {
         "username": "DragonFire3214",
+        "role": 0
+      },
+      {
+        "username": "GIUX202011",
         "role": 0
       },
       {
@@ -13433,15 +13505,15 @@
         "role": 0
       },
       {
-        "username": "RixerSonoIo",
-        "role": 0
-      },
-      {
         "username": "MaiSpaccato",
         "role": 0
       },
       {
         "username": "Just_North",
+        "role": 0
+      },
+      {
+        "username": "RixerSonoIo",
         "role": 0
       },
       {
@@ -13453,11 +13525,11 @@
         "role": 0
       },
       {
-        "username": "Stanchezzah",
+        "username": "sixbombaminecraf",
         "role": 0
       },
       {
-        "username": "sixbombaminecraf",
+        "username": "Stanchezzah",
         "role": 0
       },
       {
@@ -13498,23 +13570,8 @@
     ]
   },
   {
-    "username": "Nanny1320",
-    "clan": "GoodDay",
-    "membersCount": 3,
-    "members": [
-      {
-        "username": "Dany_2013",
-        "role": 3
-      },
-      {
-        "username": "Nanny1320",
-        "role": 2
-      },
-      {
-        "username": "ILMICIONZ",
-        "role": 0
-      }
-    ]
+    "username": "lucazazza",
+    "clan": null
   },
   {
     "username": "ImAle__",
@@ -13554,7 +13611,7 @@
   {
     "username": "OnlyM_",
     "clan": "ValianceV2",
-    "membersCount": 40,
+    "membersCount": 39,
     "members": [
       {
         "username": "ChriNumberOne",
@@ -13633,10 +13690,6 @@
         "role": 0
       },
       {
-        "username": "Kafff",
-        "role": 0
-      },
-      {
         "username": "Deep98",
         "role": 0
       },
@@ -13681,11 +13734,11 @@
         "role": 0
       },
       {
-        "username": "Samuel__05",
+        "username": "TheWilloh",
         "role": 0
       },
       {
-        "username": "TheWilloh",
+        "username": "Samuel__05",
         "role": 0
       },
       {
@@ -13778,8 +13831,23 @@
     "clan": null
   },
   {
-    "username": "lucazazza",
-    "clan": null
+    "username": "Nanny1320",
+    "clan": "GoodDay",
+    "membersCount": 3,
+    "members": [
+      {
+        "username": "Dany_2013",
+        "role": 3
+      },
+      {
+        "username": "Nanny1320",
+        "role": 2
+      },
+      {
+        "username": "ILMICIONZ",
+        "role": 0
+      }
+    ]
   },
   {
     "username": "Spetthro",
@@ -13862,11 +13930,11 @@
         "role": 0
       },
       {
-        "username": "Giulia08_",
+        "username": "Irenenuda05",
         "role": 0
       },
       {
-        "username": "Irenenuda05",
+        "username": "Giulia08_",
         "role": 0
       },
       {
@@ -13909,11 +13977,11 @@
         "role": 3
       },
       {
-        "username": "DaKat_",
+        "username": "Flavy__",
         "role": 2
       },
       {
-        "username": "Flavy__",
+        "username": "DaKat_",
         "role": 2
       }
     ]
@@ -14123,19 +14191,19 @@
         "role": 0
       },
       {
-        "username": "immortalste64",
-        "role": 0
-      },
-      {
         "username": "Odayakah",
         "role": 0
       },
       {
-        "username": "Melmass4336",
+        "username": "immortalste64",
         "role": 0
       },
       {
         "username": "Swayanoo",
+        "role": 0
+      },
+      {
+        "username": "Melmass4336",
         "role": 0
       },
       {
@@ -14147,11 +14215,11 @@
         "role": 0
       },
       {
-        "username": "sonoaleeh_",
+        "username": "CapoM4fia",
         "role": 0
       },
       {
-        "username": "CapoM4fia",
+        "username": "sonoaleeh_",
         "role": 0
       },
       {
@@ -14183,11 +14251,11 @@
         "role": 0
       },
       {
-        "username": "_Kardiaa",
+        "username": "ewAstra",
         "role": 0
       },
       {
-        "username": "ewAstra",
+        "username": "_Kardiaa",
         "role": 0
       }
     ]
@@ -14302,6 +14370,69 @@
     "clan": null
   },
   {
+    "username": "ChickSoleh",
+    "clan": "Chick",
+    "membersCount": 14,
+    "members": [
+      {
+        "username": "ChickSoleh",
+        "role": 3
+      },
+      {
+        "username": "25mi",
+        "role": 2
+      },
+      {
+        "username": "ChickSolehh",
+        "role": 2
+      },
+      {
+        "username": "Leo_Sberla",
+        "role": 1
+      },
+      {
+        "username": "RedChicky",
+        "role": 1
+      },
+      {
+        "username": "NattyMxmo",
+        "role": 0
+      },
+      {
+        "username": "hysol17",
+        "role": 0
+      },
+      {
+        "username": "ChickSaleh",
+        "role": 0
+      },
+      {
+        "username": "_Giovax11",
+        "role": 0
+      },
+      {
+        "username": "spazzaturah_",
+        "role": 0
+      },
+      {
+        "username": "Abbaglio",
+        "role": 0
+      },
+      {
+        "username": "Sofiaa__",
+        "role": 0
+      },
+      {
+        "username": "jacojunior",
+        "role": 0
+      },
+      {
+        "username": "ChickenSoleh",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "Ivaanq",
     "clan": null
   },
@@ -14387,69 +14518,6 @@
       },
       {
         "username": "HOFAME9",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "ChickSoleh",
-    "clan": "Chick",
-    "membersCount": 14,
-    "members": [
-      {
-        "username": "ChickSoleh",
-        "role": 3
-      },
-      {
-        "username": "25mi",
-        "role": 2
-      },
-      {
-        "username": "ChickSolehh",
-        "role": 2
-      },
-      {
-        "username": "Leo_Sberla",
-        "role": 1
-      },
-      {
-        "username": "RedChicky",
-        "role": 1
-      },
-      {
-        "username": "NattyMxmo",
-        "role": 0
-      },
-      {
-        "username": "hysol17",
-        "role": 0
-      },
-      {
-        "username": "ChickSaleh",
-        "role": 0
-      },
-      {
-        "username": "_Giovax11",
-        "role": 0
-      },
-      {
-        "username": "spazzaturah_",
-        "role": 0
-      },
-      {
-        "username": "Abbaglio",
-        "role": 0
-      },
-      {
-        "username": "Sofiaa__",
-        "role": 0
-      },
-      {
-        "username": "jacojunior",
-        "role": 0
-      },
-      {
-        "username": "ChickenSoleh",
         "role": 0
       }
     ]
@@ -14570,11 +14638,11 @@
     "clan": null
   },
   {
-    "username": "Dream_09",
+    "username": "NoWayP4k1",
     "clan": null
   },
   {
-    "username": "NoWayP4k1",
+    "username": "Dream_09",
     "clan": null
   },
   {
@@ -14615,11 +14683,11 @@
         "role": 0
       },
       {
-        "username": "auramilan",
+        "username": "_cv",
         "role": 0
       },
       {
-        "username": "_cv",
+        "username": "auramilan",
         "role": 0
       },
       {
@@ -14901,6 +14969,10 @@
     ]
   },
   {
+    "username": "JustClapped",
+    "clan": null
+  },
+  {
     "username": "SugaryPro78",
     "clan": "Dvel",
     "membersCount": 17,
@@ -14942,15 +15014,15 @@
         "role": 0
       },
       {
+        "username": "DANIELFRIX",
+        "role": 0
+      },
+      {
         "username": "_TheBell_",
         "role": 0
       },
       {
         "username": "King_Enricocl13",
-        "role": 0
-      },
-      {
-        "username": "DANIELFRIX",
         "role": 0
       },
       {
@@ -14974,10 +15046,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "JustClapped",
-    "clan": null
   },
   {
     "username": "danilo433",
@@ -15084,19 +15152,19 @@
         "role": 0
       },
       {
-        "username": "diobellinoo",
-        "role": 0
-      },
-      {
         "username": "Salamanassar",
         "role": 0
       },
       {
-        "username": "aMess4",
+        "username": "diobellinoo",
         "role": 0
       },
       {
         "username": "gianlu548",
+        "role": 0
+      },
+      {
+        "username": "aMess4",
         "role": 0
       },
       {
@@ -15482,11 +15550,11 @@
         "role": 0
       },
       {
-        "username": "itsMely23",
+        "username": "MisticG",
         "role": 0
       },
       {
-        "username": "MisticG",
+        "username": "itsMely23",
         "role": 0
       },
       {
@@ -15678,6 +15746,61 @@
     ]
   },
   {
+    "username": "beffa_acaule",
+    "clan": "Opposition",
+    "membersCount": 12,
+    "members": [
+      {
+        "username": "beffa_acaule",
+        "role": 3
+      },
+      {
+        "username": "FervidVoyage149",
+        "role": 2
+      },
+      {
+        "username": "ous_2009",
+        "role": 0
+      },
+      {
+        "username": "GM03ITA",
+        "role": 0
+      },
+      {
+        "username": "amo_03",
+        "role": 0
+      },
+      {
+        "username": "CensedWilliam",
+        "role": 0
+      },
+      {
+        "username": "K1ng_07",
+        "role": 0
+      },
+      {
+        "username": "Matti200IQ",
+        "role": 0
+      },
+      {
+        "username": "vinci_boss",
+        "role": 0
+      },
+      {
+        "username": "BandanaViola",
+        "role": 0
+      },
+      {
+        "username": "Tarunda",
+        "role": 0
+      },
+      {
+        "username": "oAndree",
+        "role": 0
+      }
+    ]
+  },
+  {
     "username": "richy13",
     "clan": null
   },
@@ -15707,11 +15830,11 @@
         "role": 0
       },
       {
-        "username": "Zanna_XVII",
+        "username": "redsmoke23",
         "role": 0
       },
       {
-        "username": "redsmoke23",
+        "username": "Zanna_XVII",
         "role": 0
       },
       {
@@ -15719,11 +15842,11 @@
         "role": 0
       },
       {
-        "username": "Fiammah",
+        "username": "zGab28",
         "role": 0
       },
       {
-        "username": "zGab28",
+        "username": "Fiammah",
         "role": 0
       },
       {
@@ -15899,6 +16022,10 @@
     ]
   },
   {
+    "username": "EtugiAle",
+    "clan": null
+  },
+  {
     "username": "NotAl3xPlayingYT",
     "clan": "SoulSociety",
     "membersCount": 3,
@@ -15916,10 +16043,6 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "EtugiAle",
-    "clan": null
   },
   {
     "username": "Probutlow_",
@@ -16002,11 +16125,11 @@
         "role": 0
       },
       {
-        "username": "GANCy_tempo",
+        "username": "naruto2011",
         "role": 0
       },
       {
-        "username": "naruto2011",
+        "username": "GANCy_tempo",
         "role": 0
       },
       {
@@ -16061,11 +16184,11 @@
         "role": 1
       },
       {
-        "username": "Beppefurio09",
+        "username": "Checco0823",
         "role": 0
       },
       {
-        "username": "Checco0823",
+        "username": "Beppefurio09",
         "role": 0
       },
       {
@@ -16076,6 +16199,10 @@
   },
   {
     "username": "fieropopplio",
+    "clan": null
+  },
+  {
+    "username": "filoo09",
     "clan": null
   },
   {
@@ -16176,11 +16303,11 @@
         "role": 0
       },
       {
-        "username": "Skullysoul",
+        "username": "Roniew",
         "role": 0
       },
       {
-        "username": "Roniew",
+        "username": "Skullysoul",
         "role": 0
       },
       {
@@ -16202,6 +16329,10 @@
     ]
   },
   {
+    "username": "Nebbiaah",
+    "clan": null
+  },
+  {
     "username": "Malaticcioh_",
     "clan": "PioEsposigoat",
     "membersCount": 1,
@@ -16213,10 +16344,6 @@
     ]
   },
   {
-    "username": "Nebbiaah",
-    "clan": null
-  },
-  {
     "username": "yuvrajlidel",
     "clan": null
   },
@@ -16225,7 +16352,7 @@
     "clan": null
   },
   {
-    "username": "filoo09",
+    "username": "mattehaha2",
     "clan": null
   },
   {
@@ -16244,11 +16371,7 @@
     ]
   },
   {
-    "username": "mattehaha2",
-    "clan": null
-  },
-  {
-    "username": "ItzFrancy",
+    "username": "zLetyy",
     "clan": null
   },
   {
@@ -16346,6 +16469,10 @@
     "clan": null
   },
   {
+    "username": "ItzFrancy",
+    "clan": null
+  },
+  {
     "username": "Orpdar",
     "clan": "Orpdarini",
     "membersCount": 13,
@@ -16359,11 +16486,11 @@
         "role": 1
       },
       {
-        "username": "Max_Fratmen",
+        "username": "Jaix13",
         "role": 1
       },
       {
-        "username": "Jaix13",
+        "username": "Max_Fratmen",
         "role": 1
       },
       {
@@ -16395,11 +16522,11 @@
         "role": 0
       },
       {
-        "username": "pupone104",
+        "username": "Gianpoll",
         "role": 0
       },
       {
-        "username": "Gianpoll",
+        "username": "pupone104",
         "role": 0
       }
     ]
@@ -16533,11 +16660,11 @@
         "role": 0
       },
       {
-        "username": "mustacchio____",
+        "username": "TrentaSette",
         "role": 0
       },
       {
-        "username": "TrentaSette",
+        "username": "mustacchio____",
         "role": 0
       },
       {
@@ -16590,8 +16717,19 @@
     ]
   },
   {
-    "username": "zLetyy",
-    "clan": null
+    "username": "ItzGen0",
+    "clan": "G0dLevel",
+    "membersCount": 2,
+    "members": [
+      {
+        "username": "ItzGen0",
+        "role": 3
+      },
+      {
+        "username": "404Biscuits",
+        "role": 0
+      }
+    ]
   },
   {
     "username": "Enticos",
@@ -16657,21 +16795,6 @@
     "clan": null
   },
   {
-    "username": "ItzGen0",
-    "clan": "G0dLevel",
-    "membersCount": 2,
-    "members": [
-      {
-        "username": "ItzGen0",
-        "role": 3
-      },
-      {
-        "username": "404Biscuits",
-        "role": 0
-      }
-    ]
-  },
-  {
     "username": "kTheozz",
     "clan": "Beater",
     "membersCount": 1,
@@ -16685,41 +16808,6 @@
   {
     "username": "Endri_gje07",
     "clan": null
-  },
-  {
-    "username": "Garou004",
-    "clan": null
-  },
-  {
-    "username": "Apistos",
-    "clan": "ansiolitici",
-    "membersCount": 6,
-    "members": [
-      {
-        "username": "Apistos",
-        "role": 3
-      },
-      {
-        "username": "alefae64",
-        "role": 2
-      },
-      {
-        "username": "Indra78_",
-        "role": 2
-      },
-      {
-        "username": "criiied",
-        "role": 1
-      },
-      {
-        "username": "TheLuke13",
-        "role": 0
-      },
-      {
-        "username": "DismalPsycho",
-        "role": 0
-      }
-    ]
   },
   {
     "username": "EndeRicky_",
@@ -16800,8 +16888,39 @@
     ]
   },
   {
-    "username": "Leo110TP",
+    "username": "Garou004",
     "clan": null
+  },
+  {
+    "username": "Apistos",
+    "clan": "ansiolitici",
+    "membersCount": 6,
+    "members": [
+      {
+        "username": "Apistos",
+        "role": 3
+      },
+      {
+        "username": "alefae64",
+        "role": 2
+      },
+      {
+        "username": "Indra78_",
+        "role": 2
+      },
+      {
+        "username": "criiied",
+        "role": 1
+      },
+      {
+        "username": "TheLuke13",
+        "role": 0
+      },
+      {
+        "username": "DismalPsycho",
+        "role": 0
+      }
+    ]
   },
   {
     "username": "NoC0mbo",
@@ -16819,15 +16938,7 @@
     ]
   },
   {
-    "username": "TiscaTusca",
-    "clan": null
-  },
-  {
-    "username": "yyvx",
-    "clan": null
-  },
-  {
-    "username": "GENggz",
+    "username": "Leo110TP",
     "clan": null
   },
   {
@@ -16932,14 +17043,6 @@
         "role": 0
       },
       {
-        "username": "C4rbon3",
-        "role": 0
-      },
-      {
-        "username": "vhalens",
-        "role": 0
-      },
-      {
         "username": "GetTrilly",
         "role": 0
       },
@@ -16948,7 +17051,19 @@
         "role": 0
       },
       {
+        "username": "C4rbon3",
+        "role": 0
+      },
+      {
+        "username": "vhalens",
+        "role": 0
+      },
+      {
         "username": "sstre",
+        "role": 0
+      },
+      {
+        "username": "probxen",
         "role": 0
       },
       {
@@ -16962,10 +17077,6 @@
       {
         "username": "kxxrma",
         "role": 0
-      },
-      {
-        "username": "probxen",
-        "role": 0
       }
     ]
   },
@@ -16974,11 +17085,23 @@
     "clan": null
   },
   {
-    "username": "BiturboBros08",
+    "username": "GENggz",
     "clan": null
   },
   {
     "username": "il_Davi",
+    "clan": null
+  },
+  {
+    "username": "TiscaTusca",
+    "clan": null
+  },
+  {
+    "username": "BiturboBros08",
+    "clan": null
+  },
+  {
+    "username": "yyvx",
     "clan": null
   },
   {
@@ -16990,11 +17113,7 @@
     "clan": null
   },
   {
-    "username": "blessexed",
-    "clan": null
-  },
-  {
-    "username": "Wite_",
+    "username": "Called_Fago",
     "clan": null
   },
   {
@@ -17002,15 +17121,11 @@
     "clan": null
   },
   {
-    "username": "Called_Fago",
+    "username": "Wite_",
     "clan": null
   },
   {
-    "username": "aFake",
-    "clan": null
-  },
-  {
-    "username": "4l3x_2010",
+    "username": "blessexed",
     "clan": null
   },
   {
@@ -17022,34 +17137,11 @@
     "clan": null
   },
   {
-    "username": "Danilo",
-    "clan": "Danilo",
-    "membersCount": 5,
-    "members": [
-      {
-        "username": "dxnilo",
-        "role": 3
-      },
-      {
-        "username": "Danilo",
-        "role": 2
-      },
-      {
-        "username": "Sqntoh",
-        "role": 0
-      },
-      {
-        "username": "Zaramy",
-        "role": 0
-      },
-      {
-        "username": "nnightcore",
-        "role": 0
-      }
-    ]
+    "username": "aFake",
+    "clan": null
   },
   {
-    "username": "179hz",
+    "username": "4l3x_2010",
     "clan": null
   },
   {
@@ -17166,11 +17258,11 @@
         "role": 0
       },
       {
-        "username": "zTheSeek",
+        "username": "JustKiddiin",
         "role": 0
       },
       {
-        "username": "JustKiddiin",
+        "username": "zTheSeek",
         "role": 0
       },
       {
@@ -17178,11 +17270,11 @@
         "role": 0
       },
       {
-        "username": "Dark_skin",
+        "username": "Maxkred",
         "role": 0
       },
       {
-        "username": "Maxkred",
+        "username": "Dark_skin",
         "role": 0
       }
     ]
@@ -17194,6 +17286,45 @@
   {
     "username": "Marevuu",
     "clan": null
+  },
+  {
+    "username": "179hz",
+    "clan": null
+  },
+  {
+    "username": "Danilo",
+    "clan": "Danilo",
+    "membersCount": 7,
+    "members": [
+      {
+        "username": "dxnilo",
+        "role": 3
+      },
+      {
+        "username": "Danilo",
+        "role": 2
+      },
+      {
+        "username": "Sqntoh",
+        "role": 0
+      },
+      {
+        "username": "Zaramy",
+        "role": 0
+      },
+      {
+        "username": "nnightcore",
+        "role": 0
+      },
+      {
+        "username": "Poliziotto",
+        "role": 0
+      },
+      {
+        "username": "juve",
+        "role": 0
+      }
+    ]
   },
   {
     "username": "EMILIANO9999176",
@@ -17251,19 +17382,11 @@
     ]
   },
   {
-    "username": "kleidon11",
-    "clan": null
-  },
-  {
-    "username": "ItzMrMattia",
-    "clan": null
-  },
-  {
-    "username": "Krico",
-    "clan": null
-  },
-  {
     "username": "Not_Alee",
+    "clan": null
+  },
+  {
+    "username": "peppe3451",
     "clan": null
   },
   {
@@ -17350,14 +17473,6 @@
     "clan": null
   },
   {
-    "username": "Reniv3",
-    "clan": null
-  },
-  {
-    "username": "Sasha21",
-    "clan": null
-  },
-  {
     "username": "alvin_bl4ck",
     "clan": null
   },
@@ -17387,11 +17502,11 @@
         "role": 0
       },
       {
-        "username": "Sbruciato_",
+        "username": "J4Ko__",
         "role": 0
       },
       {
-        "username": "J4Ko__",
+        "username": "Sbruciato_",
         "role": 0
       },
       {
@@ -17401,15 +17516,23 @@
     ]
   },
   {
-    "username": "peppe3451",
+    "username": "Reniv3",
     "clan": null
   },
   {
-    "username": "ichibinibi",
+    "username": "Sasha21",
     "clan": null
   },
   {
-    "username": "Pillyus",
+    "username": "kleidon11",
+    "clan": null
+  },
+  {
+    "username": "ItzMrMattia",
+    "clan": null
+  },
+  {
+    "username": "Krico",
     "clan": null
   },
   {
@@ -17474,11 +17597,11 @@
         "role": 0
       },
       {
-        "username": "_Goblin_11",
+        "username": "KuyokuSan",
         "role": 0
       },
       {
-        "username": "KuyokuSan",
+        "username": "_Goblin_11",
         "role": 0
       },
       {
@@ -17565,11 +17688,11 @@
         "role": 0
       },
       {
-        "username": "crazyyyMC234",
+        "username": "Giu2k10",
         "role": 0
       },
       {
-        "username": "Giu2k10",
+        "username": "crazyyyMC234",
         "role": 0
       },
       {
@@ -17577,6 +17700,26 @@
         "role": 0
       }
     ]
+  },
+  {
+    "username": "ichibinibi",
+    "clan": null
+  },
+  {
+    "username": "Pillyus",
+    "clan": null
+  },
+  {
+    "username": "BarbzAle",
+    "clan": null
+  },
+  {
+    "username": "YoureWeak_",
+    "clan": null
+  },
+  {
+    "username": "Amartolos",
+    "clan": null
   },
   {
     "username": "TonyMorfina",
@@ -17587,15 +17730,11 @@
     "clan": null
   },
   {
-    "username": "BarbzAle",
+    "username": "Kanco_",
     "clan": null
   },
   {
-    "username": "Amartolos",
-    "clan": null
-  },
-  {
-    "username": "YoureWeak_",
+    "username": "TheRacing",
     "clan": null
   },
   {
@@ -17676,25 +17815,56 @@
         "role": 0
       },
       {
-        "username": "ItzPanda14",
-        "role": 0
-      },
-      {
         "username": "mimi_bro26",
         "role": 0
       },
       {
         "username": "Nathan1416",
         "role": 0
+      },
+      {
+        "username": "ItzPanda14",
+        "role": 0
       }
     ]
   },
   {
-    "username": "Kanco_",
+    "username": "divinehera",
+    "clan": "egirlhunters",
+    "membersCount": 3,
+    "members": [
+      {
+        "username": "divinehera",
+        "role": 3
+      },
+      {
+        "username": "Settentrionale",
+        "role": 0
+      },
+      {
+        "username": "jkw_zz",
+        "role": 0
+      }
+    ]
+  },
+  {
+    "username": "Fabiogamer07",
     "clan": null
   },
   {
-    "username": "TheRacing",
+    "username": "ItzFedee",
+    "clan": null
+  },
+  {
+    "username": "alexxaati",
+    "clan": null
+  },
+  {
+    "username": "Wornerh",
+    "clan": null
+  },
+  {
+    "username": "sayolesITA",
     "clan": null
   },
   {
@@ -17728,53 +17898,6 @@
     ]
   },
   {
-    "username": "Wornerh",
-    "clan": null
-  },
-  {
-    "username": "divinehera",
-    "clan": "egirlhunters",
-    "membersCount": 3,
-    "members": [
-      {
-        "username": "divinehera",
-        "role": 3
-      },
-      {
-        "username": "Settentrionale",
-        "role": 0
-      },
-      {
-        "username": "jkw_zz",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "sayolesITA",
-    "clan": null
-  },
-  {
-    "username": "alexxaati",
-    "clan": null
-  },
-  {
-    "username": "Fabiogamer07",
-    "clan": null
-  },
-  {
-    "username": "ItzFedee",
-    "clan": null
-  },
-  {
-    "username": "Enea56",
-    "clan": null
-  },
-  {
-    "username": "spaccacabbi_0101",
-    "clan": null
-  },
-  {
     "username": "nikoo777",
     "clan": null
   },
@@ -17784,6 +17907,14 @@
   },
   {
     "username": "Ilost_",
+    "clan": null
+  },
+  {
+    "username": "spaccacabbi_0101",
+    "clan": null
+  },
+  {
+    "username": "Enea56",
     "clan": null
   },
   {
@@ -17936,6 +18067,37 @@
     "clan": null
   },
   {
+    "username": "Limone2000__",
+    "clan": "GothLovers",
+    "membersCount": 5,
+    "members": [
+      {
+        "username": "Xalior_",
+        "role": 3
+      },
+      {
+        "username": "Limone2000__",
+        "role": 2
+      },
+      {
+        "username": "FedePro_10",
+        "role": 1
+      },
+      {
+        "username": "NIANMA2o17",
+        "role": 0
+      },
+      {
+        "username": "Mugsee10",
+        "role": 0
+      }
+    ]
+  },
+  {
+    "username": "vMickeR",
+    "clan": null
+  },
+  {
     "username": "MaxiOrni",
     "clan": "PNC",
     "membersCount": 11,
@@ -17987,38 +18149,7 @@
     ]
   },
   {
-    "username": "vMickeR",
-    "clan": null
-  },
-  {
-    "username": "Limone2000__",
-    "clan": "GothLovers",
-    "membersCount": 5,
-    "members": [
-      {
-        "username": "Xalior_",
-        "role": 3
-      },
-      {
-        "username": "Limone2000__",
-        "role": 2
-      },
-      {
-        "username": "FedePro_10",
-        "role": 1
-      },
-      {
-        "username": "NIANMA2o17",
-        "role": 0
-      },
-      {
-        "username": "Mugsee10",
-        "role": 0
-      }
-    ]
-  },
-  {
-    "username": "Samuletto29",
+    "username": "DemonPepis",
     "clan": null
   },
   {
@@ -18057,15 +18188,15 @@
     "clan": null
   },
   {
+    "username": "Green_Fire",
+    "clan": null
+  },
+  {
     "username": "SnowMan393",
     "clan": null
   },
   {
     "username": "Sammy_Mok",
-    "clan": null
-  },
-  {
-    "username": "Green_Fire",
     "clan": null
   },
   {
@@ -18098,11 +18229,15 @@
         "role": 2
       },
       {
+        "username": "SciacalloAcquoso",
+        "role": 2
+      },
+      {
         "username": "sciacalloblatant",
         "role": 2
       },
       {
-        "username": "SciacalloAcquoso",
+        "username": "SANCATALDO",
         "role": 2
       },
       {
@@ -18111,10 +18246,6 @@
       },
       {
         "username": "BigChungus",
-        "role": 2
-      },
-      {
-        "username": "SANCATALDO",
         "role": 2
       },
       {
@@ -18164,15 +18295,11 @@
     ]
   },
   {
-    "username": "PathBateman_",
-    "clan": null
-  },
-  {
-    "username": "BelVerdino",
-    "clan": null
-  },
-  {
     "username": "DanScan0",
+    "clan": null
+  },
+  {
+    "username": "PathBateman_",
     "clan": null
   },
   {
@@ -18180,7 +18307,7 @@
     "clan": null
   },
   {
-    "username": "DemonPepis",
+    "username": "BelVerdino",
     "clan": null
   },
   {
@@ -18332,6 +18459,10 @@
     "clan": null
   },
   {
+    "username": "oLxnelyy",
+    "clan": null
+  },
+  {
     "username": "_Risuo_",
     "clan": null
   },
@@ -18355,7 +18486,7 @@
     ]
   },
   {
-    "username": "oLxnelyy",
+    "username": "francescoTom1",
     "clan": null
   },
   {
@@ -18462,10 +18593,6 @@
     ]
   },
   {
-    "username": "francescoTom1",
-    "clan": null
-  },
-  {
     "username": "1Suzukivlogger",
     "clan": "Dominators",
     "membersCount": 14,
@@ -18537,6 +18664,14 @@
     "clan": null
   },
   {
+    "username": "CubeF4ce",
+    "clan": null
+  },
+  {
+    "username": "werfrag",
+    "clan": null
+  },
+  {
     "username": "_nightmare_05",
     "clan": "MVDP",
     "membersCount": 16,
@@ -18566,11 +18701,11 @@
         "role": 0
       },
       {
-        "username": "BlueKarma",
+        "username": "zlegendxd",
         "role": 0
       },
       {
-        "username": "zlegendxd",
+        "username": "BlueKarma",
         "role": 0
       },
       {
@@ -18578,11 +18713,11 @@
         "role": 0
       },
       {
-        "username": "Chinni698",
+        "username": "DNZAl3x99",
         "role": 0
       },
       {
-        "username": "DNZAl3x99",
+        "username": "Chinni698",
         "role": 0
       },
       {
@@ -18606,9 +18741,5 @@
         "role": 0
       }
     ]
-  },
-  {
-    "username": "Manu_47365",
-    "clan": null
   }
 ]

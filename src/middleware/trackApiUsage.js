@@ -40,7 +40,6 @@ function normalizeEndpointPath(path) {
   if (parts[0] === "results") return "/results";
   if (parts[0] === "clan-members") return "/clan-members/{name}";
 
-  // Stats router endpoints
   if (parts[0] === "stats") {
     const game = parts[1] || "{game}";
     const rest = parts.slice(2);

@@ -113,7 +113,6 @@ async function ensureUserApiKey(user, req) {
     return user;
 }
 
-// Rotte Autenticazione
 router.get('/login', ensureDiscordConfigured, rememberReturnTo, passport.authenticate('discord'));
 
 router.get('/callback', ensureDiscordConfigured, passport.authenticate('discord', {
@@ -139,7 +138,6 @@ router.get('/logout', (req, res) => {
     req.logout(() => res.redirect('/'));
 });
 
-// Verifica stato login
 router.get('/user', (req, res) => {
     if (req.isAuthenticated()) {
         res.json(req.user);

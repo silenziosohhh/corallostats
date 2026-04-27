@@ -1,6 +1,65 @@
 const express = require("express");
 const { readCache, writeCache } = require("./upstreamCache");
 const { getStatsRegistry } = require("./statsRegistry");
+const { getDashboardClanOrder } = require("../lib/dashboardClanOrder");
+
+function normalizeClanName(name) {
+  const s = String(name || "").trim();
+  return s ? s.toLowerCase() : null;
+}
+
+function extractClanName(item) {
+  if (typeof item === "string") return item;
+  if (!item || typeof item !== "object") return null;
+
+  const candidates = [
+    item.clanName,
+    item.clan_name,
+    item.clan,
+    item.name,
+    item.title,
+  ];
+
+  for (const c of candidates) {
+    if (typeof c === "string" && c.trim()) return c;
+  }
+  return null;
+}
+
+function pickLeaderboardArray(payload) {
+  if (Array.isArray(payload)) return { key: null, arr: payload };
+  if (!payload || typeof payload !== "object") return null;
+
+  const keys = ["leaderboard", "clans", "items", "data", "results"];
+  for (const key of keys) {
+    if (Array.isArray(payload[key])) return { key, arr: payload[key] };
+  }
+  return null;
+}
+
+function reorderBedwarsClansLeaderboardLikeDashboard(payload) {
+  const picked = pickLeaderboardArray(payload);
+  if (!picked) return payload;
+
+  const order = getDashboardClanOrder();
+  if (!order || order.size === 0) return payload;
+
+  const decorated = picked.arr.map((item, idx) => {
+    const name = extractClanName(item);
+    const key = normalizeClanName(name);
+    const rank = key && order.has(key) ? order.get(key) : Number.POSITIVE_INFINITY;
+    return { item, idx, rank };
+  });
+
+  decorated.sort((a, b) => {
+    if (a.rank !== b.rank) return a.rank - b.rank;
+    return a.idx - b.idx;
+  });
+
+  const sorted = decorated.map((x) => x.item);
+  if (!picked.key) return sorted;
+  return { ...payload, [picked.key]: sorted };
+}
 
 function buildUpstreamUrl({ host, upstreamTemplate, params, query }) {
   let p = upstreamTemplate;
@@ -52,6 +111,9 @@ function createStatsRouter({
     if (typeof router[method] !== "function") continue;
 
     router[method](expressPath, async (req, res) => {
+      const matchDashboardOrder =
+        ep.method === "GET" && ep.localPathTemplate === "/stats/bedwars/clans/leaderboard";
+
       const upstreamUrl = buildUpstreamUrl({
         host: upstreamHost,
         upstreamTemplate: ep.upstreamPathTemplate,
@@ -63,14 +125,21 @@ function createStatsRouter({
       const cached = readCache(cacheKey);
       if (isFresh(cached, ttlMs) && cached.status === 200) {
         res.setHeader("X-Cache", "HIT");
-        return res.status(200).json(cached.body);
+        const body = matchDashboardOrder
+          ? reorderBedwarsClansLeaderboardLikeDashboard(cached.body)
+          : cached.body;
+        return res.status(200).json(body);
       }
 
       if (inflight.has(cacheKey)) {
         try {
           const out = await inflight.get(cacheKey);
           res.setHeader("X-Cache", out?.fromCache ? "HIT" : "MISS");
-          return res.status(out.status).json(out.body);
+          const body =
+            matchDashboardOrder && out.status === 200
+              ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
+              : out.body;
+          return res.status(out.status).json(body);
         } catch {
           return res.status(502).json({ error: "Upstream error" });
         }
@@ -123,7 +192,11 @@ function createStatsRouter({
         } else {
           res.setHeader("X-Cache", "MISS");
         }
-        res.status(out.status).json(out.body);
+        const body =
+          matchDashboardOrder && out.status === 200
+            ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
+            : out.body;
+        res.status(out.status).json(body);
       } catch (err) {
         res.status(502).json({ error: err?.message || "Upstream error" });
       } finally {

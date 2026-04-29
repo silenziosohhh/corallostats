@@ -124,7 +124,16 @@ function createServersBotRouter() {
       });
       res.json({ ok: true, server: shaped });
     } catch (err) {
-      if (err?.code === 11000) return res.status(409).json({ error: "Questo server è già stato pubblicato nella directory." });
+      if (err?.code === 11000) {
+        const keys = err?.keyPattern ? Object.keys(err.keyPattern) : [];
+        if (keys.includes("ownerDiscordId")) {
+          return res.status(409).json({
+            error:
+              "Limite pubblicazione non valido (indice DB). Riprova tra poco; se persiste, contatta un admin.",
+          });
+        }
+        return res.status(409).json({ error: "Questo server è già stato pubblicato nella directory." });
+      }
       if (err?.code === "invite_not_found") return res.status(400).json({ error: "Invite Discord non valida o scaduta" });
       if (err?.code === "rate_limited") return res.status(503).json({ error: "Discord rate limited, riprova tra poco" });
       if (err?.code === "discord_auth") return res.status(503).json({ error: "Discord bot token non valido o senza permessi" });

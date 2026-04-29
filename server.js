@@ -28,6 +28,7 @@ const { createServersRouter } = require("./src/serversApi");
 const { createServersPublicRouter } = require("./src/serversPublicApi");
 const { createServersBotRouter } = require("./src/serversBotApi");
 const { syncLikesLeaderboard } = require("./src/lib/likesLeaderboardSync");
+const { syncMongoIndexes } = require("./src/lib/mongoIndexSync");
 
 const app = express();
 const config = getConfig();
@@ -301,6 +302,14 @@ app.get('/api/scraper-status', ensureAuthenticated, (req, res) => {
 async function start() {
     initScraper();
     await connectToMongo(process.env.MONGO_URI);
+    try {
+        const out = await syncMongoIndexes();
+        if (String(process.env.DEBUG_INDEX_SYNC || "") === "1") {
+            console.log("Mongo index sync:", out);
+        }
+    } catch {
+        // ignore
+    }
     initLikesLeaderboardJob();
 
     const cacheCleanupDisabled =

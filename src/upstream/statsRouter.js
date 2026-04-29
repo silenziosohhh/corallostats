@@ -2,6 +2,7 @@ const express = require("express");
 const { readCache, writeCache } = require("./upstreamCache");
 const { getStatsRegistry } = require("./statsRegistry");
 const { getDashboardClanOrder } = require("../lib/dashboardClanOrder");
+const { withClanTotalExpTop15 } = require("../lib/clanTotalExp");
 
 function normalizeClanName(name) {
   const s = String(name || "").trim();
@@ -113,6 +114,8 @@ function createStatsRouter({
     router[method](expressPath, async (req, res) => {
       const matchDashboardOrder =
         ep.method === "GET" && ep.localPathTemplate === "/stats/bedwars/clans/leaderboard";
+      const rewriteClanTotalExpTop15 =
+        ep.method === "GET" && ep.localPathTemplate === "/stats/bedwars/clans/{clanName}";
 
       const upstreamUrl = buildUpstreamUrl({
         host: upstreamHost,
@@ -125,9 +128,9 @@ function createStatsRouter({
       const cached = readCache(cacheKey);
       if (isFresh(cached, ttlMs) && cached.status === 200) {
         res.setHeader("X-Cache", "HIT");
-        const body = matchDashboardOrder
-          ? reorderBedwarsClansLeaderboardLikeDashboard(cached.body)
-          : cached.body;
+        let body = cached.body;
+        if (rewriteClanTotalExpTop15) body = withClanTotalExpTop15(body);
+        if (matchDashboardOrder) body = reorderBedwarsClansLeaderboardLikeDashboard(body);
         return res.status(200).json(body);
       }
 
@@ -135,10 +138,9 @@ function createStatsRouter({
         try {
           const out = await inflight.get(cacheKey);
           res.setHeader("X-Cache", out?.fromCache ? "HIT" : "MISS");
-          const body =
-            matchDashboardOrder && out.status === 200
-              ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
-              : out.body;
+          let body = out.body;
+          if (rewriteClanTotalExpTop15 && out.status === 200) body = withClanTotalExpTop15(body);
+          if (matchDashboardOrder && out.status === 200) body = reorderBedwarsClansLeaderboardLikeDashboard(body);
           return res.status(out.status).json(body);
         } catch {
           return res.status(502).json({ error: "Upstream error" });
@@ -192,10 +194,9 @@ function createStatsRouter({
         } else {
           res.setHeader("X-Cache", "MISS");
         }
-        const body =
-          matchDashboardOrder && out.status === 200
-            ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
-            : out.body;
+        let body = out.body;
+        if (rewriteClanTotalExpTop15 && out.status === 200) body = withClanTotalExpTop15(body);
+        if (matchDashboardOrder && out.status === 200) body = reorderBedwarsClansLeaderboardLikeDashboard(body);
         res.status(out.status).json(body);
       } catch (err) {
         res.status(502).json({ error: err?.message || "Upstream error" });

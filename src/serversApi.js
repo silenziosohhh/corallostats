@@ -225,6 +225,13 @@ function createServersRouter() {
       res.json({ ok: true, server: shaped });
     } catch (err) {
       if (err?.code === 11000) {
+        const keys = err?.keyPattern ? Object.keys(err.keyPattern) : [];
+        if (keys.includes("ownerDiscordId")) {
+          return res.status(409).json({
+            error:
+              "Hai raggiunto un limite di pubblicazione non valido (indice DB). Riprova tra poco; se persiste, contatta un admin.",
+          });
+        }
         return res.status(409).json({ error: "Questo server è già stato pubblicato nella directory." });
       }
       if (err?.code === "invite_not_found") {

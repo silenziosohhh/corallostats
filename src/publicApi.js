@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { JsonFileStore } = require("./lib/jsonFileStore");
-const { clanTotalExpTopNFromMembers } = require("./lib/clanTotalExp");
 
 const DATA_PATH = path.join(__dirname, "..", "data");
 
@@ -38,7 +37,7 @@ function combinedMeta(...items) {
 
 function metaIsFresh(meta, refreshMs) {
   if (!meta || typeof meta !== "object") return false;
-  if (String(meta.calc || "") !== "top15") return false;
+  if (String(meta.source || "") !== "upstream") return false;
   const v = meta.total_exp ?? meta.totalExp ?? null;
   if (v == null) return false;
 
@@ -112,19 +111,12 @@ function createPublicApiRouter() {
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = await res.json();
 
-          const members = Array.isArray(json?.members) ? json.members : [];
-          const top15Total = clanTotalExpTopNFromMembers(members, 15);
-          const allTotal = clanTotalExpTopNFromMembers(members, Number.MAX_SAFE_INTEGER);
-
           out[name] = {
-            // CoralMC upstream provides `total_exp`, but for our public API we expose the
-            // total calculated from the best 15 members (requested behavior).
-            calc: "top15",
-            total_exp: top15Total,
-            total_exp_all_members: allTotal,
-            member_count: members.length,
+            total_exp: json?.total_exp ?? null,
+            member_count: Array.isArray(json?.members) ? json.members.length : null,
             tag: json?.tag ?? null,
             color: json?.color ?? null,
+            source: "upstream",
             fetchedAt: new Date().toISOString(),
           };
 
@@ -197,9 +189,12 @@ function createPublicApiRouter() {
         ? list.some((name) => !metaIsFresh(map[name], refreshMs))
         : false;
 
-    const needBuild = list.length && (!map || covered < list.length || stale);
+    const rebuildParam = String(req.query.rebuild || req.query.refresh || "").toLowerCase().trim();
+    const forceRebuild = rebuildParam === "1" || rebuildParam === "true" || rebuildParam === "yes";
+
+    const needBuild = list.length && (!map || covered < list.length || stale || forceRebuild);
     if (needBuild && !clanMetaBuildTask) {
-      clanMetaBuildTask = buildClansMeta({ clans: list, existing: map }).finally(() => {
+      clanMetaBuildTask = buildClansMeta({ clans: list, existing: forceRebuild ? {} : map }).finally(() => {
         clanMetaBuildTask = null;
       });
     }

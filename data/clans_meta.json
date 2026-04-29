@@ -3,2163 +3,1854 @@
     "total_exp": 662,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.498Z"
+    "color": null
   },
   "777": {
     "total_exp": 0,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.493Z"
+    "color": null
   },
   "8479": {
     "total_exp": 0,
     "member_count": 23,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.498Z"
+    "color": null
   },
   "1111111": {
     "total_exp": 201,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.292Z"
+    "color": null
   },
   "Valiance": {
-    "total_exp": 2253432,
+    "total_exp": 2443901,
     "member_count": 50,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.046Z"
+    "color": null
   },
   "antikonny": {
-    "total_exp": 214434,
+    "total_exp": 226776,
     "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.766Z"
+    "color": null
   },
   "Tears": {
-    "total_exp": 121544,
+    "total_exp": 127577,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.552Z"
+    "color": null
   },
   "eGo": {
-    "total_exp": 68295,
+    "total_exp": 72516,
     "member_count": 22,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.188Z"
+    "color": null
   },
-  "Paradise": {
-    "total_exp": 1013831,
-    "member_count": 49,
+  "Tits": {
+    "total_exp": 1169700,
+    "member_count": 42,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.544Z"
+    "color": null
   },
   "Spadaccini": {
-    "total_exp": 1146666,
+    "total_exp": 1208392,
     "member_count": 49,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.968Z"
+    "color": null
   },
   "Nabboli": {
-    "total_exp": 23447,
+    "total_exp": 23956,
     "member_count": 38,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.849Z"
+    "color": null
   },
   "ValianceCW": {
-    "total_exp": 86469,
-    "member_count": 7,
+    "total_exp": 65336,
+    "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.044Z"
+    "color": null
   },
   "INapoletani": {
-    "total_exp": 289388,
-    "member_count": 24,
+    "total_exp": 320079,
+    "member_count": 25,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.407Z"
+    "color": null
   },
   "Felpe": {
-    "total_exp": 16102,
+    "total_exp": 16462,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.384Z"
+    "color": null
   },
   "Shiny": {
-    "total_exp": 26718,
+    "total_exp": 28644,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.673Z"
+    "color": null
   },
   "Blitz": {
     "total_exp": 7287,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.741Z"
+    "color": null
   },
   "Revengers": {
     "total_exp": 14804,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.202Z"
-  },
-  "Tits": {
-    "total_exp": 1063585,
-    "member_count": 42,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.741Z"
+    "color": null
   },
   "SoloLeveling": {
     "total_exp": 1368,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.892Z"
+    "color": null
   },
   "Nebula": {
-    "total_exp": 112348,
+    "total_exp": 116048,
     "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.996Z"
+    "color": null
   },
   "DioKai": {
-    "total_exp": 5753,
-    "member_count": 5,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.704Z"
-  },
-  "Anything": {
-    "total_exp": 386132,
-    "member_count": 31,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.988Z"
-  },
-  "rebels": {
-    "total_exp": 62555,
-    "member_count": 22,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.207Z"
-  },
-  "epatite": {
-    "total_exp": 100676,
+    "total_exp": 24458,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.324Z"
+    "color": null
+  },
+  "Anything": {
+    "total_exp": 424277,
+    "member_count": 31,
+    "tag": null,
+    "color": null
+  },
+  "rebels": {
+    "total_exp": 29450,
+    "member_count": 21,
+    "tag": null,
+    "color": null
+  },
+  "epatite": {
+    "total_exp": 101831,
+    "member_count": 6,
+    "tag": null,
+    "color": null
   },
   "Gusci": {
-    "total_exp": 85866,
+    "total_exp": 99720,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.909Z"
+    "color": null
   },
   "bully": {
-    "total_exp": 34971,
+    "total_exp": 35525,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.942Z"
+    "color": null
+  },
+  "Rich": {
+    "total_exp": 1120578,
+    "member_count": 39,
+    "tag": null,
+    "color": null
   },
   "SilentBob": {
     "total_exp": 3965,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.747Z"
+    "color": null
   },
   "ElMapacho": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.053Z"
+    "color": null
   },
   "Omnis": {
-    "total_exp": 327402,
-    "member_count": 17,
+    "total_exp": 348687,
+    "member_count": 18,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.143Z"
+    "color": null
   },
   "5LAYER": {
-    "total_exp": 624811,
-    "member_count": 45,
+    "total_exp": 641550,
+    "member_count": 46,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.723Z"
+    "color": null
   },
   "Lidl": {
-    "total_exp": 2773,
+    "total_exp": 4236,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.157Z"
+    "color": null
   },
   "Creeperiani": {
-    "total_exp": 224000,
+    "total_exp": 227061,
     "member_count": 34,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.298Z"
+    "color": null
   },
   "Pegasus": {
-    "total_exp": 25053,
+    "total_exp": 28822,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.621Z"
+    "color": null
   },
   "Torii": {
     "total_exp": 1571,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.741Z"
+    "color": null
   },
   "IAmMusic": {
-    "total_exp": 278586,
-    "member_count": 37,
+    "total_exp": 238736,
+    "member_count": 36,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.246Z"
+    "color": null
   },
   "GoingMerry": {
     "total_exp": 0,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.737Z"
+    "color": null
   },
   "Kevlar": {
     "total_exp": 2178,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.105Z"
+    "color": null
   },
   "nsfw": {
     "total_exp": 807,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.944Z"
+    "color": null
   },
   "AntiKB": {
-    "total_exp": 705476,
-    "member_count": 16,
+    "total_exp": 734076,
+    "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.874Z"
+    "color": null
   },
   "Moncler": {
-    "total_exp": 21480,
+    "total_exp": 21767,
     "member_count": 8,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.696Z"
+    "color": null
   },
   "Harvest": {
-    "total_exp": 15583,
+    "total_exp": 16013,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.176Z"
+    "color": null
   },
   "Aetherion": {
-    "total_exp": 1489043,
-    "member_count": 29,
+    "total_exp": 1525788,
+    "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.706Z"
+    "color": null
   },
   "bouncyblackballs": {
-    "total_exp": 36145,
+    "total_exp": 36874,
     "member_count": 32,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.947Z"
+    "color": null
   },
   "ItsTime": {
     "total_exp": 22881,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.549Z"
+    "color": null
+  },
+  "Paradise": {
+    "total_exp": 839501,
+    "member_count": 43,
+    "tag": null,
+    "color": null
   },
   "Orion": {
-    "total_exp": 586443,
-    "member_count": 30,
+    "total_exp": 575716,
+    "member_count": 29,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.355Z"
+    "color": null
   },
   "Aura": {
-    "total_exp": 21151,
+    "total_exp": 23533,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.177Z"
+    "color": null
   },
   "36smalto": {
     "total_exp": 6818,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.322Z"
+    "color": null
   },
   "Tarot": {
-    "total_exp": 37064,
-    "member_count": 1,
+    "total_exp": 72407,
+    "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.329Z"
+    "color": null
   },
   "Alicers": {
-    "total_exp": 24502,
+    "total_exp": 26045,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.851Z"
+    "color": null
   },
   "Plaza": {
-    "total_exp": 26909,
+    "total_exp": 27971,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.761Z"
+    "color": null
   },
   "Redstone": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.106Z"
+    "color": null
   },
   "Bimbisburati": {
-    "total_exp": 13225,
+    "total_exp": 13935,
     "member_count": 8,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.582Z"
+    "color": null
   },
   "Riverence": {
     "total_exp": 3076,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.288Z"
+    "color": null
   },
   "ILunatici": {
     "total_exp": 12396,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.407Z"
-  },
-  "bar3oush": {
-    "total_exp": 927521,
-    "member_count": 27,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.767Z"
+    "color": null
   },
   "Luftwaffe": {
-    "total_exp": 196485,
-    "member_count": 5,
+    "total_exp": 128553,
+    "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.292Z"
+    "color": null
   },
   "IDGAF": {
-    "total_exp": 22827,
-    "member_count": 20,
+    "total_exp": 87497,
+    "member_count": 22,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.340Z"
+    "color": null
   },
   "Tutine": {
     "total_exp": 31940,
     "member_count": 26,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.894Z"
+    "color": null
   },
   "Hakenkreuz": {
     "total_exp": 3813,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.031Z"
+    "color": null
   },
   "kouskousclan": {
-    "total_exp": 6206,
+    "total_exp": 6226,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.606Z"
+    "color": null
   },
   "Waves": {
-    "total_exp": 50010,
+    "total_exp": 53116,
     "member_count": 30,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.486Z"
+    "color": null
   },
   "BDSM": {
     "total_exp": 0,
     "member_count": 8,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.425Z"
+    "color": null
   },
   "Mastered": {
-    "total_exp": 11630,
+    "total_exp": 12306,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.547Z"
+    "color": null
   },
   "Purgatory": {
     "total_exp": 702,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.846Z"
+    "color": null
   },
   "pikajew": {
     "total_exp": 3595,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.082Z"
+    "color": null
   },
   "SLhitter": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.437Z"
+    "color": null
   },
   "Demon": {
-    "total_exp": 5271,
+    "total_exp": 8962,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.903Z"
+    "color": null
   },
   "KiwiEMarl": {
-    "total_exp": 12749,
+    "total_exp": 18180,
     "member_count": 17,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.884Z"
+    "color": null
   },
   "Desmondiani": {
-    "total_exp": 8953,
-    "member_count": 19,
+    "total_exp": 250,
+    "member_count": 18,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.704Z"
+    "color": null
   },
   "Cuenta": {
-    "total_exp": 621273,
-    "member_count": 49,
+    "total_exp": 662376,
+    "member_count": 50,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.449Z"
+    "color": null
   },
   "AGEM": {
     "total_exp": 1027,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.705Z"
+    "color": null
   },
   "Alboric": {
-    "total_exp": 51788,
+    "total_exp": 51848,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.874Z"
+    "color": null
   },
   "ShadeSlayer": {
     "total_exp": 3293,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.583Z"
+    "color": null
   },
   "marocchini": {
     "total_exp": 49735,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.842Z"
+    "color": null
   },
   "M00N": {
-    "total_exp": 16526,
+    "total_exp": 17527,
     "member_count": 18,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.300Z"
+    "color": null
   },
   "IPOLLETTI": {
-    "total_exp": 105860,
+    "total_exp": 121305,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.481Z"
+    "color": null
   },
   "Extreme": {
     "total_exp": 0,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.196Z"
+    "color": null
   },
   "Reducer": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.106Z"
+    "color": null
   },
   "unique": {
-    "total_exp": 33747,
+    "total_exp": 35052,
     "member_count": 23,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.421Z"
+    "color": null
   },
   "DaiRagaAndiamo": {
     "total_exp": 16813,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.449Z"
+    "color": null
   },
   "governo": {
-    "total_exp": 22424,
+    "total_exp": 23025,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.468Z"
+    "color": null
   },
   "Kyori": {
-    "total_exp": 289446,
-    "member_count": 11,
+    "total_exp": 411998,
+    "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.002Z"
+    "color": null
   },
   "Silence": {
-    "total_exp": 189690,
+    "total_exp": 196623,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.751Z"
+    "color": null
   },
   "Emma": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.053Z"
+    "color": null
   },
   "Wanted": {
-    "total_exp": 145072,
+    "total_exp": 149228,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.294Z"
+    "color": null
   },
   "Devils": {
-    "total_exp": 106986,
-    "member_count": 29,
+    "total_exp": 166244,
+    "member_count": 35,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.702Z"
+    "color": null
   },
   "Cosmic": {
-    "total_exp": 14163,
+    "total_exp": 16824,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.147Z"
+    "color": null
   },
   "FearingComunity": {
-    "total_exp": 95874,
+    "total_exp": 96830,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.206Z"
+    "color": null
   },
   "IKebabbari": {
     "total_exp": 139,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.340Z"
-  },
-  "ThousandSunny": {
-    "total_exp": 351,
-    "member_count": 6,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.552Z"
+    "color": null
   },
   "paga": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.053Z"
+    "color": null
+  },
+  "ThousandSunny": {
+    "total_exp": 351,
+    "member_count": 6,
+    "tag": null,
+    "color": null
   },
   "egirls": {
     "total_exp": 2077,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.328Z"
+    "color": null
   },
   "Habitat": {
-    "total_exp": 14881,
+    "total_exp": 15109,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.032Z"
+    "color": null
   },
   "Tempest": {
     "total_exp": 6495,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.552Z"
+    "color": null
   },
   "rotterdam": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.212Z"
+    "color": null
+  },
+  "EvasoriFiscali": {
+    "total_exp": 29841,
+    "member_count": 14,
+    "tag": null,
+    "color": null
   },
   "KuroOni": {
     "total_exp": 9697,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.002Z"
-  },
-  "EvasoriFiscali": {
-    "total_exp": 27634,
-    "member_count": 14,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.057Z"
+    "color": null
   },
   "SpadacciniXx": {
-    "total_exp": 246921,
-    "member_count": 45,
+    "total_exp": 251637,
+    "member_count": 44,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.971Z"
+    "color": null
   },
   "FreeVeneto": {
     "total_exp": 5608,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.378Z"
+    "color": null
   },
   "winter": {
-    "total_exp": 41464,
+    "total_exp": 45813,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.704Z"
+    "color": null
+  },
+  "HIV": {
+    "total_exp": 84992,
+    "member_count": 16,
+    "tag": null,
+    "color": null
   },
   "gojoUwU": {
     "total_exp": 2731,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.467Z"
-  },
-  "HIV": {
-    "total_exp": 80167,
-    "member_count": 16,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.031Z"
+    "color": null
   },
   "amnesia": {
-    "total_exp": 1676,
+    "total_exp": 3580,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.625Z"
+    "color": null
   },
   "Swaggers": {
-    "total_exp": 20049,
+    "total_exp": 20965,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.263Z"
+    "color": null
   },
   "elrojo": {
     "total_exp": 26657,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.322Z"
+    "color": null
   },
   "Vapid": {
-    "total_exp": 13248,
+    "total_exp": 15018,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.497Z"
+    "color": null
   },
   "BreakerX": {
     "total_exp": 0,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.957Z"
+    "color": null
   },
   "Goliardico": {
-    "total_exp": 15977,
+    "total_exp": 17825,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.751Z"
+    "color": null
   },
   "Dimbins": {
-    "total_exp": 106800,
+    "total_exp": 110086,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.705Z"
+    "color": null
   },
   "piedi": {
-    "total_exp": 154690,
+    "total_exp": 159819,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.059Z"
+    "color": null
   },
   "TGOI": {
-    "total_exp": 7540,
+    "total_exp": 8164,
     "member_count": 9,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.332Z"
+    "color": null
   },
   "NoScreen": {
     "total_exp": 0,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.103Z"
+    "color": null
+  },
+  "Toman": {
+    "total_exp": 9023,
+    "member_count": 24,
+    "tag": null,
+    "color": null
   },
   "ameba": {
     "total_exp": 5658,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.622Z"
-  },
-  "Toman": {
-    "total_exp": 8848,
-    "member_count": 24,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.741Z"
+    "color": null
   },
   "coli": {
-    "total_exp": 2438,
+    "total_exp": 3350,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.400Z"
+    "color": null
   },
   "EZZ": {
     "total_exp": 3787,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.053Z"
-  },
-  "Daddy": {
-    "total_exp": 0,
-    "member_count": 3,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.443Z"
+    "color": null
   },
   "TETTINE": {
     "total_exp": 24633,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.263Z"
+    "color": null
+  },
+  "Daddy": {
+    "total_exp": 0,
+    "member_count": 3,
+    "tag": null,
+    "color": null
   },
   "Belvedere": {
-    "total_exp": 195304,
-    "member_count": 5,
+    "total_exp": 224848,
+    "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.583Z"
+    "color": null
   },
   "iresirap": {
     "total_exp": 1871,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.605Z"
+    "color": null
   },
   "OOO": {
-    "total_exp": 3038,
+    "total_exp": 5116,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.121Z"
+    "color": null
   },
-  "BlackSide": {
-    "total_exp": 547528,
-    "member_count": 26,
+  "kittens": {
+    "total_exp": 378116,
+    "member_count": 33,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.743Z"
+    "color": null
   },
   "AstralX": {
-    "total_exp": 102811,
+    "total_exp": 110046,
     "member_count": 22,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.160Z"
+    "color": null
   },
   "popcs": {
     "total_exp": 0,
     "member_count": 20,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.209Z"
+    "color": null
   },
   "vamp": {
     "total_exp": 100,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.421Z"
-  },
-  "BlackBulls": {
-    "total_exp": 513795,
-    "member_count": 24,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.584Z"
+    "color": null
   },
   "swag": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.243Z"
+    "color": null
   },
-  "kittens": {
-    "total_exp": 337906,
-    "member_count": 32,
+  "BlackBulls": {
+    "total_exp": 505977,
+    "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.609Z"
+    "color": null
   },
   "Pasticcinos": {
     "total_exp": 13024,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.541Z"
+    "color": null
   },
   "AstralCw": {
-    "total_exp": 137165,
+    "total_exp": 139731,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.029Z"
+    "color": null
   },
   "Sgravosomi": {
     "total_exp": 25549,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.587Z"
+    "color": null
   },
   "Cheating": {
     "total_exp": 1855,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.146Z"
+    "color": null
   },
   "HelloKitty": {
     "total_exp": 600,
     "member_count": 17,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.246Z"
+    "color": null
   },
   "PUPs": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.541Z"
+    "color": null
   },
   "Tweny": {
     "total_exp": 41071,
     "member_count": 17,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.894Z"
+    "color": null
   },
   "TierTest": {
     "total_exp": 2282,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.552Z"
+    "color": null
   },
   "darkness": {
-    "total_exp": 316110,
+    "total_exp": 329740,
     "member_count": 28,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.188Z"
+    "color": null
   },
   "Fentanyl": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.378Z"
+    "color": null
   },
   "Botclipped": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.742Z"
+    "color": null
   },
   "BannatiSiamo": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.432Z"
+    "color": null
   },
   "Melons": {
     "total_exp": 0,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.547Z"
+    "color": null
   },
   "Monster": {
     "total_exp": 2425,
     "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.696Z"
+    "color": null
   },
   "AredYou": {
     "total_exp": 0,
     "member_count": 19,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.989Z"
+    "color": null
   },
   "torcee": {
     "total_exp": 16220,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.420Z"
+    "color": null
   },
   "Raimon": {
-    "total_exp": 106550,
+    "total_exp": 114939,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.848Z"
+    "color": null
   },
   "SugarDaddy": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.124Z"
+    "color": null
   },
   "Markez": {
     "total_exp": 0,
     "member_count": 44,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.473Z"
+    "color": null
   },
   "FutureStars": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.594Z"
+    "color": null
   },
   "Stoppaghiari": {
-    "total_exp": 7277,
+    "total_exp": 7869,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.120Z"
+    "color": null
   },
   "AceGamer": {
     "total_exp": 8262,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.706Z"
+    "color": null
   },
   "Limits": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.157Z"
+    "color": null
   },
   "SwordArtOnline": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.263Z"
+    "color": null
   },
   "Invincibili": {
-    "total_exp": 176306,
-    "member_count": 15,
+    "total_exp": 135319,
+    "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.570Z"
+    "color": null
   },
   "Nocta": {
-    "total_exp": 47434,
+    "total_exp": 48685,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.121Z"
+    "color": null
   },
   "LoSiento": {
     "total_exp": 11802,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.228Z"
+    "color": null
   },
   "Rank": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.012Z"
+    "color": null
+  },
+  "Exploit": {
+    "total_exp": 63319,
+    "member_count": 4,
+    "tag": null,
+    "color": null
   },
   "Marioni": {
     "total_exp": 3830,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.473Z"
+    "color": null
   },
   "WhosBlack": {
     "total_exp": 1485,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.485Z"
-  },
-  "Exploit": {
-    "total_exp": 56605,
-    "member_count": 4,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.192Z"
+    "color": null
   },
   "Lolli": {
     "total_exp": 2023,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.246Z"
+    "color": null
   },
   "Divinity": {
-    "total_exp": 8909,
+    "total_exp": 9117,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.907Z"
+    "color": null
   },
   "Overture": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.355Z"
+    "color": null
   },
   "CizerCrewッ": {
     "total_exp": 1024,
     "member_count": 44,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.147Z"
+    "color": null
   },
   "UNDICI": {
     "total_exp": 238,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.894Z"
+    "color": null
   },
   "Zenith": {
-    "total_exp": 22650,
+    "total_exp": 24516,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.625Z"
+    "color": null
   },
   "wsp": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.603Z"
+    "color": null
   },
   "AirForce": {
     "total_exp": 7854,
     "member_count": 9,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.831Z"
+    "color": null
   },
   "NarcoS": {
     "total_exp": 163,
     "member_count": 19,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.977Z"
+    "color": null
   },
   "KawaiiUwU": {
     "total_exp": 903,
     "member_count": 8,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.817Z"
+    "color": null
   },
   "Topi": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.741Z"
+    "color": null
   },
   "Doom": {
-    "total_exp": 11557,
+    "total_exp": 12649,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.907Z"
+    "color": null
   },
   "pink": {
     "total_exp": 20,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.206Z"
+    "color": null
+  },
+  "WestMilan": {
+    "total_exp": 35255,
+    "member_count": 2,
+    "tag": null,
+    "color": null
   },
   "Immortali": {
     "total_exp": 6152,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.570Z"
+    "color": null
   },
-  "WestMilan": {
-    "total_exp": 29988,
-    "member_count": 2,
+  "Mistical": {
+    "total_exp": 11838,
+    "member_count": 36,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.485Z"
+    "color": null
   },
   "Silent": {
     "total_exp": 0,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.751Z"
-  },
-  "Mistical": {
-    "total_exp": 11774,
-    "member_count": 36,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.696Z"
+    "color": null
   },
   "vietnamiti": {
     "total_exp": 0,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.421Z"
+    "color": null
   },
   "AstralZ": {
-    "total_exp": 103248,
+    "total_exp": 112133,
     "member_count": 36,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.167Z"
+    "color": null
   },
   "IMangiati": {
     "total_exp": 3988,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.407Z"
+    "color": null
   },
   "maxwell": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.844Z"
+    "color": null
   },
   "SleepyRockers": {
     "total_exp": 7682,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.752Z"
+    "color": null
+  },
+  "Rogerini": {
+    "total_exp": 14782,
+    "member_count": 7,
+    "tag": null,
+    "color": null
   },
   "JeNjeZezakMut": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.620Z"
+    "color": null
   },
   "Pinguini": {
     "total_exp": 4334,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.687Z"
-  },
-  "Rogerini": {
-    "total_exp": 11408,
-    "member_count": 7,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.284Z"
+    "color": null
   },
   "dragonsteam": {
     "total_exp": 2221,
     "member_count": 9,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.184Z"
+    "color": null
   },
   "Polaretti": {
     "total_exp": 361,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.843Z"
+    "color": null
   },
   "MafiaPugliese": {
-    "total_exp": 30646,
+    "total_exp": 31567,
     "member_count": 27,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.389Z"
-  },
-  "ImmortalPlayer": {
-    "total_exp": 879,
-    "member_count": 17,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.482Z"
+    "color": null
   },
   "CrazyMarsico": {
     "total_exp": 25285,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.296Z"
+    "color": null
   },
-  "Napoletame": {
-    "total_exp": 0,
-    "member_count": 1,
+  "ImmortalPlayer": {
+    "total_exp": 879,
+    "member_count": 17,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.838Z"
+    "color": null
   },
   "Nayt": {
-    "total_exp": 34244,
+    "total_exp": 34947,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.979Z"
+    "color": null
   },
   "VenoxTenshu": {
     "total_exp": 2881,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.294Z"
+    "color": null
+  },
+  "Napoletame": {
+    "total_exp": 0,
+    "member_count": 1,
+    "tag": null,
+    "color": null
   },
   "SBLAO": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.342Z"
+    "color": null
   },
   "049": {
     "total_exp": 0,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.323Z"
+    "color": null
   },
   "Tavernello": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.552Z"
+    "color": null
   },
   "Fuego": {
     "total_exp": 0,
     "member_count": 6,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.385Z"
+    "color": null
   },
   "Vortex": {
     "total_exp": 2145,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.297Z"
+    "color": null
+  },
+  "FACTOL": {
+    "total_exp": 266710,
+    "member_count": 47,
+    "tag": null,
+    "color": null
   },
   "Mafiosi": {
-    "total_exp": 342256,
-    "member_count": 24,
+    "total_exp": 433504,
+    "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.473Z"
+    "color": null
   },
   "1ly": {
     "total_exp": 0,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.323Z"
+    "color": null
   },
   "Basilica": {
-    "total_exp": 3874,
+    "total_exp": 6090,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.438Z"
+    "color": null
   },
   "SendNudes": {
     "total_exp": 0,
     "member_count": 22,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.586Z"
-  },
-  "FACTOL": {
-    "total_exp": 256138,
-    "member_count": 48,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.193Z"
+    "color": null
   },
   "Revolution": {
     "total_exp": 20968,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.284Z"
+    "color": null
   },
   "BwElite": {
-    "total_exp": 990,
+    "total_exp": 4954,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.957Z"
+    "color": null
   },
   "UnGodly": {
-    "total_exp": 49844,
+    "total_exp": 60091,
     "member_count": 17,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.045Z"
+    "color": null
+  },
+  "BlackSide": {
+    "total_exp": 551028,
+    "member_count": 23,
+    "tag": null,
+    "color": null
+  },
+  "MCPEplayers": {
+    "total_exp": 65866,
+    "member_count": 34,
+    "tag": null,
+    "color": null
   },
   "B4EM": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.185Z"
+    "color": null
   },
   "Cristiani": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.297Z"
-  },
-  "MCPEplayers": {
-    "total_exp": 54013,
-    "member_count": 34,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.298Z"
+    "color": null
   },
   "bklfmessina": {
     "total_exp": 1724,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.778Z"
+    "color": null
   },
   "DOC": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.449Z"
+    "color": null
   },
   "AstralV": {
-    "total_exp": 45484,
-    "member_count": 20,
+    "total_exp": 27221,
+    "member_count": 19,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.029Z"
+    "color": null
   },
   "paneduro": {
-    "total_exp": 8943,
+    "total_exp": 9842,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.060Z"
+    "color": null
   },
   "Aries": {
     "total_exp": 27357,
     "member_count": 26,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.026Z"
+    "color": null
   },
   "HoralloMC": {
     "total_exp": 1733,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.246Z"
+    "color": null
   },
   "XYZ": {
     "total_exp": 1047,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.622Z"
+    "color": null
   },
   "Stagno": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.969Z"
+    "color": null
   },
   "NapoliSniper": {
     "total_exp": 3963,
     "member_count": 44,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.940Z"
+    "color": null
   },
   "RomaCapitale": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.286Z"
-  },
-  "AFK": {
-    "total_exp": 0,
-    "member_count": 6,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.493Z"
-  },
-  "ValianceV2": {
-    "total_exp": 328869,
-    "member_count": 39,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.044Z"
-  },
-  "Hashira": {
-    "total_exp": 482,
-    "member_count": 12,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.177Z"
+    "color": null
   },
   "GoodDay": {
     "total_exp": 415,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.748Z"
+    "color": null
+  },
+  "AFK": {
+    "total_exp": 0,
+    "member_count": 6,
+    "tag": null,
+    "color": null
+  },
+  "ValianceV2": {
+    "total_exp": 330766,
+    "member_count": 39,
+    "tag": null,
+    "color": null
+  },
+  "Hashira": {
+    "total_exp": 482,
+    "member_count": 12,
+    "tag": null,
+    "color": null
   },
   "StarLight": {
     "total_exp": 1905,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.038Z"
+    "color": null
   },
   "Piedini": {
     "total_exp": 0,
     "member_count": 15,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.687Z"
-  },
-  "caneuovo": {
-    "total_exp": 928,
-    "member_count": 3,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.946Z"
+    "color": null
   },
   "Bananas": {
     "total_exp": 3104,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.427Z"
+    "color": null
+  },
+  "caneuovo": {
+    "total_exp": 928,
+    "member_count": 3,
+    "tag": null,
+    "color": null
   },
   "Panino": {
     "total_exp": 12266,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.541Z"
-  },
-  "noparlatanto": {
-    "total_exp": 0,
-    "member_count": 2,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.844Z"
+    "color": null
   },
   "NONINVITARMICLAN": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.792Z"
+    "color": null
+  },
+  "noparlatanto": {
+    "total_exp": 0,
+    "member_count": 2,
+    "tag": null,
+    "color": null
   },
   "KFC": {
-    "total_exp": 17434,
+    "total_exp": 19212,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.683Z"
+    "color": null
   },
   "Weed": {
-    "total_exp": 17029,
+    "total_exp": 17434,
     "member_count": 30,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.484Z"
+    "color": null
   },
-  "RekonsS": {
-    "total_exp": 1147,
+  "ALIVE": {
+    "total_exp": 61033,
+    "member_count": 1,
+    "tag": null,
+    "color": null
+  },
+  "SOSClan": {
+    "total_exp": 4148,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.106Z"
+    "color": null
   },
   "GangAlxareddiana": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.596Z"
+    "color": null
   },
-  "SOSClan": {
-    "total_exp": 3148,
+  "RekonsS": {
+    "total_exp": 1147,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.437Z"
-  },
-  "Chick": {
-    "total_exp": 8254,
-    "member_count": 14,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.147Z"
+    "color": null
   },
   "BWlegacy": {
     "total_exp": 0,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.438Z"
+    "color": null
+  },
+  "Chick": {
+    "total_exp": 9035,
+    "member_count": 14,
+    "tag": null,
+    "color": null
   },
   "gas": {
     "total_exp": 9016,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.468Z"
+    "color": null
+  },
+  "All-In": {
+    "total_exp": 129939,
+    "member_count": 10,
+    "tag": null,
+    "color": null
   },
   "RedCoal": {
     "total_exp": 2191,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.105Z"
+    "color": null
   },
   "aymoon": {
     "total_exp": 3768,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.766Z"
+    "color": null
+  },
+  "Dvel": {
+    "total_exp": 11120,
+    "member_count": 17,
+    "tag": null,
+    "color": null
   },
   "CristoGG": {
-    "total_exp": 38443,
+    "total_exp": 39004,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.298Z"
+    "color": null
   },
   "UltiSniper": {
-    "total_exp": 133,
+    "total_exp": 249,
     "member_count": 32,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.894Z"
+    "color": null
   },
   "igoroni": {
-    "total_exp": 5008,
+    "total_exp": 5063,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.467Z"
+    "color": null
   },
   "Cam0rrist1": {
     "total_exp": 0,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.957Z"
-  },
-  "Dvel": {
-    "total_exp": 9865,
-    "member_count": 17,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.056Z"
+    "color": null
   },
   "Cringe": {
-    "total_exp": 1556,
+    "total_exp": 2297,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.297Z"
-  },
-  "Face": {
-    "total_exp": 0,
-    "member_count": 33,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.197Z"
+    "color": null
   },
   "GoodTimes": {
-    "total_exp": 39942,
+    "total_exp": 44531,
     "member_count": 20,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.877Z"
-  },
-  "Limitless": {
-    "total_exp": 0,
-    "member_count": 1,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.156Z"
+    "color": null
   },
   "Saturno": {
     "total_exp": 876,
     "member_count": 10,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.437Z"
+    "color": null
+  },
+  "Face": {
+    "total_exp": 0,
+    "member_count": 33,
+    "tag": null,
+    "color": null
+  },
+  "Limitless": {
+    "total_exp": 0,
+    "member_count": 1,
+    "tag": null,
+    "color": null
   },
   "ltc": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.752Z"
+    "color": null
   },
-  "All-In": {
-    "total_exp": 118514,
-    "member_count": 9,
+  "BirraNeroni": {
+    "total_exp": 59950,
+    "member_count": 26,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.873Z"
+    "color": null
   },
   "UmpaLumpa": {
     "total_exp": 1667,
     "member_count": 37,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.894Z"
-  },
-  "BirraNeroni": {
-    "total_exp": 53394,
-    "member_count": 26,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.584Z"
+    "color": null
   },
   "Celestia": {
     "total_exp": 680,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.957Z"
+    "color": null
   },
   "Opposition": {
-    "total_exp": 26428,
+    "total_exp": 27301,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.237Z"
+    "color": null
   },
   "SGCommunity": {
     "total_exp": 9941,
     "member_count": 16,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.437Z"
+    "color": null
   },
   "GOLEADOR": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.593Z"
-  },
-  "PKz": {
-    "total_exp": 0,
-    "member_count": 2,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.355Z"
-  },
-  "maglioni": {
-    "total_exp": 0,
-    "member_count": 2,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.843Z"
+    "color": null
   },
   "iterronidelnord": {
     "total_exp": 14834,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.605Z"
+    "color": null
   },
-  "Dregher": {
+  "PKz": {
     "total_exp": 0,
-    "member_count": 1,
+    "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.906Z"
+    "color": null
+  },
+  "maglioni": {
+    "total_exp": 0,
+    "member_count": 2,
+    "tag": null,
+    "color": null
   },
   "Pisciazza": {
     "total_exp": 0,
     "member_count": 4,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.687Z"
+    "color": null
+  },
+  "Dregher": {
+    "total_exp": 0,
+    "member_count": 1,
+    "tag": null,
+    "color": null
   },
   "SoulSociety": {
     "total_exp": 180,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.185Z"
+    "color": null
   },
   "Sveglisti": {
-    "total_exp": 18847,
+    "total_exp": 21016,
     "member_count": 9,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.185Z"
+    "color": null
   },
   "LeCosce": {
     "total_exp": 443,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.083Z"
+    "color": null
   },
   "StickSupremacy": {
     "total_exp": 0,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.117Z"
+    "color": null
   },
   "cheater": {
     "total_exp": 70,
     "member_count": 25,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.944Z"
+    "color": null
   },
   "PioEsposigoat": {
     "total_exp": 2144,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.687Z"
+    "color": null
   },
   "GraceClub": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.910Z"
+    "color": null
+  },
+  "Orpdarini": {
+    "total_exp": 111227,
+    "member_count": 14,
+    "tag": null,
+    "color": null
   },
   "GoodSide": {
     "total_exp": 1999,
     "member_count": 8,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.877Z"
+    "color": null
   },
   "BlitzGvng": {
-    "total_exp": 1121,
+    "total_exp": 1688,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.741Z"
+    "color": null
   },
-  "Orpdarini": {
-    "total_exp": 99690,
-    "member_count": 13,
+  "automobilistici": {
+    "total_exp": 1543,
+    "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.355Z"
+    "color": null
   },
   "AIDS": {
-    "total_exp": 361768,
+    "total_exp": 363823,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.703Z"
+    "color": null
   },
   "ValianceHUB": {
     "total_exp": 0,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.045Z"
-  },
-  "automobilistici": {
-    "total_exp": 1251,
-    "member_count": 7,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.766Z"
-  },
-  "G0dLevel": {
-    "total_exp": 845,
-    "member_count": 2,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.594Z"
+    "color": null
   },
   "CatPanz": {
-    "total_exp": 8490,
+    "total_exp": 9085,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.958Z"
+    "color": null
   },
   "Beater": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.577Z"
+    "color": null
   },
-  "-1ms": {
-    "total_exp": 100,
-    "member_count": 9,
+  "G0dLevel": {
+    "total_exp": 845,
+    "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:55.284Z"
-  },
-  "GloriousGang": {
-    "total_exp": 3000,
-    "member_count": 7,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.738Z"
-  },
-  "ansiolitici": {
-    "total_exp": 108,
-    "member_count": 6,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.643Z"
+    "color": null
   },
   "Ken": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.817Z"
+    "color": null
+  },
+  "-1ms": {
+    "total_exp": 100,
+    "member_count": 9,
+    "tag": null,
+    "color": null
+  },
+  "GloriousGang": {
+    "total_exp": 5168,
+    "member_count": 7,
+    "tag": null,
+    "color": null
+  },
+  "ansiolitici": {
+    "total_exp": 108,
+    "member_count": 6,
+    "tag": null,
+    "color": null
   },
   "Gaviria": {
     "total_exp": 3451,
     "member_count": 33,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.596Z"
+    "color": null
+  },
+  "Danilo": {
+    "total_exp": 30516,
+    "member_count": 7,
+    "tag": null,
+    "color": null
   },
   "bollicine": {
     "total_exp": 148,
     "member_count": 31,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.945Z"
-  },
-  "Danilo": {
-    "total_exp": 22136,
-    "member_count": 7,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.449Z"
+    "color": null
   },
   "GhostKiller": {
-    "total_exp": 8777,
+    "total_exp": 9234,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.738Z"
-  },
-  "RSQ8": {
-    "total_exp": 31280,
-    "member_count": 18,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.845Z"
+    "color": null
   },
   "imagineCheating": {
     "total_exp": 9363,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.537Z"
+    "color": null
+  },
+  "RSQ8": {
+    "total_exp": 31280,
+    "member_count": 18,
+    "tag": null,
+    "color": null
   },
   "Nabbboli": {
     "total_exp": 806,
     "member_count": 26,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.837Z"
+    "color": null
   },
   "Jacopini": {
     "total_exp": 2922,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.655Z"
+    "color": null
   },
   "N0VA": {
-    "total_exp": 36630,
+    "total_exp": 37010,
     "member_count": 20,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.987Z"
+    "color": null
   },
   "egirlhunters": {
     "total_exp": 170,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.188Z"
+    "color": null
   },
   "BBGS": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.176Z"
+    "color": null
   },
   "Cheat": {
     "total_exp": 0,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.143Z"
+    "color": null
   },
   "Borsh": {
     "total_exp": 2426,
     "member_count": 13,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:56.747Z"
+    "color": null
+  },
+  "Vayoler": {
+    "total_exp": 17946,
+    "member_count": 12,
+    "tag": null,
+    "color": null
   },
   "Kaiju": {
     "total_exp": 8652,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:59.813Z"
-  },
-  "Vayoler": {
-    "total_exp": 14463,
-    "member_count": 12,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:04.297Z"
+    "color": null
   },
   "GothLovers": {
     "total_exp": 5438,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.876Z"
+    "color": null
   },
   "PNC": {
     "total_exp": 2365,
     "member_count": 11,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.442Z"
+    "color": null
   },
   "garb": {
     "total_exp": 0,
     "member_count": 5,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:05.323Z"
+    "color": null
   },
   "Sciacalli": {
     "total_exp": 10401,
     "member_count": 21,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.484Z"
+    "color": null
   },
   "onlyfansers": {
     "total_exp": 7145,
     "member_count": 7,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:06.059Z"
+    "color": null
   },
   "LaraIsMyMommy": {
     "total_exp": 0,
     "member_count": 1,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.003Z"
+    "color": null
   },
   "Frozen": {
-    "total_exp": 741,
+    "total_exp": 1078,
     "member_count": 2,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:58.385Z"
+    "color": null
   },
   "Occhi": {
-    "total_exp": 1915,
+    "total_exp": 2378,
     "member_count": 12,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:01.121Z"
+    "color": null
   },
   "ShadowGarden": {
     "total_exp": 0,
     "member_count": 3,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:02.586Z"
+    "color": null
   },
   "TopGun": {
     "total_exp": 9217,
     "member_count": 23,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:03.741Z"
+    "color": null
   },
   "Dominators": {
     "total_exp": 2011,
     "member_count": 14,
     "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:06:57.903Z"
-  },
-  "MVDP": {
-    "total_exp": 1957,
-    "member_count": 16,
-    "tag": null,
-    "color": null,
-    "fetchedAt": "2026-04-26T22:07:00.388Z"
+    "color": null
   }
 }

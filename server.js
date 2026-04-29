@@ -26,6 +26,8 @@ const { buildAnalytics } = require("./src/lib/analytics");
 const { analyticsUpdates } = require("./src/lib/analyticsUpdates");
 const { createServersRouter } = require("./src/serversApi");
 const { createServersPublicRouter } = require("./src/serversPublicApi");
+const { createServersBotRouter } = require("./src/serversBotApi");
+const { syncLikesLeaderboard } = require("./src/lib/likesLeaderboardSync");
 
 const app = express();
 const config = getConfig();
@@ -232,6 +234,7 @@ app.use('/auth', authRouter);
 app.use('/api', apiRouter);
 app.use("/api/servers", createServersRouter());
 app.use("/api/public", createServersPublicRouter());
+app.use("/api/bot", createServersBotRouter());
 
 let v1Mounted = false;
 
@@ -266,6 +269,21 @@ function initScraper() {
     return scheduler;
 }
 
+let likesJobStarted = false;
+function initLikesLeaderboardJob() {
+    if (likesJobStarted) return;
+    likesJobStarted = true;
+    const run = async () => {
+        try {
+            await syncLikesLeaderboard({ windowMs: 24 * 60 * 60 * 1000 });
+        } catch {
+            // ignore
+        }
+    };
+    cron.schedule('*/10 * * * *', () => run());
+    run();
+}
+
 app.get('/api/scraper-status', ensureAuthenticated, (req, res) => {
     if (scraperDisabled === true) {
         res.json({ disabled: true, running: false });
@@ -283,6 +301,7 @@ app.get('/api/scraper-status', ensureAuthenticated, (req, res) => {
 async function start() {
     initScraper();
     await connectToMongo(process.env.MONGO_URI);
+    initLikesLeaderboardJob();
 
     const cacheCleanupDisabled =
         String(process.env.DISABLE_UPSTREAM_CACHE_CLEANUP || '').toLowerCase() === '1' ||

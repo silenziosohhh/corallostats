@@ -31,6 +31,7 @@ function shapePublic(doc) {
       guildCreatedAt: created,
       inviteFetchedAt: doc.inviteFetchedAt || null,
     },
+    likeCount: Number.isFinite(Number(doc.likeCount)) ? Number(doc.likeCount) : 0,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
   };
@@ -56,7 +57,7 @@ function createServersPublicRouter() {
         where.$or = [{ name: rx }, { host: rx }, { description: rx }, { discordGuildName: rx }];
       }
 
-      const docsRaw = await ServerListing.find(where).sort({ createdAt: -1 }).limit(limit).lean();
+      const docsRaw = await ServerListing.find(where).sort({ likeCount: -1, createdAt: -1 }).limit(limit).lean();
       const ttlMs = Number(process.env.DISCORD_INVITE_TTL_MS || 30 * 60_000);
       const docs = await hydrateListings(docsRaw, {
         botToken: String(process.env.DISCORD_BOT_TOKEN || "").trim(),

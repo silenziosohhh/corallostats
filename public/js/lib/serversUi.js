@@ -94,6 +94,15 @@ export function el(tag, attrs = {}, children = []) {
   return node;
 }
 
+function renderLikeSummary(server) {
+  const count = Number(server?.likeCount || 0);
+  const safeCount = Number.isFinite(count) ? count : 0;
+  return el("span", { class: "invite-likes", title: `${safeCount} like` }, [
+    el("i", { class: "fa-solid fa-heart", "aria-hidden": "true" }),
+    el("span", { "data-role": "like-count", text: String(safeCount) }),
+  ]);
+}
+
 export function renderServerCard(server, { compact = false, showDiscord = true, actions = null } = {}) {
   const inviteCode = server?.discord?.inviteCode || null;
   const iconUrl = server?.discord?.iconUrl || null;
@@ -106,7 +115,7 @@ export function renderServerCard(server, { compact = false, showDiscord = true, 
   tagsWrap.className = "invite-chips";
 
   const tagList = Array.isArray(server?.tags) ? server.tags : [];
-  const chips = tagList.slice(0, 6);
+  const chips = tagList.slice(0, 2);
   for (const t of chips) {
     const norm = normalizeTag(t);
     const label = tagLabel(norm) || String(t);
@@ -116,7 +125,15 @@ export function renderServerCard(server, { compact = false, showDiscord = true, 
     tagsWrap.appendChild(chip);
   }
   if (tagList.length > chips.length) {
-    const more = el("span", { class: "chip", text: `+${tagList.length - chips.length} more` });
+    const remaining = tagList.slice(chips.length).map((t) => tagLabel(normalizeTag(t)) || String(t));
+    const tooltip = remaining.join(", ");
+    const more = el("span", {
+      class: "chip chip-more",
+      text: `+${tagList.length - chips.length} more`,
+      "data-tooltip": tooltip,
+      role: "note",
+      tabindex: "0",
+    });
     tagsWrap.appendChild(more);
   }
 
@@ -151,6 +168,8 @@ export function renderServerCard(server, { compact = false, showDiscord = true, 
       sub.appendChild(el("span", { text: `• Est. ${est}` }));
     }
   }
+  sub.appendChild(el("span", { text: "•" }));
+  sub.appendChild(renderLikeSummary(server));
 
   const head = el("div", { class: "invite-head" }, [
     iconNode,
@@ -165,13 +184,16 @@ export function renderServerCard(server, { compact = false, showDiscord = true, 
 
   const cta = inviteCode
     ? el("a", { class: "btn success invite-cta", href: `https://discord.gg/${inviteCode}`, target: "_blank", rel: "noreferrer" }, [
-        "Go to Server",
+        "Entra",
       ])
     : null;
 
   const card = el("article", { class: `card server-card invite-card${compact ? "" : ""}` }, [head, tagsWrap]);
   if (server?.description) card.appendChild(desc);
-  if (cta && showDiscord) card.appendChild(cta);
+  if (cta && showDiscord) {
+    const footer = el("div", { class: "invite-footer" }, [cta]);
+    card.appendChild(footer);
+  }
   if (actions) card.appendChild(actions);
   return card;
 }

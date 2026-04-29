@@ -1,5 +1,4 @@
 import { copyToClipboard } from "../lib/clipboard.js";
-import { showToast } from "../lib/toast.js";
 import { el, fmtDateTime, normalizeTag, qsa, renderServerCard, requestJson, tagLabel } from "../lib/serversUi.js";
 import { mountTagMultiSelect, syncTagMultiSelect } from "../lib/tagMultiSelect.js";
 import { renderMarkdownLite } from "../lib/markdownLite.js";
@@ -16,6 +15,21 @@ function safeText(node, txt) {
     return;
   }
   node.textContent = v;
+}
+
+function flashInline(node, message, { variant = "default", timeoutMs = 2600, restore = true } = {}) {
+  if (!node) return;
+  const base = restore ? String(node.dataset.baseText ?? node.textContent ?? "") : "";
+  node.classList.toggle("is-error", variant === "error");
+  node.classList.toggle("is-success", variant === "success");
+  node.textContent = String(message || "");
+
+  if (timeoutMs <= 0) return;
+  if (node._flashTimer) window.clearTimeout(node._flashTimer);
+  node._flashTimer = window.setTimeout(() => {
+    node.classList.remove("is-error", "is-success");
+    if (restore) node.textContent = base;
+  }, timeoutMs);
 }
 
 function serverIdFromPath(pathname) {
@@ -82,6 +96,36 @@ async function checkLoggedIn({ signal } = {}) {
   }
 }
 
+function cacheKeyForPublicServers({ q, tag, limit }) {
+  const sp = new URLSearchParams();
+  if (q) sp.set("q", String(q));
+  if (tag) sp.set("tag", String(tag));
+  sp.set("limit", String(limit || 60));
+  return `publicServers:${sp.toString()}`;
+}
+
+function readJsonCache(key, { ttlMs }) {
+  try {
+    const raw = sessionStorage.getItem(key);
+    if (!raw) return null;
+    const obj = JSON.parse(raw);
+    const at = Number(obj?.at || 0);
+    if (!Number.isFinite(at) || at <= 0) return null;
+    if (Number.isFinite(Number(ttlMs)) && ttlMs > 0 && Date.now() - at > ttlMs) return null;
+    return obj?.data ?? null;
+  } catch {
+    return null;
+  }
+}
+
+function writeJsonCache(key, data) {
+  try {
+    sessionStorage.setItem(key, JSON.stringify({ at: Date.now(), data }));
+  } catch {
+    // ignore
+  }
+}
+
 export function mount() {
   const healthEl = qs("#srv-health");
   const scraperEl = qs("#srv-scraper");
@@ -133,6 +177,7 @@ export function mount() {
   const detailsSub = qs("#srv-details-sub");
   const detailsHead = qs("#srv-details-head");
   const detailsDesc = qs("#srv-details-desc");
+  const detailsLikeSlot = qs("#srv-details-like-slot");
   const detailsTags = qs("#srv-details-tags");
   const detailsOnline = qs("#srv-details-online");
   const detailsMembers = qs("#srv-details-members");
@@ -140,11 +185,19 @@ export function mount() {
   const detailsUpdated = qs("#srv-details-updated");
   const detailsOpen = qs("#srv-details-open");
   const detailsCopy = qs("#srv-details-copy");
+  const detailsLikeMeta = qs("#srv-details-like-meta");
 
   let lastPublicServers = [];
   let detailsInviteUrl = null;
   let detailsPushed = false;
   let pendingDetailsId = serverIdFromPath(window.location.pathname);
+  let openDetailsServerId = null;
+  let openDetailsLiked = false;
+  let openDetailsLikeUntilMs = 0;
+  let openDetailsLikeLoading = false;
+  let likeCountdownTimer = null;
+  let detailsLikeBtn = null;
+  let detailsTitleRow = null;
 
   function openBotDialog({ botInviteUrl, guildName, guildId } = {}) {
     if (!botDialog) return;
@@ -168,9 +221,9 @@ export function mount() {
             ? botInviteUrlEl.value
             : botInviteUrlEl?.textContent || "";
         await copyToClipboard(String(raw || "").trim());
-        showToast("Link bot copiato");
+        flashInline(botInviteUrlEl, "Link bot copiato", { variant: "success", timeoutMs: 1800, restore: false });
       } catch (err) {
-        showToast(err?.message || "Errore", { variant: "error" });
+        flashInline(botInviteUrlEl, err?.message || "Errore", { variant: "error", timeoutMs: 2600, restore: false });
       }
     });
   }
@@ -187,8 +240,116 @@ export function mount() {
     if (!list.length) rootEl.appendChild(el("span", { class: "muted", text: "—" }));
   }
 
+  function setDetailsLikeMeta(server) {
+    if (!detailsLikeMeta) return;
+    const n = Number(server?.likeCount || 0);
+    const c = Number.isFinite(n) ? n : 0;
+    const txt = `${c} like (ultime 24h)`;
+    detailsLikeMeta.dataset.baseText = txt;
+    safeText(detailsLikeMeta, txt);
+  }
+
+  function setLikeBtnState() {
+    if (!detailsLikeBtn) return;
+    const can = Boolean(logged?.loggedIn);
+    const msLeft = Math.max(0, openDetailsLikeUntilMs - Date.now());
+    const inCooldown = openDetailsLiked === true && msLeft > 0;
+    detailsLikeBtn.disabled = !can || !openDetailsServerId || inCooldown || openDetailsLikeLoading === true;
+    detailsLikeBtn.classList.toggle("is-liked", openDetailsLiked === true);
+    detailsLikeBtn.setAttribute("aria-pressed", openDetailsLiked ? "true" : "false");
+
+    const labelEl = detailsLikeBtn.querySelector?.('[data-role="like-label"]') || null;
+    const cdEl = detailsLikeBtn.querySelector?.('[data-role="like-countdown"]') || null;
+    if (labelEl) labelEl.textContent = "Vota";
+    if (cdEl) cdEl.textContent = openDetailsLikeLoading ? "…" : inCooldown ? formatCountdown(msLeft) : "";
+  }
+
+  function stopLikeCountdown() {
+    if (likeCountdownTimer) window.clearInterval(likeCountdownTimer);
+    likeCountdownTimer = null;
+  }
+
+  function formatCountdown(ms) {
+    const total = Math.max(0, Math.floor(ms / 1000));
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    const hh = String(h).padStart(2, "0");
+    const mm = String(m).padStart(2, "0");
+    const ss = String(s).padStart(2, "0");
+    return `${hh}:${mm}:${ss}`;
+  }
+
+  function startLikeCountdown() {
+    stopLikeCountdown();
+    if (!openDetailsLikeUntilMs) return;
+    const cdEl = detailsLikeBtn?.querySelector?.('[data-role="like-countdown"]') || null;
+    if (!cdEl) return;
+    likeCountdownTimer = window.setInterval(() => {
+      const msLeft = Math.max(0, openDetailsLikeUntilMs - Date.now());
+      if (msLeft <= 0) {
+        stopLikeCountdown();
+        openDetailsLiked = false;
+        openDetailsLikeUntilMs = 0;
+        cdEl.textContent = "";
+        setLikeBtnState();
+        return;
+      }
+      cdEl.textContent = formatCountdown(msLeft);
+    }, 1000);
+  }
+
+  function syncLikePlacement() {
+    if (!detailsLikeBtn) return;
+    if (!detailsTitleRow && !detailsLikeSlot) return;
+    const isMobile = window.matchMedia ? window.matchMedia("(max-width: 620px)").matches : window.innerWidth <= 620;
+    const target = isMobile ? detailsLikeSlot : detailsTitleRow;
+    if (!target) return;
+    if (detailsLikeBtn.parentElement !== target) target.appendChild(detailsLikeBtn);
+  }
+
+  async function loadMyLike(serverId) {
+    openDetailsLiked = false;
+    openDetailsLikeUntilMs = 0;
+    openDetailsLikeLoading = true;
+    stopLikeCountdown();
+    setLikeBtnState();
+    if (!serverId || !logged?.loggedIn) {
+      openDetailsLikeLoading = false;
+      setLikeBtnState();
+      return;
+    }
+    try {
+      const out = await requestJson(`/api/servers/${encodeURIComponent(serverId)}/like`, { signal: abort.signal });
+      openDetailsLiked = Boolean(out?.liked);
+      const msLeft = Number(out?.msLeft || 0);
+      if (openDetailsLiked && Number.isFinite(msLeft) && msLeft > 0) {
+        openDetailsLikeUntilMs = Date.now() + msLeft;
+        const cdEl = detailsLikeBtn?.querySelector?.('[data-role="like-countdown"]') || null;
+        if (cdEl) cdEl.textContent = formatCountdown(msLeft);
+        startLikeCountdown();
+      }
+    } catch {
+      openDetailsLiked = false;
+      openDetailsLikeUntilMs = 0;
+    } finally {
+      openDetailsLikeLoading = false;
+      setLikeBtnState();
+    }
+  }
+
   function openDetailsDialog(server) {
     if (!detailsDialog || !server) return;
+
+    openDetailsServerId = String(server?.id || "").trim() || null;
+
+    try {
+      detailsLikeBtn?.remove?.();
+    } catch {
+      // ignore
+    }
+    detailsLikeBtn = null;
+    if (detailsLikeSlot) detailsLikeSlot.innerHTML = "";
 
     const name = server?.name || server?.discord?.guildName || "Discord Server";
     safeText(detailsTitle, name);
@@ -199,6 +360,7 @@ export function mount() {
 
     if (detailsHead) {
       detailsHead.innerHTML = "";
+      detailsTitleRow = null;
 
       const iconUrl = server?.discord?.iconUrl || null;
       const iconNode = iconUrl
@@ -221,10 +383,56 @@ export function mount() {
         }
       }
 
-      detailsHead.append(
-        iconNode,
-        el("div", { class: "invite-title" }, [el("div", { class: "invite-title-row" }, [el("div", { class: "invite-name", text: name })]), sub])
+      const titleRow = el("div", { class: "invite-title-row invite-title-row--details" }, [
+        el("div", { class: "invite-name", text: name }),
+      ]);
+      detailsTitleRow = titleRow;
+      detailsLikeBtn = el(
+        "button",
+        { class: "btn like-btn", type: "button", "aria-label": "Vota", "aria-pressed": "false" },
+        [
+          el("i", { class: "fa-solid fa-heart", "aria-hidden": "true" }),
+          el("span", { "data-role": "like-label", text: "Vota" }),
+          el("span", { "data-role": "like-countdown", class: "like-countdown", text: "" }),
+        ]
       );
+      detailsLikeBtn.addEventListener("click", async () => {
+        if (!openDetailsServerId) return;
+        if (!logged?.loggedIn) {
+          flashInline(detailsLikeMeta, "Login richiesto per votare.", { variant: "error", timeoutMs: 2600 });
+          return;
+        }
+
+        detailsLikeBtn.disabled = true;
+        try {
+          openDetailsLikeLoading = true;
+          setLikeBtnState();
+          const out = await requestJson(`/api/servers/${encodeURIComponent(openDetailsServerId)}/like`, {
+            signal: abort.signal,
+            method: "POST",
+            headers: { Accept: "application/json" },
+          });
+          openDetailsLiked = Boolean(out?.liked);
+          const msLeft = Number(out?.msLeft || 0);
+          openDetailsLikeUntilMs = openDetailsLiked && Number.isFinite(msLeft) && msLeft > 0 ? Date.now() + msLeft : 0;
+          if (openDetailsLikeUntilMs) startLikeCountdown();
+          setLikeBtnState();
+          if (Number.isFinite(Number(out?.likeCount))) {
+            await refreshLikesEverywhere(openDetailsServerId, Number(out.likeCount));
+          } else {
+            await loadPublicServers();
+          }
+        } catch (err) {
+          flashInline(detailsLikeMeta, err?.body?.error || err?.message || "Errore", { variant: "error", timeoutMs: 3200 });
+        } finally {
+          openDetailsLikeLoading = false;
+          detailsLikeBtn.disabled = false;
+          setLikeBtnState();
+        }
+      });
+      titleRow.appendChild(detailsLikeBtn);
+
+      detailsHead.append(iconNode, el("div", { class: "invite-title" }, [titleRow, sub]));
     }
 
     const guildName = server?.discord?.guildName || null;
@@ -240,6 +448,8 @@ export function mount() {
     safeText(detailsMembers, Number.isFinite(Number(members)) ? Number(members).toLocaleString("it-IT") : "—");
     safeText(detailsGuild, server?.discord?.guildId ? String(server.discord.guildId) : "—");
     safeText(detailsUpdated, server?.updatedAt ? fmtDateTime(server.updatedAt) : "—");
+    setDetailsLikeMeta(server);
+    loadMyLike(openDetailsServerId);
 
     const inviteCode = server?.discord?.inviteCode || null;
     detailsInviteUrl = inviteCode ? `https://discord.gg/${inviteCode}` : null;
@@ -255,6 +465,8 @@ export function mount() {
     } catch {
       // ignore
     }
+    syncLikePlacement();
+    setLikeBtnState();
   }
 
   function closeDetailsDialog() {
@@ -263,6 +475,18 @@ export function mount() {
     } catch {
       // ignore
     }
+    openDetailsServerId = null;
+    openDetailsLiked = false;
+    openDetailsLikeUntilMs = 0;
+    stopLikeCountdown();
+    try {
+      detailsLikeBtn?.remove?.();
+    } catch {
+      // ignore
+    }
+    detailsLikeBtn = null;
+    if (detailsLikeSlot) detailsLikeSlot.innerHTML = "";
+    detailsTitleRow = null;
   }
 
   function syncDetailsRoute(pathname) {
@@ -326,6 +550,11 @@ export function mount() {
     detailsDialog.addEventListener("close", onDetailsClose);
   }
 
+  const mqLike = window.matchMedia ? window.matchMedia("(max-width: 620px)") : null;
+  const onMqLikeChange = () => syncLikePlacement();
+  if (mqLike?.addEventListener) mqLike.addEventListener("change", onMqLikeChange);
+  else if (mqLike?.addListener) mqLike.addListener(onMqLikeChange);
+
   const onServersRoute = (e) => syncDetailsRoute(e?.detail?.pathname || window.location.pathname);
   window.addEventListener("servers:route", onServersRoute);
 
@@ -334,11 +563,25 @@ export function mount() {
       if (!detailsInviteUrl) return;
       try {
         await copyToClipboard(detailsInviteUrl);
-        showToast("Invite copiato");
+        flashInline(detailsLikeMeta, "Invite copiato", { variant: "success", timeoutMs: 1800 });
       } catch (err) {
-        showToast(err?.message || "Errore", { variant: "error" });
+        flashInline(detailsLikeMeta, err?.message || "Errore", { variant: "error", timeoutMs: 2600 });
       }
     });
+  }
+
+  async function refreshLikesEverywhere(serverId, likeCount) {
+    const sid = String(serverId || "").trim();
+    if (!sid) return;
+    const idx = lastPublicServers.findIndex((x) => String(x?.id || "") === sid);
+    if (idx >= 0 && Number.isFinite(Number(likeCount))) {
+      lastPublicServers[idx] = { ...lastPublicServers[idx], likeCount: Number(likeCount) };
+      setDetailsLikeMeta(lastPublicServers[idx]);
+    }
+
+    const card = listEl?.querySelector?.(`article.server-card[data-server-id="${CSS.escape(sid)}"]`) || null;
+    const countEl = card?.querySelector?.('[data-role="like-count"]') || null;
+    if (countEl) countEl.textContent = String(Number.isFinite(Number(likeCount)) ? Number(likeCount) : 0);
   }
 
   const publishDialog = qs("#srv-publish-dialog");
@@ -399,7 +642,8 @@ export function mount() {
     max: 10,
     placeholder: "Seleziona tag",
     getLabel: (v) => tagLabel(v),
-    onMaxExceeded: (maxN) => showToast(`Max ${maxN} tag`, { variant: "error" }),
+    onMaxExceeded: (maxN) =>
+      flashInline(publishStatusEl, `Max ${maxN} tag`, { variant: "error", timeoutMs: 2200, restore: false }),
   });
   bindCharCount(inviteEl, inviteCountEl, { max: 32 });
   bindCharCount(descEl, descCountEl, { max: 600 });
@@ -483,6 +727,8 @@ export function mount() {
         placeholder: "Seleziona tag",
         getLabel: (v) => tagLabel(v),
         max: 10,
+        onMaxExceeded: (maxN) =>
+          flashInline(publishStatusEl, `Max ${maxN} tag`, { variant: "error", timeoutMs: 2200, restore: false }),
       });
     }
   }
@@ -491,6 +737,7 @@ export function mount() {
     const reqId = ++publicReq;
     const q = String(qEl?.value || "").trim();
     const tag = String(tagEl?.value || "").trim();
+    const cacheKey = cacheKeyForPublicServers({ q, tag, limit: 60 });
 
     const sp = new URLSearchParams();
     if (q) sp.set("q", q);
@@ -500,13 +747,34 @@ export function mount() {
     safeText(listMetaEl, "Caricamento…");
     if (listEl) listEl.innerHTML = "";
 
+    const cached = readJsonCache(cacheKey, { ttlMs: 45_000 });
+    if (cached && reqId === publicReq) {
+      try {
+        const serversCached = Array.isArray(cached?.servers) ? cached.servers : [];
+        if (serversCached.length && listEl) {
+          lastPublicServers = serversCached;
+          safeText(listMetaEl, `${serversCached.length} servers (cache)`);
+          for (const s of serversCached) {
+            const card = renderServerCard(s);
+            card.dataset.serverId = String(s?.id || "");
+            card.classList.add("server-card-clickable");
+            listEl.appendChild(card);
+          }
+        }
+      } catch {
+        // ignore cache rendering errors
+      }
+    }
+
     try {
       const out = await requestJson(`/api/public/servers?${sp.toString()}`, { signal: abort.signal });
       if (reqId !== publicReq) return;
       const servers = Array.isArray(out?.servers) ? out.servers : [];
       lastPublicServers = servers;
+      writeJsonCache(cacheKey, { servers });
       safeText(listMetaEl, `${servers.length} servers`);
       if (!listEl) return;
+      listEl.innerHTML = "";
       for (const s of servers) {
         const card = renderServerCard(s);
         card.dataset.serverId = String(s?.id || "");
@@ -634,7 +902,7 @@ export function mount() {
   if (openPublishBtn) {
     openPublishBtn.addEventListener("click", () => {
       if (!logged.loggedIn) {
-        showToast("Fai login con Discord per pubblicare.", { variant: "error" });
+        flashInline(publishHintEl, "Fai login con Discord per pubblicare.", { variant: "error", timeoutMs: 2800, restore: false });
         return;
       }
       try {
@@ -668,6 +936,8 @@ export function mount() {
     if (listEl) listEl.removeEventListener("click", onCardClick);
     window.removeEventListener("servers:route", onServersRoute);
     if (onDetailsClose && detailsDialog) detailsDialog.removeEventListener("close", onDetailsClose);
+    if (mqLike?.removeEventListener) mqLike.removeEventListener("change", onMqLikeChange);
+    else if (mqLike?.removeListener) mqLike.removeListener(onMqLikeChange);
     if (publishMq?.removeEventListener) publishMq.removeEventListener("change", onPublishMqChange);
     else if (publishMq?.removeListener) publishMq.removeListener(onPublishMqChange);
     if (coarseMq?.removeEventListener) coarseMq.removeEventListener("change", onPublishMqChange);

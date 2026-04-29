@@ -6,6 +6,7 @@ export function showToast(message, { variant = "default", timeoutMs = 3500 } = {
   const node = document.querySelector("#toast");
   if (!node) return;
   node.classList.toggle("error", variant === "error");
+  node.classList.toggle("success", variant === "success");
   setText(node, message);
 
   // Restart animation reliably

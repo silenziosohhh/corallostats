@@ -18,12 +18,14 @@
   border-radius: 18px;
   background: rgba(255,255,255,.03);
   overflow:hidden;
+  min-height: 248px;
 }
 
 .ana-chart{
   width: 100%;
-  height: 220px;
+  height: 100%;
   display:block;
+  touch-action: pan-y;
 }
 
 .ana-tooltip{
@@ -45,8 +47,24 @@
 
 .ana-grid-2{
   display:grid;
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
   gap: 12px;
+  align-items: stretch;
+}
+
+.ana-grid-2 > .card{
+  display:flex;
+  flex-direction:column;
+  min-height: 360px;
+}
+
+.ana-grid-2 > .card > .section-head{
+  flex: 0 0 auto;
+}
+
+.ana-grid-2 > .card > .ana-chart-wrap,
+.ana-grid-2 > .card > .ana-dist{
+  flex: 1 1 auto;
 }
 
 .ana-head-meta{
@@ -60,15 +78,17 @@
 .ana-dist{
   margin-top: 12px;
   display:grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: minmax(160px, 220px) minmax(0, 1fr);
   gap: 12px;
   align-items:center;
+  min-height: 248px;
 }
 
 .ana-donut{
   width: clamp(150px, 18vw, 200px);
   height: clamp(150px, 18vw, 200px);
   display:block;
+  justify-self:center;
 }
 
 .ana-donut-k{
@@ -99,7 +119,7 @@ html[data-theme="light"] .ana-cross{stroke: rgba(9,12,18,.14)}
   margin:0;
   display:grid;
   gap: 8px;
-  min-width: 220px;
+  min-width: 0;
 }
 
 .ana-legend-item{
@@ -212,14 +232,16 @@ html[data-theme="light"] .ana-cross{stroke: rgba(9,12,18,.14)}
 
 @media (max-width: 920px){
   .ana-grid-2{grid-template-columns: 1fr}
-  .ana-dist{grid-template-columns: 1fr; justify-items:center}
+  .ana-grid-2 > .card{min-height: 0}
+  .ana-chart-wrap{min-height: 220px}
+  .ana-dist{grid-template-columns: 1fr; justify-items:center; min-height: 0}
   .ana-donut{width: 100%; max-width: 260px; height: auto; aspect-ratio: 1 / 1}
   .ana-head-meta{justify-content:flex-start}
   .ana-endpoints{grid-template-columns: 1fr}
 }
 
 @media (max-width: 620px){
-  .ana-chart{height: 190px}
+  .ana-chart-wrap{min-height: 200px}
   .ana-tooltip{left: 12px; top: 12px; font-size: 12px}
 
   .ana-donut{max-width: 240px}

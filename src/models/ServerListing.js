@@ -19,6 +19,7 @@ const serverListingSchema = new mongoose.Schema(
 
     status: { type: String, default: "published", index: true },
     lastVerifiedAt: { type: Date, default: null },
+    likeCount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );
@@ -49,5 +50,12 @@ serverListingSchema.path("discordInviteCode").validate(function (v) {
   const s = String(v || "").trim();
   return Boolean(s) && s.length <= 32 && /^[a-zA-Z0-9-_]+$/.test(s);
 }, "Invalid discord invite");
+
+serverListingSchema.path("likeCount").validate(function (v) {
+  const n = Number(v);
+  if (!Number.isFinite(n)) return false;
+  if (n < 0) return false;
+  return true;
+}, "Invalid likeCount");
 
 module.exports = mongoose.model("ServerListing", serverListingSchema);

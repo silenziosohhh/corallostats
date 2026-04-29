@@ -1,43 +1,15 @@
 const express = require("express");
 const ServerListing = require("./models/ServerListing");
+const ServerLike = require("./models/ServerLike");
 const { ensureAuthenticated } = require("./middleware/ensureAuthenticated");
 const { parseDiscordInviteCode, fetchDiscordInvite, botHasGuild, botInviteUrl } = require("./lib/discordInvites");
 const { guildIconUrl } = require("./lib/discordGuildCdn");
 const { snowflakeToDate } = require("./lib/discordApi");
 const { hydrateListings } = require("./lib/serverListingInviteHydrate");
-
-const ALLOWED_TAGS = [
-  "bedwars",
-  "kitpvp",
-  "duels",
-  "skywars",
-  "survival",
-  "factions",
-  "prison",
-  "creative",
-  "pvp",
-  "minigames",
-  "minecraft",
-  "accogliente",
-  "tornei",
-  "no_toxic",
-  "community",
-];
-
-function uniq(arr) {
-  return [...new Set(arr)];
-}
-
-function normalizeTag(tag) {
-  return String(tag || "").trim().toLowerCase();
-}
-
-function normalizeTags(tags) {
-  const input = Array.isArray(tags) ? tags : [];
-  const cleaned = input.map(normalizeTag).filter(Boolean);
-  const allowed = new Set(ALLOWED_TAGS);
-  return uniq(cleaned.filter((t) => allowed.has(t))).slice(0, 10);
-}
+const { recomputeServerLikes, toObjectId } = require("./lib/serverLikeAggregates");
+const { ALLOWED_TAGS, normalizeTags } = require("./lib/serverTags");
+const { verifyBotInGuild } = require("./lib/serverListingDiscordVerify");
+const { notifyServerPublished } = require("./lib/serverPublishWebhook");
 
 function shapeMine(doc) {
   const created = snowflakeToDate(doc.discordGuildId)?.toISOString?.() || null;
@@ -58,38 +30,12 @@ function shapeMine(doc) {
       guildCreatedAt: created,
       inviteFetchedAt: doc.inviteFetchedAt || null,
     },
+    likeCount: Number.isFinite(Number(doc.likeCount)) ? Number(doc.likeCount) : 0,
     status: doc.status,
     lastVerifiedAt: doc.lastVerifiedAt,
     createdAt: doc.createdAt,
     updatedAt: doc.updatedAt,
   };
-}
-
-async function verifyBotInGuild({ inviteCode, botToken }) {
-  const inv = await fetchDiscordInvite(inviteCode, { token: botToken || null, withCounts: true });
-  const guildId = String(inv?.guild?.id || "").trim();
-  const guildName = inv?.guild?.name ? String(inv.guild.name) : null;
-  const guildIcon = inv?.guild?.icon ? String(inv.guild.icon) : null;
-  const approxPresenceCount =
-    Number.isFinite(Number(inv?.approximate_presence_count)) ? Number(inv.approximate_presence_count) : null;
-  const approxMemberCount =
-    Number.isFinite(Number(inv?.approximate_member_count)) ? Number(inv.approximate_member_count) : null;
-  if (!guildId) {
-    const err = new Error("Invite senza guild");
-    err.code = "invite_no_guild";
-    throw err;
-  }
-
-  const ok = await botHasGuild({ guildId, token: botToken });
-  if (!ok) {
-    const err = new Error("Bot non presente nella guild");
-    err.code = "bot_missing";
-    err.guildId = guildId;
-    err.guildName = guildName;
-    throw err;
-  }
-
-  return { guildId, guildName, guildIcon, approxPresenceCount, approxMemberCount };
 }
 
 function createServersRouter() {
@@ -111,6 +57,99 @@ function createServersRouter() {
       res.json({ count: docs.length, servers: docs.map(shapeMine) });
     } catch {
       res.status(500).json({ error: "Servers mine error" });
+    }
+  });
+
+  router.get("/:id/like", ensureAuthenticated, async (req, res) => {
+    try {
+      const discordId = String(req.user?.id || "").trim();
+      if (!discordId) return res.status(401).json({ error: "Not authenticated" });
+
+      const id = String(req.params.id || "").trim();
+      const oid = toObjectId(id);
+      if (!oid) return res.status(400).json({ error: "Invalid server id" });
+
+      const listing = await ServerListing.findById(oid).lean();
+      if (!listing) return res.status(404).json({ error: "Not found" });
+
+      const now = Date.now();
+      const ttlMs = 24 * 60 * 60 * 1000;
+      const doc = await ServerLike.findOne({ serverListingId: oid, likerDiscordId: discordId }).lean();
+      const createdAtMs = doc?.createdAt ? new Date(doc.createdAt).getTime() : 0;
+      const expiresAtMs = createdAtMs ? createdAtMs + ttlMs : 0;
+      const msLeft = expiresAtMs ? Math.max(0, expiresAtMs - now) : 0;
+      const liked = Boolean(doc) && msLeft > 0;
+
+      res.json({
+        liked,
+        canLike: !liked,
+        expiresAt: liked ? new Date(expiresAtMs).toISOString() : null,
+        msLeft: liked ? msLeft : 0,
+        likeCount: Number(listing.likeCount || 0),
+      });
+    } catch {
+      res.status(500).json({ error: "Like get error" });
+    }
+  });
+
+  router.post("/:id/like", ensureAuthenticated, async (req, res) => {
+    try {
+      const discordId = String(req.user?.id || "").trim();
+      if (!discordId) return res.status(401).json({ error: "Not authenticated" });
+
+      const id = String(req.params.id || "").trim();
+      const oid = toObjectId(id);
+      if (!oid) return res.status(400).json({ error: "Invalid server id" });
+
+      const listing = await ServerListing.findById(oid).lean();
+      if (!listing) return res.status(404).json({ error: "Not found" });
+      if (String(listing.ownerDiscordId || "") === discordId) return res.status(400).json({ error: "Non puoi votare il tuo server" });
+      if (String(listing.status || "") !== "published") return res.status(400).json({ error: "Server non disponibile" });
+
+      const now = Date.now();
+      const ttlMs = 24 * 60 * 60 * 1000;
+      const existing = await ServerLike.findOne({ serverListingId: oid, likerDiscordId: discordId }).lean();
+      if (existing?.createdAt) {
+        const createdAtMs = new Date(existing.createdAt).getTime();
+        const expiresAtMs = createdAtMs + ttlMs;
+        const msLeft = Math.max(0, expiresAtMs - now);
+        if (msLeft > 0) {
+          const out = await recomputeServerLikes(oid);
+          return res.json({
+            ok: true,
+            liked: true,
+            canLike: false,
+            expiresAt: new Date(expiresAtMs).toISOString(),
+            msLeft,
+            ...out,
+          });
+        }
+        await ServerLike.deleteOne({ _id: existing._id });
+      }
+
+      const likerName = req.user?.global_name || req.user?.displayName || req.user?.username || null;
+      await ServerLike.create({
+        serverListingId: oid,
+        likerDiscordId: discordId,
+        likerName: likerName ? String(likerName).slice(0, 64) : null,
+      });
+
+      const out = await recomputeServerLikes(oid);
+      res.json({
+        ok: true,
+        liked: true,
+        canLike: false,
+        expiresAt: new Date(now + ttlMs).toISOString(),
+        msLeft: ttlMs,
+        ...out,
+      });
+    } catch (err) {
+      if (err?.code === 11000) {
+        const oid = toObjectId(String(req.params.id || "").trim());
+        const out = oid ? await recomputeServerLikes(oid) : { likeCount: 0 };
+        return res.json({ ok: true, liked: true, canLike: false, expiresAt: null, msLeft: 0, ...out });
+      }
+      res.status(500).json({ error: "Like error" });
     }
   });
 
@@ -142,6 +181,7 @@ function createServersRouter() {
       const { guildId, guildName, guildIcon, approxPresenceCount, approxMemberCount } = await verifyBotInGuild({
         inviteCode,
         botToken,
+        expectedOwnerDiscordId: discordId,
       });
       const name = nameRaw || guildName || "Discord Server";
 
@@ -172,7 +212,17 @@ function createServersRouter() {
         lastVerifiedAt: now,
       });
 
-      res.json({ ok: true, server: shapeMine(doc) });
+      const shaped = shapeMine(doc);
+      notifyServerPublished({
+        name: shaped.name,
+        description: shaped.description,
+        tags: shaped.tags,
+        discordInviteCode: shaped.discord?.inviteCode || null,
+        discordGuildName: shaped.discord?.guildName || null,
+        approxPresenceCount: shaped.stats?.online ?? null,
+        approxMemberCount: shaped.stats?.members ?? null,
+      });
+      res.json({ ok: true, server: shaped });
     } catch (err) {
       if (err?.code === 11000) {
         return res.status(409).json({ error: "Questo server è già stato pubblicato nella directory." });
@@ -190,6 +240,13 @@ function createServersRouter() {
         return res.status(400).json({
           error: "Devi aggiungere il bot nel tuo server Discord prima di pubblicare",
           botInviteUrl: botInviteUrl({ clientId: botClientId }) || null,
+          guildId: err.guildId || null,
+          guildName: err.guildName || null,
+        });
+      }
+      if (err?.code === "not_owner") {
+        return res.status(403).json({
+          error: "Puoi pubblicare solo server di cui sei owner su Discord",
           guildId: err.guildId || null,
           guildName: err.guildName || null,
         });

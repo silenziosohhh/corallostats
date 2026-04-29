@@ -224,6 +224,8 @@ a:hover{text-decoration:underline}
   background: linear-gradient(135deg, rgba(54,211,153,.9), rgba(56,189,248,.75));
 }
 .muted{color:var(--muted)}
+.muted.is-error{color: rgba(248,113,113,.95)}
+.muted.is-success{color: rgba(34,197,94,.92)}
 .mobile-only{display:none !important}
 
 .btn{
@@ -254,7 +256,7 @@ a:hover{text-decoration:underline}
 .btn.disabled{opacity:.55; cursor:not-allowed; pointer-events:none}
 .btn.primary{
   border-color: rgba(88,101,242,.38);
-  background: linear-gradient(180deg, rgba(88,101,242,.22), rgba(88,101,242,.10));
+  background: rgba(88,101,242,.18);
 }
 .btn.danger{
   border-color: rgba(251,113,133,.35);
@@ -262,11 +264,11 @@ a:hover{text-decoration:underline}
 }
 .btn.success{
   border-color: rgba(54,211,153,.32);
-  background: linear-gradient(180deg, rgba(54,211,153,.22), rgba(54,211,153,.10));
+  background: rgba(54,211,153,.16);
 }
 .btn.success:hover{
   border-color: rgba(54,211,153,.40);
-  background: linear-gradient(180deg, rgba(54,211,153,.28), rgba(54,211,153,.12));
+  background: rgba(54,211,153,.22);
 }
 
 .hero{
@@ -327,11 +329,27 @@ a:hover{text-decoration:underline}
   .server-card{grid-column: span 12}
 }
 
+#srv-list.grid{
+  grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+  align-items: stretch;
+  gap: 12px;
+}
+#srv-list.grid > .server-card{
+  grid-column: auto;
+}
+#srv-list.grid > .server-card.invite-card{
+  width: 100%;
+  max-width: none;
+}
+
 .invite-card{
   max-width: 400px;
   padding: 16px;
   background: radial-gradient(1200px 420px at 12% -10%, var(--invite-card-radial), rgba(0,0,0,0)) ,
               linear-gradient(180deg, var(--invite-card-l1), var(--invite-card-l2));
+  display:flex;
+  flex-direction:column;
+  height: 100%;
 }
 .server-card-clickable{cursor:pointer}
 .server-card-clickable:hover{
@@ -363,6 +381,7 @@ a:hover{text-decoration:underline}
 }
 .invite-title{
   min-width:0;
+  width: 100%;
 }
 .invite-title-row{
   display:flex;
@@ -398,6 +417,40 @@ a:hover{text-decoration:underline}
   color: var(--muted);
   font-size: 13px;
 }
+.invite-likes{
+  display:inline-flex;
+  align-items:center;
+  gap: 7px;
+  color: rgba(248,113,113,.95);
+  font-weight: 800;
+}
+.invite-likes i{font-size: 12px}
+.invite-title-row--details{
+  width: 100%;
+}
+.invite-title-row--details .like-btn{
+  margin-left: auto;
+}
+.like-btn{
+  display:inline-flex;
+  align-items:center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  color: rgba(248,113,113,1);
+}
+.like-btn i{font-size: 14px}
+.like-countdown{
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  font-weight: 900;
+  letter-spacing: .02em;
+}
+.like-btn.is-liked{
+  border-color: rgba(248,113,113,.40);
+  background: rgba(248,113,113,.12);
+}
+.like-btn:disabled{opacity:.55; cursor:not-allowed}
 .invite-dot{
   width:8px;
   height:8px;
@@ -423,13 +476,59 @@ a:hover{text-decoration:underline}
   font-size: 13px;
   line-height: 1;
 }
+.chip-more{
+  position: relative;
+  cursor: inherit;
+}
+.chip-more:focus{
+  outline: 2px solid rgba(56,189,248,.35);
+  outline-offset: 2px;
+}
+.chip-more:hover::after,
+.chip-more:focus::after{
+  content: attr(data-tooltip);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: min(460px, calc(100vw - 32px));
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: var(--modal-bg);
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.35;
+  z-index: 2000;
+  white-space: normal;
+  text-align: left;
+  pointer-events: none;
+}
+.chip-more:hover::before,
+.chip-more:focus::before{
+  content: "";
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--modal-bg);
+  border-left: 1px solid rgba(255,255,255,.14);
+  border-top: 1px solid rgba(255,255,255,.14);
+  transform: translateX(-50%) rotate(45deg);
+  z-index: 2001;
+  pointer-events: none;
+}
 .chip .chip-ico{
   width: 14px;
   height: 14px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  color: rgba(255,255,255,.86);
+  color: currentColor;
 }
 .invite-desc{
   margin-top: 12px;
@@ -438,6 +537,8 @@ a:hover{text-decoration:underline}
   font-size: 13px;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+  flex: 1 1 auto;
+  min-height: 0;
 }
 .invite-desc.is-truncated{
   position: relative;
@@ -481,10 +582,14 @@ a:hover{text-decoration:underline}
 }
 .invite-cta{
   width: 100%;
-  margin-top: 14px;
+  margin-top: 0;
   border-radius: 14px;
   padding: 12px 14px;
   font-weight: 800;
+}
+.invite-footer{
+  margin-top: auto;
+  padding-top: 14px;
 }
 
 .controls{
@@ -809,6 +914,9 @@ html[data-theme="light"] .modal-close{
   color: var(--chip-text);
   line-height: 1.55;
 }
+.details-like-slot{
+  display:none;
+}
 .server-details-grid{
   margin-top: 12px;
   display:grid;
@@ -1060,29 +1168,49 @@ html[data-theme="light"] .modal-close{
 @media (max-width: 720px){
   .player-grid{grid-template-columns: repeat(2, 1fr)}
   .player-skin{width: 140px; height: 210px}
+  .details-like-slot{
+    display:flex;
+    width: 100%;
+    margin: 4px 0 20px 0;
+  }
+  .details-like-slot .like-btn{
+    width: 100%;
+    justify-content: center;
+  }
 }
 
+.content{position: relative}
 .toast{
-  position: fixed;
-  left: 50%;
-  bottom: 18px;
-  transform: translateX(-50%);
-  padding: 10px 12px;
-  border-radius: 14px;
-  border:1px solid var(--border);
-  background: var(--modal-bg);
-  box-shadow: var(--shadow);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  margin: 0;
+  padding: 14px 16px;
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--border) 70%, rgba(255,255,255,.18) 30%);
+  background: var(--panel);
+  box-shadow: 0 18px 55px rgba(0,0,0,.32);
   color: var(--text);
-  max-width:min(720px, calc(100vw - 28px));
-  z-index: 80;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: -.01em;
+  line-height: 1.25;
+  max-width: min(560px, calc(100% - 20px));
+  z-index: 50;
+  pointer-events: none;
 }
-.toast.error{border-color: rgba(255,107,107,.35)}
+.toast.error{
+  border-color: rgba(248,113,113,.45);
+}
+.toast.success{
+  border-color: rgba(34,197,94,.40);
+}
 .toast.show{
   animation: toastIn .24s var(--ease-out) both;
 }
 @keyframes toastIn{
-  from{opacity:0; transform: translateX(-50%) translateY(10px)}
-  to{opacity:1; transform: translateX(-50%) translateY(0)}
+  from{opacity:0; transform: translateY(-8px) scale(.98)}
+  to{opacity:1; transform: translateY(0) scale(1)}
 }
 
 .count-anim{
@@ -2296,8 +2424,8 @@ html[data-theme="light"] .codeblock .codecopy-btn:hover{
   .grid-2{grid-template-columns: 1fr}
   .search-hint{display:none}
   .toast{
-    top: calc(12px + env(safe-area-inset-top));
-    bottom: auto;
+    right: 50%;
+    transform: translateX(50%);
   }
 
   /* Mobile: cards become "sections" with dividers (no border/padding). */

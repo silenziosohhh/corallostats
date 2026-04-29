@@ -39,7 +39,7 @@ function combinedMeta(...items) {
 
 function metaIsFresh(meta, refreshMs) {
   if (!meta || typeof meta !== "object") return false;
-  if (String(meta.source || "") !== "top15_members_total_division_exp") return false;
+  if (String(meta.source || "") !== "top15_members_current_division_exp") return false;
   const v = meta.total_exp ?? meta.totalExp ?? null;
   if (v == null) return false;
 
@@ -121,7 +121,7 @@ function createPublicApiRouter() {
             member_count: computed.member_count ?? null,
             tag: computed.tag ?? null,
             color: computed.color ?? null,
-            source: "top15_members_total_division_exp",
+            source: "top15_members_current_division_exp",
             fetchedAt: new Date().toISOString(),
           };
 

@@ -202,7 +202,7 @@ function createStatsRouter({
                 const name = extractClanName(it);
                 const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
                 if (!Number.isFinite(v)) return it;
-                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
+                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_current_division_exp" };
               });
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }
@@ -249,8 +249,8 @@ function createStatsRouter({
                   const name = extractClanName(it);
                   const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
                   if (!Number.isFinite(v)) return it;
-                  return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
-                });
+                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_current_division_exp" };
+              });
                 body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
               }
             }
@@ -342,7 +342,7 @@ function createStatsRouter({
                 const name = extractClanName(it);
                 const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
                 if (!Number.isFinite(v)) return it;
-                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
+                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_current_division_exp" };
               });
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }

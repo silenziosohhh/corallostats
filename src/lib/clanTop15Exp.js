@@ -18,15 +18,8 @@ function safeJsonParseArray(raw) {
 
 function memberTotalDivisionExp(playerPayload) {
   if (!playerPayload || typeof playerPayload !== "object") return null;
-  const current = toFiniteNumber(playerPayload.current_division_exp) ?? 0;
-  const past = safeJsonParseArray(playerPayload.past_divisions);
-  let sumPast = 0;
-  for (const it of past) {
-    const v = toFiniteNumber(it?.division_exp);
-    if (v != null) sumPast += v;
-  }
-  const total = current + sumPast;
-  return Number.isFinite(total) ? total : null;
+  const current = toFiniteNumber(playerPayload.current_division_exp);
+  return current == null ? null : current;
 }
 
 function topUsernamesFromClanMembers(members, n) {
@@ -115,7 +108,7 @@ async function computeClanTop15Exp({
     clanName: clan?.name || name,
     total_exp_top15: total,
     total_exp_upstream: clan?.total_exp ?? null,
-    total_exp_calc: "top15_members_total_division_exp",
+    total_exp_calc: "top15_members_current_division_exp",
     member_count: Array.isArray(clan?.members) ? clan.members.length : null,
     tag: clan?.tag ?? null,
     color: clan?.color ?? null,

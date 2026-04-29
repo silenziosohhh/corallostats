@@ -2,10 +2,7 @@ const express = require("express");
 const { readCache, writeCache } = require("./upstreamCache");
 const { getStatsRegistry } = require("./statsRegistry");
 const { getDashboardClanOrder } = require("../lib/dashboardClanOrder");
-const {
-  rewriteClanPayloadTotalExpTop15,
-  rewriteLeaderboardItemsTotalExpTop15,
-} = require("../lib/clanTop15Exp");
+const { computeClanTop15Exp } = require("../lib/clanTop15Exp");
 
 function normalizeClanName(name) {
   const s = String(name || "").trim();
@@ -79,35 +76,22 @@ async function computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, cla
   const list = Array.isArray(clans) ? clans.filter(Boolean) : [];
   if (!list.length) return out;
 
-  const headers = { Accept: "application/json" };
-  if (contact) headers["X-Contact"] = contact;
-
-  const concurrency = Math.max(2, Math.min(8, Number(process.env.CLAN_TOP15_CONCURRENCY || 5)));
+  const concurrency = Math.max(2, Math.min(8, Number(process.env.CLAN_TOP15_CONCURRENCY || 4)));
   let idx = 0;
 
   async function worker() {
     while (idx < list.length) {
       const i = idx++;
       const name = list[i];
-      const url = new URL(`/api/v1/stats/bedwars/clans/${encodeURIComponent(name)}`, upstreamHost).toString();
-      const cacheKey = `GET ${url}`;
-
-      const cached = readCache(cacheKey);
-      if (cached && cached.status === 200 && isFresh(cached, ttlMs)) {
-        const rewritten = rewriteClanPayloadTotalExpTop15(cached.body);
-        if (rewritten && typeof rewritten === "object") out[name] = rewritten.total_exp;
-        continue;
-      }
-
       try {
-        const res = await fetch(url, { headers });
-        const status = res.status;
-        const body = await res.json().catch(() => null);
-        if (status >= 200 && status < 300) writeCache(cacheKey, { fetchedAt: Date.now(), status: 200, body });
-        if (status >= 200 && status < 300) {
-          const rewritten = rewriteClanPayloadTotalExpTop15(body);
-          if (rewritten && typeof rewritten === "object") out[name] = rewritten.total_exp;
-        }
+        const computed = await computeClanTop15Exp({
+          upstreamHost,
+          contact,
+          ttlMs,
+          cache: { read: readCache, write: writeCache },
+          clanName: name,
+        });
+        if (computed && typeof computed.total_exp_top15 === "number") out[name] = computed.total_exp_top15;
       } catch {
         // ignore
       }
@@ -185,7 +169,27 @@ function createStatsRouter({
       if (isFresh(cached, ttlMs) && cached.status === 200) {
         res.setHeader("X-Cache", "HIT");
         let body = cached.body;
-        if (rewriteClanTotalTop15 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+        if (rewriteClanTotalTop15 && clanXpCalcMode() === "top15") {
+          try {
+            const computed = await computeClanTop15Exp({
+              upstreamHost,
+              contact,
+              ttlMs,
+              cache: { read: readCache, write: writeCache },
+              clanName: req.params.clanName,
+            });
+            if (computed) {
+              body = {
+                ...body,
+                total_exp_upstream: body?.total_exp ?? null,
+                total_exp: computed.total_exp_top15,
+                total_exp_calc: computed.total_exp_calc,
+              };
+            }
+          } catch {
+            // ignore
+          }
+        }
         if (matchDashboardOrder) {
           body = reorderBedwarsClansLeaderboardLikeDashboard(body);
           if (clanXpCalcMode() === "top15") {
@@ -193,7 +197,13 @@ function createStatsRouter({
             const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
             const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
             if (picked) {
-              const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+              const rewrittenArr = picked.arr.map((it) => {
+                if (!it || typeof it !== "object") return it;
+                const name = extractClanName(it);
+                const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
+                if (!Number.isFinite(v)) return it;
+                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
+              });
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }
           }
@@ -206,7 +216,27 @@ function createStatsRouter({
           const out = await inflight.get(cacheKey);
           res.setHeader("X-Cache", out?.fromCache ? "HIT" : "MISS");
           let body = out.body;
-          if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+          if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") {
+            try {
+              const computed = await computeClanTop15Exp({
+                upstreamHost,
+                contact,
+                ttlMs,
+                cache: { read: readCache, write: writeCache },
+                clanName: req.params.clanName,
+              });
+              if (computed) {
+                body = {
+                  ...body,
+                  total_exp_upstream: body?.total_exp ?? null,
+                  total_exp: computed.total_exp_top15,
+                  total_exp_calc: computed.total_exp_calc,
+                };
+              }
+            } catch {
+              // ignore
+            }
+          }
           if (matchDashboardOrder && out.status === 200) {
             body = reorderBedwarsClansLeaderboardLikeDashboard(body);
             if (clanXpCalcMode() === "top15") {
@@ -214,7 +244,13 @@ function createStatsRouter({
               const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
               const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
               if (picked) {
-                const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+                const rewrittenArr = picked.arr.map((it) => {
+                  if (!it || typeof it !== "object") return it;
+                  const name = extractClanName(it);
+                  const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
+                  if (!Number.isFinite(v)) return it;
+                  return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
+                });
                 body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
               }
             }
@@ -273,7 +309,27 @@ function createStatsRouter({
           res.setHeader("X-Cache", "MISS");
         }
         let body = out.body;
-        if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+        if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") {
+          try {
+            const computed = await computeClanTop15Exp({
+              upstreamHost,
+              contact,
+              ttlMs,
+              cache: { read: readCache, write: writeCache },
+              clanName: req.params.clanName,
+            });
+            if (computed) {
+              body = {
+                ...body,
+                total_exp_upstream: body?.total_exp ?? null,
+                total_exp: computed.total_exp_top15,
+                total_exp_calc: computed.total_exp_calc,
+              };
+            }
+          } catch {
+            // ignore
+          }
+        }
         if (matchDashboardOrder && out.status === 200) {
           body = reorderBedwarsClansLeaderboardLikeDashboard(body);
           if (clanXpCalcMode() === "top15") {
@@ -281,7 +337,13 @@ function createStatsRouter({
             const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
             const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
             if (picked) {
-              const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+              const rewrittenArr = picked.arr.map((it) => {
+                if (!it || typeof it !== "object") return it;
+                const name = extractClanName(it);
+                const v = name && top15Map[name] != null ? Number(top15Map[name]) : null;
+                if (!Number.isFinite(v)) return it;
+                return { ...it, total_exp_upstream: it.total_exp ?? null, total_exp: v, total_exp_calc: "top15_members_total_division_exp" };
+              });
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }
           }

@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const fs = require("fs");
 const { JsonFileStore } = require("./lib/jsonFileStore");
+const { computeClanTop15Exp } = require("./lib/clanTop15Exp");
+const { readCache, writeCache } = require("./upstream/upstreamCache");
 
 const DATA_PATH = path.join(__dirname, "..", "data");
 
@@ -37,7 +39,7 @@ function combinedMeta(...items) {
 
 function metaIsFresh(meta, refreshMs) {
   if (!meta || typeof meta !== "object") return false;
-  if (String(meta.source || "") !== "top15_members_level") return false;
+  if (String(meta.source || "") !== "top15_members_total_division_exp") return false;
   const v = meta.total_exp ?? meta.totalExp ?? null;
   if (v == null) return false;
 
@@ -104,30 +106,22 @@ function createPublicApiRouter() {
         }
 
         try {
-          const url = `https://coralmc.it/api/v1/stats/bedwars/clans/${encodeURIComponent(name)}`;
-          const headers = { Accept: "application/json" };
-          if (contact) headers["X-Contact"] = contact;
-          const res = await fetch(url, { headers });
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const json = await res.json();
-
-          const members = Array.isArray(json?.members) ? json.members : [];
-          const values = [];
-          for (const m of members) {
-            const v = Number(m?.level);
-            if (Number.isFinite(v)) values.push(v);
-          }
-          values.sort((a, b) => b - a);
-          let top15 = 0;
-          for (let k = 0; k < Math.min(15, values.length); k++) top15 += values[k];
+          const computed = await computeClanTop15Exp({
+            upstreamHost: "https://coralmc.it",
+            contact,
+            ttlMs: refreshMs,
+            cache: { read: readCache, write: writeCache },
+            clanName: name,
+          });
+          if (!computed) throw new Error("Compute top15 failed");
 
           out[name] = {
-            total_exp: top15,
-            total_exp_upstream: json?.total_exp ?? null,
-            member_count: Array.isArray(json?.members) ? json.members.length : null,
-            tag: json?.tag ?? null,
-            color: json?.color ?? null,
-            source: "top15_members_level",
+            total_exp: computed.total_exp_top15,
+            total_exp_upstream: computed.total_exp_upstream ?? null,
+            member_count: computed.member_count ?? null,
+            tag: computed.tag ?? null,
+            color: computed.color ?? null,
+            source: "top15_members_total_division_exp",
             fetchedAt: new Date().toISOString(),
           };
 

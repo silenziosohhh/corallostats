@@ -37,7 +37,7 @@ function combinedMeta(...items) {
 
 function metaIsFresh(meta, refreshMs) {
   if (!meta || typeof meta !== "object") return false;
-  if (String(meta.source || "") !== "upstream") return false;
+  if (String(meta.source || "") !== "top15_members_level") return false;
   const v = meta.total_exp ?? meta.totalExp ?? null;
   if (v == null) return false;
 
@@ -111,12 +111,23 @@ function createPublicApiRouter() {
           if (!res.ok) throw new Error(`HTTP ${res.status}`);
           const json = await res.json();
 
+          const members = Array.isArray(json?.members) ? json.members : [];
+          const values = [];
+          for (const m of members) {
+            const v = Number(m?.level);
+            if (Number.isFinite(v)) values.push(v);
+          }
+          values.sort((a, b) => b - a);
+          let top15 = 0;
+          for (let k = 0; k < Math.min(15, values.length); k++) top15 += values[k];
+
           out[name] = {
-            total_exp: json?.total_exp ?? null,
+            total_exp: top15,
+            total_exp_upstream: json?.total_exp ?? null,
             member_count: Array.isArray(json?.members) ? json.members.length : null,
             tag: json?.tag ?? null,
             color: json?.color ?? null,
-            source: "upstream",
+            source: "top15_members_level",
             fetchedAt: new Date().toISOString(),
           };
 

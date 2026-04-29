@@ -2,6 +2,10 @@ const express = require("express");
 const { readCache, writeCache } = require("./upstreamCache");
 const { getStatsRegistry } = require("./statsRegistry");
 const { getDashboardClanOrder } = require("../lib/dashboardClanOrder");
+const {
+  rewriteClanPayloadTotalExpTop15,
+  rewriteLeaderboardItemsTotalExpTop15,
+} = require("../lib/clanTop15Exp");
 
 function normalizeClanName(name) {
   const s = String(name || "").trim();
@@ -61,6 +65,59 @@ function reorderBedwarsClansLeaderboardLikeDashboard(payload) {
   return { ...payload, [picked.key]: sorted };
 }
 
+function clanXpCalcMode() {
+  const raw = String(process.env.CLAN_XP_CALC || "top15").toLowerCase().trim();
+  if (raw === "upstream") return "upstream";
+  if (raw === "top15") return "top15";
+  return "top15";
+}
+
+async function computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans }) {
+  const out = {};
+  if (clanXpCalcMode() !== "top15") return out;
+
+  const list = Array.isArray(clans) ? clans.filter(Boolean) : [];
+  if (!list.length) return out;
+
+  const headers = { Accept: "application/json" };
+  if (contact) headers["X-Contact"] = contact;
+
+  const concurrency = Math.max(2, Math.min(8, Number(process.env.CLAN_TOP15_CONCURRENCY || 5)));
+  let idx = 0;
+
+  async function worker() {
+    while (idx < list.length) {
+      const i = idx++;
+      const name = list[i];
+      const url = new URL(`/api/v1/stats/bedwars/clans/${encodeURIComponent(name)}`, upstreamHost).toString();
+      const cacheKey = `GET ${url}`;
+
+      const cached = readCache(cacheKey);
+      if (cached && cached.status === 200 && isFresh(cached, ttlMs)) {
+        const rewritten = rewriteClanPayloadTotalExpTop15(cached.body);
+        if (rewritten && typeof rewritten === "object") out[name] = rewritten.total_exp;
+        continue;
+      }
+
+      try {
+        const res = await fetch(url, { headers });
+        const status = res.status;
+        const body = await res.json().catch(() => null);
+        if (status >= 200 && status < 300) writeCache(cacheKey, { fetchedAt: Date.now(), status: 200, body });
+        if (status >= 200 && status < 300) {
+          const rewritten = rewriteClanPayloadTotalExpTop15(body);
+          if (rewritten && typeof rewritten === "object") out[name] = rewritten.total_exp;
+        }
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  await Promise.all(Array.from({ length: concurrency }, () => worker()));
+  return out;
+}
+
 function buildUpstreamUrl({ host, upstreamTemplate, params, query }) {
   let p = upstreamTemplate;
   for (const [k, v] of Object.entries(params || {})) {
@@ -113,6 +170,8 @@ function createStatsRouter({
     router[method](expressPath, async (req, res) => {
       const matchDashboardOrder =
         ep.method === "GET" && ep.localPathTemplate === "/stats/bedwars/clans/leaderboard";
+      const rewriteClanTotalTop15 =
+        ep.method === "GET" && ep.localPathTemplate === "/stats/bedwars/clans/{clanName}";
 
       const upstreamUrl = buildUpstreamUrl({
         host: upstreamHost,
@@ -125,9 +184,20 @@ function createStatsRouter({
       const cached = readCache(cacheKey);
       if (isFresh(cached, ttlMs) && cached.status === 200) {
         res.setHeader("X-Cache", "HIT");
-        const body = matchDashboardOrder
-          ? reorderBedwarsClansLeaderboardLikeDashboard(cached.body)
-          : cached.body;
+        let body = cached.body;
+        if (rewriteClanTotalTop15 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+        if (matchDashboardOrder) {
+          body = reorderBedwarsClansLeaderboardLikeDashboard(body);
+          if (clanXpCalcMode() === "top15") {
+            const picked = pickLeaderboardArray(body);
+            const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+            const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+            if (picked) {
+              const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+              body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
+            }
+          }
+        }
         return res.status(200).json(body);
       }
 
@@ -135,10 +205,20 @@ function createStatsRouter({
         try {
           const out = await inflight.get(cacheKey);
           res.setHeader("X-Cache", out?.fromCache ? "HIT" : "MISS");
-          const body =
-            matchDashboardOrder && out.status === 200
-              ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
-              : out.body;
+          let body = out.body;
+          if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+          if (matchDashboardOrder && out.status === 200) {
+            body = reorderBedwarsClansLeaderboardLikeDashboard(body);
+            if (clanXpCalcMode() === "top15") {
+              const picked = pickLeaderboardArray(body);
+              const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+              const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+              if (picked) {
+                const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+                body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
+              }
+            }
+          }
           return res.status(out.status).json(body);
         } catch {
           return res.status(502).json({ error: "Upstream error" });
@@ -192,10 +272,20 @@ function createStatsRouter({
         } else {
           res.setHeader("X-Cache", "MISS");
         }
-        const body =
-          matchDashboardOrder && out.status === 200
-            ? reorderBedwarsClansLeaderboardLikeDashboard(out.body)
-            : out.body;
+        let body = out.body;
+        if (rewriteClanTotalTop15 && out.status === 200 && clanXpCalcMode() === "top15") body = rewriteClanPayloadTotalExpTop15(body);
+        if (matchDashboardOrder && out.status === 200) {
+          body = reorderBedwarsClansLeaderboardLikeDashboard(body);
+          if (clanXpCalcMode() === "top15") {
+            const picked = pickLeaderboardArray(body);
+            const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+            const top15Map = await computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+            if (picked) {
+              const rewrittenArr = rewriteLeaderboardItemsTotalExpTop15(picked.arr, top15Map);
+              body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
+            }
+          }
+        }
         res.status(out.status).json(body);
       } catch (err) {
         res.status(502).json({ error: err?.message || "Upstream error" });

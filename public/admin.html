@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="it" data-assets-v="20260430">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Admin - Corallo Stats</title>
+    <link rel="icon" type="image/png" href="/images/favicon.png" />
+    <script src="/js/earlyPrefs.js"></script>
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/css/admin.css" />
+    <link rel="stylesheet" href="/vendor/fontawesome/css/all.min.css" />
+  </head>
+  <body class="app-shell" data-page="admin">
+    <div class="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a class="logo" href="/">
+            <img class="logo-mark" src="/images/corallo_stats_icon.png" alt="" aria-hidden="true" decoding="async" fetchpriority="high" />
+            <span class="logo-text">Corallo Stats</span>
+          </a>
+          <button class="icon-btn" type="button" id="sidebar-close" aria-label="Chiudi sidebar"><span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span></button>
+        </div>
+
+        <nav class="nav" aria-label="Pagine">
+          <div class="nav-title" data-i18n="nav.pagesTitle">Pages</div>
+          <a class="nav-item" href="/dashboard"><span class="aico nav-ico" data-icon="line-md:speedometer" aria-hidden="true"></span><span data-i18n="nav.dashboard">Dashboard</span></a>
+          <a class="nav-item" href="/analytics"><span class="aico nav-ico" data-icon="line-md:chart" aria-hidden="true"></span><span data-i18n="nav.analytics">Analitiche</span></a>
+          <a class="nav-item" href="/docs/overview"><span class="aico nav-ico" data-icon="line-md:document" aria-hidden="true"></span><span data-i18n="nav.docs">Docs</span></a>
+          <a class="nav-item" href="/"><span class="aico nav-ico" data-icon="line-md:home" aria-hidden="true"></span><span data-i18n="nav.landing">Landing</span></a>
+          <div class="nav-divider"></div>
+          <a class="nav-item" href="/servers"><span class="aico nav-ico" data-icon="line-md:discord" aria-hidden="true"></span><span data-i18n="nav.servers">Servers</span></a>
+        </nav>
+
+        <nav class="nav-bottom" aria-label="Risorse">
+          <div class="nav-title" data-i18n="nav.resourcesTitle">Resources</div>
+          <a class="nav-item" href="/account"><span class="aico nav-ico" data-icon="line-md:security-twotone" aria-hidden="true"></span><span data-i18n="nav.apiKey">API Key</span></a>
+          <a class="nav-item active" href="/admin" data-nav="admin"><span class="aico nav-ico" data-icon="line-md:person-twotone" aria-hidden="true"></span><span>Admin</span></a>
+          <a class="nav-item" href="/terms"><span class="aico nav-ico" data-icon="line-md:file" aria-hidden="true"></span><span>Termini</span></a>
+          <a class="nav-item" href="/privacy"><span class="aico nav-ico" data-icon="line-md:security" aria-hidden="true"></span><span>Privacy</span></a>
+        </nav>
+      </aside>
+
+      <div class="main">
+        <header class="navbar">
+          <div class="nav-left">
+            <button class="icon-btn" type="button" id="sidebar-open" aria-label="Apri sidebar"><span class="aico btn-ico" data-icon="line-md:menu" aria-hidden="true"></span></button>
+          </div>
+          <div class="nav-right">
+            <a class="btn primary" href="/auth/login" id="nav-login" style="display:none;" data-i18n="ui.loginDiscord">Login</a>
+            <a class="btn" href="/auth/logout" id="nav-logout" data-i18n="ui.logout">Logout</a>
+          </div>
+        </header>
+
+        <div class="content">
+          <section class="page-title">
+            <h1>Admin</h1>
+            <p class="muted">Moderazione servers e supporto API. Gestione utenti riservata al CEO.</p>
+            <div class="muted" id="admin-role">—</div>
+          </section>
+
+          <section class="admin-stack">
+            <article class="card pad">
+              <div class="section-head">
+                <h2><i class="fa-brands fa-discord" aria-hidden="true"></i>Servers</h2>
+                <div class="admin-server-actions">
+                  <button class="btn primary" id="admin-server-find-2" type="button">Cerca</button>
+                </div>
+              </div>
+
+              <div class="field">
+                <label for="admin-server-lookup">Cerca server</label>
+                <input class="input" id="admin-server-lookup" placeholder="Incolla link del sito (/servers/...) oppure ID server (24 char) o guild id…" />
+              </div>
+
+              <div class="muted" id="admin-server-meta">—</div>
+              <div id="admin-server-result"></div>
+            </article>
+
+            <div class="divider admin-mobile-divider" aria-hidden="true"></div>
+
+            <article class="card pad">
+              <div class="section-head">
+                <h2><i class="fa-solid fa-users" aria-hidden="true"></i>Utenti</h2>
+                <div class="admin-users-actions">
+                  <select class="input" id="admin-users-mode" data-ui="select" style="min-width: 210px; flex:0;">
+                    <option value="api">Supporto API</option>
+                    <option value="users">Gestione utenti</option>
+                  </select>
+                  <button class="btn primary" id="admin-users-refresh" type="button">Cerca</button>
+                </div>
+              </div>
+
+              <div id="admin-users-mode-api">
+                <div class="field">
+                  <label>Supporto API (mod / CEO)</label>
+                  <input class="input" id="admin-api-q" placeholder="Discord ID / email / API key prefix…" />
+                </div>
+              </div>
+
+              <div id="admin-users-mode-users" style="display:none;">
+                <div class="field">
+                  <label for="admin-users-q">Gestione utenti (mod / CEO)</label>
+                  <div class="inline">
+                    <input class="input" id="admin-users-q" placeholder="Discord ID / username / email / prefix…" />
+                    <select class="input" id="admin-users-role" data-ui="select" style="min-width: 180px;">
+                      <option value="">Tutti</option>
+                      <option value="member">member</option>
+                      <option value="moderator">moderator</option>
+                      <option value="ceo">ceo</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="muted" id="admin-users-meta">—</div>
+              <div id="admin-users-list"></div>
+            </article>
+          </section>
+
+          <dialog id="admin-server-edit" aria-label="Modifica server">
+            <div class="modal publish-modal">
+              <header>
+                <div class="dialog-head-left">
+                  <div class="dialog-title">Modifica server</div>
+                  <div class="muted dialog-subtitle" id="admin-edit-meta">—</div>
+                </div>
+                <button class="icon-btn modal-close" type="button" data-action="close" aria-label="Chiudi">
+                  <span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span>
+                </button>
+              </header>
+              <main>
+                <div class="publish-form">
+                  <div class="publish-grid">
+                    <div class="field wide">
+                      <label for="admin-edit-name">Nome</label>
+                      <input class="input" id="admin-edit-name" maxlength="64" />
+                    </div>
+
+                    <div class="field wide">
+                      <label for="admin-edit-desc">Descrizione</label>
+                      <textarea class="input" id="admin-edit-desc" rows="4" maxlength="600"></textarea>
+                    </div>
+
+                    <div class="field">
+                      <label for="admin-edit-invite">Invite code</label>
+                      <div class="input-group" role="group" aria-label="Invite Discord">
+                        <span class="input-group-prefix" aria-hidden="true">https://discord.gg/</span>
+                        <input class="input input-group-input" id="admin-edit-invite" maxlength="32" />
+                      </div>
+                    </div>
+
+                    <div class="field">
+                      <label for="admin-edit-status">Status</label>
+                      <select class="input" id="admin-edit-status" data-ui="select">
+                        <option value="published">published</option>
+                        <option value="unverified">unverified</option>
+                        <option value="hidden">hidden</option>
+                      </select>
+                    </div>
+
+                    <div class="field wide">
+                      <label>Tags</label>
+                      <div id="admin-edit-tags" class="admin-tags-grid"></div>
+                    </div>
+                  </div>
+
+                  <div class="publish-actions admin-edit-actions">
+                    <button class="btn" type="button" data-action="close">Annulla</button>
+                    <button class="btn primary" id="admin-edit-save" type="button">Salva</button>
+                  </div>
+                </div>
+              </main>
+            </div>
+          </dialog>
+
+          <dialog id="admin-user-manage" aria-label="Gestisci utente">
+            <div class="modal">
+              <header>
+                <div class="dialog-head-left">
+                  <div class="dialog-title" id="admin-user-manage-title">Utente</div>
+                  <div class="muted dialog-subtitle" id="admin-user-manage-sub">—</div>
+                </div>
+                <button class="icon-btn modal-close" type="button" data-action="close" aria-label="Chiudi">
+                  <span class="aico btn-ico" data-icon="line-md:close" aria-hidden="true"></span>
+                </button>
+              </header>
+              <main>
+                <div id="admin-user-manage-body"></div>
+                <div class="admin-user-manage-actions" id="admin-user-manage-actions"></div>
+              </main>
+            </div>
+          </dialog>
+
+          <div id="toast" class="toast" style="display:none;"></div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/js/app/app.js"></script>
+  </body>
+</html>

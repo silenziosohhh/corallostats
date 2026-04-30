@@ -330,14 +330,27 @@ a:hover{text-decoration:underline}
 }
 
 #srv-list.grid{
-  grid-template-columns: repeat(auto-fit, minmax(280px, 420px));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   align-items: stretch;
-  gap: 12px;
+  gap: 14px;
 }
 #srv-list.grid > .server-card{
   grid-column: auto;
 }
 #srv-list.grid > .server-card.invite-card{
+  width: 100%;
+  max-width: none;
+}
+
+#admin-servers-list.grid{
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: stretch;
+  gap: 14px;
+}
+#admin-servers-list.grid > .server-card{
+  grid-column: auto;
+}
+#admin-servers-list.grid > .server-card.invite-card{
   width: 100%;
   max-width: none;
 }

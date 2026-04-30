@@ -13,6 +13,22 @@ function getAvatarUrl(user) {
   return "https://cdn.discordapp.com/embed/avatars/0.png";
 }
 
+function setAdminNavVisible(visible) {
+  const nodes = document.querySelectorAll?.('[data-nav="admin"]') || [];
+  for (const node of nodes) {
+    try {
+      node.style.display = visible ? "" : "none";
+    } catch {
+      // ignore
+    }
+  }
+}
+
+function applyRoleNav(ui) {
+  const role = String(ui?.role || "member").toLowerCase().trim();
+  setAdminNavVisible(role !== "member");
+}
+
 function renderUserChip({ ui, account, login, logout }) {
   const name = ui?.globalName || ui?.username || "Account";
   const avatarUrl = preferAnimatedCdnUrl(ui?.avatarUrl) || getAvatarUrl({ id: ui?.discordId, avatar: ui?.avatar });
@@ -29,12 +45,15 @@ function renderUserChip({ ui, account, login, logout }) {
     account.innerHTML = `<span class="user-avatar-wrap"><img class="user-avatar" alt="" src="${avatarUrl}">${deco}</span>`;
     account.href = "/account";
   }
+
+  applyRoleNav(ui);
 }
 
 function renderLoggedOut({ account, login, logout }) {
   if (account) account.style.display = "none";
   if (logout) logout.style.display = "none";
   if (login) login.style.display = "";
+  setAdminNavVisible(false);
   if (login) {
     const rt = `${window.location.pathname || "/"}${window.location.search || ""}${window.location.hash || ""}`;
     login.href = `/auth/login?returnTo=${encodeURIComponent(rt)}`;
@@ -78,7 +97,8 @@ export async function initUserChip({
     // If the network is flaky, keep cached chip (if any) to avoid flicker.
   }
 
-  const shouldRevalidate = !cached || (cachedEntry?.ageMs != null && cachedEntry.ageMs > 2 * 60 * 1000);
+  const shouldRevalidate =
+    !cached || !cached?.role || (cachedEntry?.ageMs != null && cachedEntry.ageMs > 2 * 60 * 1000);
   if (!shouldRevalidate) return;
 
   let ui = null;

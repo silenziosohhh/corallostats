@@ -27,6 +27,8 @@ const { analyticsUpdates } = require("./src/lib/analyticsUpdates");
 const { createServersRouter } = require("./src/serversApi");
 const { createServersPublicRouter } = require("./src/serversPublicApi");
 const { createServersBotRouter } = require("./src/serversBotApi");
+const { createAdminRouter } = require("./src/adminApi");
+const { requireRolePage } = require("./src/middleware/requireRolePage");
 const { syncLikesLeaderboard } = require("./src/lib/likesLeaderboardSync");
 const { syncMongoIndexes } = require("./src/lib/mongoIndexSync");
 
@@ -94,6 +96,8 @@ app.get('/dashboard', requireAuthPage, (req, res) => sendPublicFile(res, ['dashb
 app.get(/^\/dashboard(\/.*)?$/, requireAuthPage, (req, res) => sendPublicFile(res, ['dashboard.html']));
 app.get('/analytics', requireAuthPage, (req, res) => sendPublicFile(res, ['analytics.html']));
 app.get('/account', requireAuthPage, (req, res) => sendPublicFile(res, ['account.html']));
+app.get('/admin', requireRolePage("moderator"), (req, res) => sendPublicFile(res, ['admin.html']));
+app.get(/^\/admin(\/.*)?$/, requireRolePage("moderator"), (req, res) => sendPublicFile(res, ['admin.html']));
 app.get('/servers', (req, res) => sendPublicFile(res, ['servers.html']));
 app.get(/^\/servers\/[^/]+$/, (req, res) => sendPublicFile(res, ['servers.html']));
 app.get('/docs', (req, res) => sendPublicFile(res, ['docs.html']));
@@ -233,6 +237,7 @@ const apiRouter = require('./src/api');
 
 app.use('/auth', authRouter);
 app.use('/api', apiRouter);
+app.use("/api/admin", createAdminRouter());
 app.use("/api/servers", createServersRouter());
 app.use("/api/public", createServersPublicRouter());
 app.use("/api/bot", createServersBotRouter());

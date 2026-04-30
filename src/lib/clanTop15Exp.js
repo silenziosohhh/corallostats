@@ -31,14 +31,8 @@ function topUsernamesFromClanMembers(members, n) {
     if (!m || typeof m !== "object") continue;
     const username = String(m.username || "").trim();
     if (!username) continue;
-    const level = toFiniteNumber(m.level) ?? 0;
-    decorated.push({ username, level });
+    decorated.push({ username });
   }
-
-  decorated.sort((a, b) => {
-    if (b.level !== a.level) return b.level - a.level;
-    return a.username.localeCompare(b.username);
-  });
 
   const out = [];
   const seen = new Set();
@@ -47,7 +41,6 @@ function topUsernamesFromClanMembers(members, n) {
     if (seen.has(key)) continue;
     seen.add(key);
     out.push(it.username);
-    if (out.length >= limit) break;
   }
   return out;
 }
@@ -81,21 +74,21 @@ async function computeClanTop15Exp({
   const clan = await fetchJsonWithUpstreamCache({ url: clanUrl, cache, ttlMs, headers });
 
   const members = Array.isArray(clan?.members) ? clan.members : [];
-  const top15Users = topUsernamesFromClanMembers(members, 15);
+  const usernames = topUsernamesFromClanMembers(members, Number.MAX_SAFE_INTEGER);
 
   const concurrency = Math.max(2, Math.min(8, Number(process.env.CLAN_TOP15_MEMBER_CONCURRENCY || 4)));
   let idx = 0;
-  let total = 0;
+  const rows = [];
 
   async function worker() {
-    while (idx < top15Users.length) {
+    while (idx < usernames.length) {
       const i = idx++;
-      const username = top15Users[i];
+      const username = usernames[i];
       const playerUrl = new URL(`/api/v1/stats/bedwars/${encodeURIComponent(username)}`, upstreamHost).toString();
       try {
         const payload = await fetchJsonWithUpstreamCache({ url: playerUrl, cache, ttlMs, headers });
         const v = memberTotalDivisionExp(payload);
-        if (v != null) total += v;
+        if (v != null) rows.push({ username, exp: v });
       } catch {
         // ignore
       }
@@ -103,6 +96,10 @@ async function computeClanTop15Exp({
   }
 
   await Promise.all(Array.from({ length: concurrency }, () => worker()));
+
+  rows.sort((a, b) => b.exp - a.exp);
+  let total = 0;
+  for (let i = 0; i < Math.min(15, rows.length); i++) total += rows[i].exp;
 
   return {
     clanName: clan?.name || name,

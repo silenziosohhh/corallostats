@@ -53,12 +53,14 @@ function iconClassForConnectionType(type) {
 function applyProfile(u) {
   const display = u?.globalName || u?.username || "—";
   const handle = u?.username ? `@${u.username}` : "—";
+  const role = String(u?.role || "member").toLowerCase().trim();
 
   setText(qs("#profile-name"), display);
   setText(qs("#profile-handle"), handle);
   setText(qs("#profile-id"), u?.discordId || "—");
   setText(qs("#profile-created"), formatDate(u?.createdAt));
   setText(qs("#profile-last"), formatDateTime(u?.lastLoginAt));
+  setText(qs("#profile-role"), role === "ceo" ? "CEO" : role === "moderator" ? "Moderatore" : "Membro");
 
   const avatar = document.querySelector("#profile-avatar");
   if (avatar) {

@@ -3,6 +3,7 @@ const { readCache, writeCache } = require("./upstreamCache");
 const { getStatsRegistry } = require("./statsRegistry");
 const { getDashboardClanOrder } = require("../lib/dashboardClanOrder");
 const { computeClanTop15Exp } = require("../lib/clanTop15Exp");
+const { computeClanLeadersForLeaderboard } = require("../lib/clanLeader");
 
 function normalizeClanName(name) {
   const s = String(name || "").trim();
@@ -102,6 +103,42 @@ async function computeTop15MapForLeaderboard({ upstreamHost, contact, ttlMs, cla
   return out;
 }
 
+async function computeLeaderMapForLeaderboard({ upstreamHost, contact, ttlMs, clans }) {
+  try {
+    return await computeClanLeadersForLeaderboard({
+      upstreamHost,
+      contact,
+      ttlMs,
+      cache: { read: readCache, write: writeCache },
+      clans,
+    });
+  } catch {
+    return {};
+  }
+}
+
+function applyLeaderMapToLeaderboard(payload, leaderMap) {
+  const picked = pickLeaderboardArray(payload);
+  if (!picked) return payload;
+
+  const lower = new Map();
+  for (const [k, v] of Object.entries(leaderMap || {})) {
+    if (!k) continue;
+    lower.set(String(k).toLowerCase(), v);
+  }
+
+  const rewrittenArr = picked.arr.map((it) => {
+    if (!it || typeof it !== "object") return it;
+    if (it.leader) return it;
+    const name = extractClanName(it);
+    const leader = name ? leaderMap?.[name] || lower.get(String(name).toLowerCase()) || null : null;
+    if (!leader) return it;
+    return { ...it, leader };
+  });
+
+  return picked.key ? { ...payload, [picked.key]: rewrittenArr } : rewrittenArr;
+}
+
 function buildUpstreamUrl({ host, upstreamTemplate, params, query }) {
   let p = upstreamTemplate;
   for (const [k, v] of Object.entries(params || {})) {
@@ -146,7 +183,18 @@ function createStatsRouter({
 
   const inflight = new Map();
 
-  for (const ep of registry.endpoints) {
+  const endpoints = Array.isArray(registry.endpoints) ? [...registry.endpoints] : [];
+  endpoints.sort((a, b) => {
+    const ap = String(a?.localPathTemplate || "");
+    const bp = String(b?.localPathTemplate || "");
+    const aParams = (ap.match(/\{[^}]+\}/g) || []).length;
+    const bParams = (bp.match(/\{[^}]+\}/g) || []).length;
+    if (aParams !== bParams) return aParams - bParams; // static first
+    if (bp.length !== ap.length) return bp.length - ap.length; // longer first
+    return ap.localeCompare(bp);
+  });
+
+  for (const ep of endpoints) {
     const expressPath = toExpressPath(ep.localPathTemplate);
     const method = ep.method.toLowerCase();
     if (typeof router[method] !== "function") continue;
@@ -207,6 +255,11 @@ function createStatsRouter({
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }
           }
+
+          const picked = pickLeaderboardArray(body);
+          const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+          const leaderMap = await computeLeaderMapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+          body = applyLeaderMapToLeaderboard(body, leaderMap);
         }
         return res.status(200).json(body);
       }
@@ -254,6 +307,11 @@ function createStatsRouter({
                 body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
               }
             }
+
+            const picked = pickLeaderboardArray(body);
+            const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+            const leaderMap = await computeLeaderMapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+            body = applyLeaderMapToLeaderboard(body, leaderMap);
           }
           return res.status(out.status).json(body);
         } catch {
@@ -347,6 +405,11 @@ function createStatsRouter({
               body = picked.key ? { ...body, [picked.key]: rewrittenArr } : rewrittenArr;
             }
           }
+
+          const picked = pickLeaderboardArray(body);
+          const names = picked?.arr ? picked.arr.map((x) => extractClanName(x)).filter(Boolean) : [];
+          const leaderMap = await computeLeaderMapForLeaderboard({ upstreamHost, contact, ttlMs, clans: names });
+          body = applyLeaderMapToLeaderboard(body, leaderMap);
         }
         res.status(out.status).json(body);
       } catch (err) {

@@ -18,6 +18,7 @@ const serverListingSchema = new mongoose.Schema(
     inviteFetchedAt: { type: Date, default: null },
 
     status: { type: String, default: "published", index: true },
+    statusPrev: { type: String, default: null },
     lastVerifiedAt: { type: Date, default: null },
     likeCount: { type: Number, default: 0 },
   },
@@ -25,6 +26,9 @@ const serverListingSchema = new mongoose.Schema(
 );
 
 serverListingSchema.index({ discordGuildId: 1, status: 1 }, { unique: true });
+serverListingSchema.index({ updatedAt: -1 });
+serverListingSchema.index({ status: 1, updatedAt: -1 });
+serverListingSchema.index({ ownerDiscordId: 1, updatedAt: -1 });
 
 serverListingSchema.path("name").validate(function (v) {
   const s = String(v || "").trim();
@@ -57,5 +61,11 @@ serverListingSchema.path("likeCount").validate(function (v) {
   if (n < 0) return false;
   return true;
 }, "Invalid likeCount");
+
+serverListingSchema.path("statusPrev").validate(function (v) {
+  if (v == null) return true;
+  const s = String(v || "").trim().toLowerCase();
+  return s === "published" || s === "unverified" || s === "hidden";
+}, "Invalid statusPrev");
 
 module.exports = mongoose.model("ServerListing", serverListingSchema);

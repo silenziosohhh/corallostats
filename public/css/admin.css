@@ -1,0 +1,232 @@
+/* Admin page tweaks (scoped) */
+
+body.app-shell[data-page="admin"] .page-title #admin-role{
+  margin-top: 6px;
+}
+
+body.app-shell[data-page="admin"] .admin-stack{
+  margin-top: 14px;
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+body.app-shell[data-page="admin"] .admin-mobile-divider{display:none}
+@media (max-width: 620px){
+  body.app-shell[data-page="admin"] .admin-mobile-divider{display:block}
+}
+
+body.app-shell[data-page="admin"] .section-head h2{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+}
+
+body.app-shell[data-page="admin"] .section-head h2 i{
+  color: var(--muted);
+}
+
+body.app-shell[data-page="admin"] .card.pad .field + .field{
+  margin-top: 10px;
+}
+
+body.app-shell[data-page="admin"] .card.pad .section-head + .field{
+  margin-top: 10px;
+}
+
+body.app-shell[data-page="admin"] #admin-server-meta,
+body.app-shell[data-page="admin"] #admin-users-meta{
+  margin-top: 10px;
+}
+
+body.app-shell[data-page="admin"] #admin-server-result,
+body.app-shell[data-page="admin"] #admin-users-list{
+  margin-top: 12px;
+}
+
+body.app-shell[data-page="admin"] #admin-users-list{
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+}
+
+body.app-shell[data-page="admin"] .admin-tags-grid{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+body.app-shell[data-page="admin"] .chip-member{
+  --chip-bg: rgba(255,255,255,.06);
+  --chip-border: rgba(255,255,255,.14);
+  --chip-text: rgba(255,255,255,.88);
+}
+
+body.app-shell[data-page="admin"] .chip-moderator{
+  --chip-bg: rgba(56,189,248,.14);
+  --chip-border: rgba(56,189,248,.35);
+  --chip-text: rgba(186,230,253,.95);
+}
+
+body.app-shell[data-page="admin"] .chip-ceo{
+  --chip-bg: rgba(250,204,21,.16);
+  --chip-border: rgba(250,204,21,.45);
+  --chip-text: rgba(254,249,195,.98);
+}
+
+body.app-shell[data-page="admin"] .admin-tag-row{
+  display:flex;
+  gap: 10px;
+  align-items:center;
+}
+
+body.app-shell[data-page="admin"] .admin-tag-chip{
+  cursor:pointer;
+  user-select:none;
+}
+
+body.app-shell[data-page="admin"] .admin-srv-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+}
+
+body.app-shell[data-page="admin"] .admin-srv-meta{
+  font-size: 13.5px;
+}
+
+body.app-shell[data-page="admin"] .admin-srv-actions-right{
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+body.app-shell[data-page="admin"] .admin-users-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+body.app-shell[data-page="admin"] .admin-server-actions{
+  display:flex;
+  gap: 10px;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+body.app-shell[data-page="admin"] .admin-users-hint{
+  margin-top: 6px;
+}
+
+body.app-shell[data-page="admin"] .admin-user-row{
+  margin-top: 0;
+}
+
+body.app-shell[data-page="admin"] .admin-user-head{
+  display:flex;
+  gap: 12px;
+  align-items:flex-start;
+  justify-content:space-between;
+}
+
+body.app-shell[data-page="admin"] .admin-user-title{
+  display:flex;
+  gap: 8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+body.app-shell[data-page="admin"] .card.pad .field .inline{
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+body.app-shell[data-page="admin"] .card.pad{
+  --admin-control-max: 980px;
+}
+
+body.app-shell[data-page="admin"] .card.pad .field .inline .input,
+body.app-shell[data-page="admin"] .card.pad .field .inline .dd,
+body.app-shell[data-page="admin"] .card.pad .field .inline .input-group{
+  width: min(var(--admin-control-max), 100%);
+}
+
+body.app-shell[data-page="admin"] .card.pad .field .inline .btn{
+  width: min(var(--admin-control-max), 100%);
+  justify-content:center;
+}
+
+body.app-shell[data-page="admin"] .admin-users-actions .dd{flex: 0 0 auto}
+body.app-shell[data-page="admin"] .admin-users-actions .btn{flex: 0 0 auto}
+
+
+body.app-shell[data-page="admin"] .admin-user-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+body.app-shell[data-page="admin"] .admin-user-manage{
+  display:none;
+  width: min(var(--admin-control-max), 100%);
+  justify-content:center;
+  margin-top: 10px;
+}
+
+body.app-shell[data-page="admin"] .admin-user-manage-actions{
+  margin-top: 12px;
+  display:flex;
+  flex-direction:column;
+  gap: 10px;
+}
+
+body.app-shell[data-page="admin"] .admin-user-manage-actions .btn,
+body.app-shell[data-page="admin"] .admin-user-manage-actions .dd,
+body.app-shell[data-page="admin"] .admin-user-manage-actions .dd-btn{
+  width: 100%;
+  min-width: 0;
+}
+
+body.app-shell[data-page="admin"] .admin-edit-actions{
+  margin-top: 12px;
+  display:flex;
+  gap: 10px;
+  justify-content:flex-end;
+  flex-wrap:wrap;
+}
+
+@media (max-width: 620px){
+  body.app-shell[data-page="admin"] #admin-users-list{gap: 16px}
+  body.app-shell[data-page="admin"] .admin-users-actions{
+    width: 100%;
+    justify-content:stretch;
+  }
+  body.app-shell[data-page="admin"] .admin-users-actions > *{
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+
+  body.app-shell[data-page="admin"] .admin-srv-actions-right{
+    width: 100%;
+  }
+  body.app-shell[data-page="admin"] .admin-srv-actions-right .btn{
+    flex: 1 1 100%;
+    justify-content:center;
+  }
+
+  body.app-shell[data-page="admin"] .admin-user-actions{display:none}
+  body.app-shell[data-page="admin"] .admin-user-manage{display:inline-flex}
+
+  body.app-shell[data-page="admin"] .admin-edit-actions .btn{
+    flex: 1 1 100%;
+    justify-content:center;
+  }
+
+}

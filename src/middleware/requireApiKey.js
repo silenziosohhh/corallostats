@@ -1,6 +1,13 @@
 const { hashApiKey } = require("../lib/apiKeys");
 const User = require("../models/User");
 
+function isBlocked(user) {
+  const until = user?.apiBlockedUntil ? new Date(user.apiBlockedUntil) : null;
+  if (!until) return false;
+  const t = until.getTime();
+  return Number.isFinite(t) && t > Date.now();
+}
+
 function extractApiKey(req) {
   const header = req.headers.authorization;
   if (typeof header === "string" && header.startsWith("Bearer ")) {
@@ -27,6 +34,9 @@ function requireApiKey() {
     try {
       const user = await User.findOne({ apiKeyHash }).lean();
       if (!user) return res.status(403).json({ error: "Invalid API key" });
+      if (isBlocked(user)) {
+        return res.status(429).json({ error: "API temporaneamente bloccata", blockedUntil: user.apiBlockedUntil });
+      }
       req.apiUser = user;
       next();
     } catch (err) {
@@ -43,6 +53,9 @@ function requirePrivateAccess() {
       try {
         const user = await User.findOne({ discordId }).lean();
         if (!user) return res.status(403).json({ error: "User not provisioned" });
+        if (isBlocked(user)) {
+          return res.status(429).json({ error: "API temporaneamente bloccata", blockedUntil: user.apiBlockedUntil });
+        }
         req.apiUser = user;
         req.apiAuthSource = "session";
         return next();
@@ -58,6 +71,9 @@ function requirePrivateAccess() {
     try {
       const user = await User.findOne({ apiKeyHash }).lean();
       if (!user) return res.status(403).json({ error: "Invalid API key" });
+      if (isBlocked(user)) {
+        return res.status(429).json({ error: "API temporaneamente bloccata", blockedUntil: user.apiBlockedUntil });
+      }
       req.apiUser = user;
       req.apiAuthSource = "api_key";
       next();

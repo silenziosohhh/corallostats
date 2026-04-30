@@ -35,6 +35,8 @@ function isAppPath(pathname) {
   if (pathname.startsWith("/dashboard/")) return true;
   if (pathname === "/analytics") return true;
   if (pathname === "/account") return true;
+  if (pathname === "/admin") return true;
+  if (pathname.startsWith("/admin/")) return true;
   if (pathname === "/servers") return true;
   if (pathname.startsWith("/servers/")) return true;
   if (pathname === "/docs") return true;

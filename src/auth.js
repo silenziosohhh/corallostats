@@ -3,7 +3,12 @@ const passport = require('passport');
 const router = express.Router();
 const { ensureAuthenticated } = require('./middleware/ensureAuthenticated');
 const User = require('./models/User');
+const ServerListing = require("./models/ServerListing");
+const ServerLike = require("./models/ServerLike");
+const { recomputeServerLikes } = require("./lib/serverLikeAggregates");
 const { apiKeyPrefix, generateApiKey, hashApiKey } = require('./lib/apiKeys');
+const { bootstrapDesiredRoleForDiscordId, shouldElevateRole } = require("./rbac/bootstrapRole");
+const { normalizeRole, roleLabel } = require("./rbac/roles");
 const {
     cdnAvatarUrl,
     cdnBannerUrl,
@@ -85,8 +90,18 @@ async function upsertDiscordUser(profile) {
         {
             $set: set,
         },
-        { upsert: true, new: true }
+        { upsert: true, new: true, setDefaultsOnInsert: true }
     );
+
+    const desiredRole = bootstrapDesiredRoleForDiscordId(discordId);
+    if (shouldElevateRole(user?.role, desiredRole)) {
+        user.role = desiredRole;
+        try {
+            await user.save();
+        } catch {
+            // ignore
+        }
+    }
 
     return user;
 }
@@ -157,6 +172,14 @@ router.get('/ui-profile', ensureAuthenticated, async (req, res) => {
 
         const avatarUrl = cdnAvatarUrl({ id: discordId, avatar, size: 64 });
 
+        let role = "member";
+        try {
+            const u = await User.findOne({ discordId }).select({ role: 1 }).lean();
+            role = normalizeRole(u?.role);
+        } catch {
+            role = "member";
+        }
+
         const cachedUrlRaw = req.session.discordDecorationUrl || null;
         const cachedAt = Number(req.session.discordDecorationFetchedAt || 0);
         const ttlMs = 10 * 60 * 1000;
@@ -167,12 +190,22 @@ router.get('/ui-profile', ensureAuthenticated, async (req, res) => {
         const fresh = cachedUrl && cachedAt && Date.now() - cachedAt < ttlMs;
 
         if (fresh) {
+            try {
+                await User.updateOne(
+                    { discordId },
+                    { $set: { username, globalName, avatar, avatarDecorationUrl: cachedUrl } }
+                );
+            } catch {
+                // ignore
+            }
             return res.json({
                 discordId,
                 username,
                 globalName,
                 avatarUrl,
                 avatarDecorationUrl: cachedUrl,
+                role,
+                roleLabel: roleLabel(role),
             });
         }
 
@@ -193,6 +226,14 @@ router.get('/ui-profile', ensureAuthenticated, async (req, res) => {
 
         req.session.discordDecorationUrl = decorationUrl;
         req.session.discordDecorationFetchedAt = Date.now();
+        try {
+            await User.updateOne(
+                { discordId },
+                { $set: { username, globalName, avatar, avatarDecorationUrl: decorationUrl } }
+            );
+        } catch {
+            // ignore
+        }
         if (typeof req.session.save === 'function') {
             req.session.save(() => {
                 res.json({
@@ -201,6 +242,8 @@ router.get('/ui-profile', ensureAuthenticated, async (req, res) => {
                     globalName,
                     avatarUrl,
                     avatarDecorationUrl: decorationUrl,
+                    role,
+                    roleLabel: roleLabel(role),
                 });
             });
             return;
@@ -212,6 +255,8 @@ router.get('/ui-profile', ensureAuthenticated, async (req, res) => {
             globalName,
             avatarUrl,
             avatarDecorationUrl: decorationUrl,
+            role,
+            roleLabel: roleLabel(role),
         });
     } catch {
         res.status(500).json({ error: 'Errore profilo UI' });
@@ -273,6 +318,7 @@ router.get('/me', ensureAuthenticated, async (req, res) => {
             discordId: user.discordId,
             username: user.username,
             globalName: user.globalName,
+            role: user.role || "member",
             avatarUrl,
             bannerUrl,
             accentColor: discordMe?.accent_color ?? null,
@@ -361,7 +407,27 @@ router.post('/delete-account', ensureAuthenticated, async (req, res) => {
         const discordId = String(req.user?.id || '');
         if (!discordId) return res.status(400).json({ error: 'Missing discord id' });
 
+        const ownedIdsRaw = await ServerListing.find({ ownerDiscordId: discordId }).select({ _id: 1 }).lean();
+        const ownedIds = ownedIdsRaw.map((x) => x._id).filter(Boolean);
+
+        const likedRaw = await ServerLike.find({ likerDiscordId: discordId }).select({ serverListingId: 1 }).lean();
+        const likedIds = [...new Set(likedRaw.map((x) => String(x.serverListingId || "")).filter(Boolean))];
+
+        await ServerLike.deleteMany({ likerDiscordId: discordId });
+        if (ownedIds.length) {
+            await ServerLike.deleteMany({ serverListingId: { $in: ownedIds } });
+            await ServerListing.deleteMany({ ownerDiscordId: discordId });
+        }
+
         await User.deleteOne({ discordId });
+
+        for (const sid of likedIds) {
+            try {
+                await recomputeServerLikes(sid);
+            } catch {
+                // ignore
+            }
+        }
 
         req.logout(() => {
             if (typeof req.session?.destroy === 'function') {
